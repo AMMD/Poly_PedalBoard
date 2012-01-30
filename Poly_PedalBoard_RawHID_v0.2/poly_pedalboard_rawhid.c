@@ -68,10 +68,10 @@ int main(int argc, char *argv[])
 			return 0;
 		}
 		if (num > 0) {
-		  			printf("\nrecv %d bytes:\n", num);
+		  //	     printf("\nrecv %d bytes:\n", num);
 		  for (i=0; i<num; i++) {
-		    		printf("%02X ", buf[i] & 255);
-		    if (i > 0 && i < 24) {
+		    //		printf("%02X ", buf[i] & 255);
+		    if (i > 0 && i < 25) {
 		      if( buf[i*2+1] == 1 && old_buf[i*2+1] != buf[i*2+1]) {
 			//			printf("/Pedalboard/button %d\n", i);
 			if (lo_send(t, "/pedalBoard/button", "i", i) == -1) {
