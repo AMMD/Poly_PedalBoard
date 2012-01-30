@@ -30,12 +30,6 @@
 
 #define CPU_PRESCALE(n)	(CLKPR = 0x80, CLKPR = (n))
 
-#define OFFSET_DIGB 0
-#define OFFSET_DIGB7 4
-#define OFFSET_DIGC 3
-#define OFFSET_DIGD 5
-#define OFFSET_DIGD5 11
-
 volatile uint8_t do_output=0;
 uint8_t buffer[64];
 uint8_t b[8] = {0, 1, 2, 3, 13, 14, 15, 4};
@@ -141,7 +135,7 @@ int main(void)
 			    buffer[f[i]*2+2] = f[i]+1;
 			    
 			    // valeur de pin digital
-			    if(PIND & (1<<i))
+			    if(PINF & (1<<i))
 			      buffer[f[i]*2+3] = 0;
 			    else 
 			      buffer[f[i]*2+3] = 1;
@@ -155,7 +149,7 @@ int main(void)
 
 
 			// most of the packet filled with zero
-			for (i=26; i<62; i++) {
+			for (i=50; i<62; i++) {
 			  buffer[i] = 0;
 			}
 

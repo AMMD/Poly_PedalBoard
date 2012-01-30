@@ -1,10 +1,10 @@
 Archive member included because of file (symbol)
 
-/usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
-                              /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o (exit)
-/usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+/usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o (exit)
+/usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
                               poly_pedalsboard.o (__do_copy_data)
-/usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+/usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
                               poly_pedalsboard.o (__do_clear_bss)
 
 Allocating common symbols
@@ -14,31 +14,31 @@ buffer              0x40              poly_pedalsboard.o
 
 Discarded input sections
 
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
  .text          0x0000000000000000        0x0 poly_pedalsboard.o
  .text          0x0000000000000000        0x0 usb_rawhid.o
  .data          0x0000000000000000        0x0 usb_rawhid.o
  .text.usb_rawhid_recv
-                0x0000000000000000      0x308 usb_rawhid.o
+                0x0000000000000000      0x304 usb_rawhid.o
  .text          0x0000000000000000        0x0 analog.o
  .data          0x0000000000000000        0x1 analog.o
  .bss           0x0000000000000000        0x0 analog.o
  .text.analogRead
                 0x0000000000000000       0x8a analog.o
  .progmem.data  0x0000000000000000        0xc analog.o
- .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
 
 Memory Configuration
 
@@ -54,14 +54,14 @@ signature        0x0000000000840000 0x0000000000000400 rw !x
 Linker script and memory map
 
 Address of section .data set to 0x800100
-LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 LOAD poly_pedalsboard.o
 LOAD usb_rawhid.o
 LOAD analog.o
-LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/libm.a
-LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
-LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/libc.a
-LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
+LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/libm.a
+LOAD /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a
+LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/libc.a
+LOAD /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a
 
 .hash
  *(.hash)
@@ -153,9 +153,9 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0xa34
+.text           0x0000000000000000      0x9fc
  *(.vectors)
- .vectors       0x0000000000000000       0xac /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .vectors       0x0000000000000000       0xac /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
                 0x0000000000000000                __vectors
                 0x0000000000000000                __vector_default
  *(.vectors)
@@ -181,20 +181,20 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x0000000000000182        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .init0         0x0000000000000182        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
                 0x0000000000000182                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x0000000000000182        0xc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .init2         0x0000000000000182        0xc /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x000000000000018e       0x16 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+ .init4         0x000000000000018e       0x16 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
                 0x000000000000018e                __do_copy_data
- .init4         0x00000000000001a4       0x10 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+ .init4         0x00000000000001a4       0x10 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
                 0x00000000000001a4                __do_clear_bss
  *(.init4)
  *(.init5)
@@ -206,10 +206,10 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000000000001b4        0x4 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .init9         0x00000000000001b4        0x4 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
  *(.init9)
  *(.text)
- .text          0x00000000000001b8        0x2 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .text          0x00000000000001b8        0x2 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
                 0x00000000000001b8                __vector_38
                 0x00000000000001b8                __vector_22
                 0x00000000000001b8                __vector_28
@@ -252,33 +252,31 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
                 0x00000000000001b8                __vector_42
                 0x00000000000001ba                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x00000000000001ba      0x1c6 poly_pedalsboard.o
-                0x00000000000001ba                main
  .text.__vector_23
-                0x0000000000000380       0x22 poly_pedalsboard.o
-                0x0000000000000380                __vector_23
- .text.usb_wait_in_ready
-                0x00000000000003a2        0xa usb_rawhid.o
+                0x00000000000001ba       0x22 poly_pedalsboard.o
+                0x00000000000001ba                __vector_23
+ .text.main     0x00000000000001dc      0x192 poly_pedalsboard.o
+                0x00000000000001dc                main
  .text.usb_init
-                0x00000000000003ac       0x2e usb_rawhid.o
-                0x00000000000003ac                usb_init
+                0x000000000000036e       0x2e usb_rawhid.o
+                0x000000000000036e                usb_init
  .text.usb_configured
-                0x00000000000003da        0x6 usb_rawhid.o
-                0x00000000000003da                usb_configured
+                0x000000000000039c        0x6 usb_rawhid.o
+                0x000000000000039c                usb_configured
  .text.usb_rawhid_send
-                0x00000000000003e0      0x308 usb_rawhid.o
-                0x00000000000003e0                usb_rawhid_send
+                0x00000000000003a2      0x304 usb_rawhid.o
+                0x00000000000003a2                usb_rawhid_send
  .text.__vector_10
-                0x00000000000006e8       0x6e usb_rawhid.o
-                0x00000000000006e8                __vector_10
+                0x00000000000006a6       0x70 usb_rawhid.o
+                0x00000000000006a6                __vector_10
  .text.__vector_11
-                0x0000000000000756      0x2da usb_rawhid.o
-                0x0000000000000756                __vector_11
-                0x0000000000000a30                . = ALIGN (0x2)
+                0x0000000000000716      0x2e2 usb_rawhid.o
+                0x0000000000000716                __vector_11
+                0x00000000000009f8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000a30        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
-                0x0000000000000a30                exit
-                0x0000000000000a30                _exit
+ .fini9         0x00000000000009f8        0x0 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+                0x00000000000009f8                exit
+                0x00000000000009f8                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -297,11 +295,11 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000a30        0x4 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .fini0         0x00000000000009f8        0x4 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000a34                _etext = .
+                0x00000000000009fc                _etext = .
 
-.data           0x0000000000800100       0x20 load address 0x0000000000000a34
+.data           0x0000000000800100       0x20 load address 0x00000000000009fc
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100       0x20 poly_pedalsboard.o
@@ -328,8 +326,8 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  COMMON         0x0000000000800125       0x40 poly_pedalsboard.o
                 0x0000000000800125                buffer
                 0x0000000000800165                PROVIDE (__bss_end, .)
-                0x0000000000000a34                __data_load_start = LOADADDR (.data)
-                0x0000000000000a54                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000009fc                __data_load_start = LOADADDR (.data)
+                0x0000000000000a1c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800165        0x0
                 0x0000000000800165                PROVIDE (__noinit_start, .)
@@ -354,13 +352,13 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x0000000000000000      0x6cc
+.stab           0x0000000000000000      0x6b4
  *(.stab)
- .stab          0x0000000000000000      0x6cc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .stab          0x0000000000000000      0x6b4 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 
 .stabstr        0x0000000000000000       0x54
  *(.stabstr)
- .stabstr       0x0000000000000000       0x54 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+ .stabstr       0x0000000000000000       0x54 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 
 .stab.excl
  *(.stab.excl)
@@ -389,14 +387,14 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000       0x98
+.debug_aranges  0x0000000000000000       0x90
  *(.debug_aranges)
  .debug_aranges
                 0x0000000000000000       0x28 poly_pedalsboard.o
  .debug_aranges
-                0x0000000000000028       0x50 usb_rawhid.o
+                0x0000000000000028       0x48 usb_rawhid.o
  .debug_aranges
-                0x0000000000000078       0x20 analog.o
+                0x0000000000000070       0x20 analog.o
 
 .debug_pubnames
                 0x0000000000000000      0x117
@@ -408,131 +406,124 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  .debug_pubnames
                 0x00000000000000d6       0x41 analog.o
 
-.debug_info     0x0000000000000000      0xa3c
+.debug_info     0x0000000000000000      0x9a5
  *(.debug_info)
- .debug_info    0x0000000000000000      0x271 poly_pedalsboard.o
- .debug_info    0x0000000000000271      0x68d usb_rawhid.o
- .debug_info    0x00000000000008fe      0x13e analog.o
+ .debug_info    0x0000000000000000      0x21f poly_pedalsboard.o
+ .debug_info    0x000000000000021f      0x662 usb_rawhid.o
+ .debug_info    0x0000000000000881      0x124 analog.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x0000000000000000      0x3d5
+.debug_abbrev   0x0000000000000000      0x3a7
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x17d poly_pedalsboard.o
- .debug_abbrev  0x000000000000017d      0x186 usb_rawhid.o
- .debug_abbrev  0x0000000000000303       0xd2 analog.o
+ .debug_abbrev  0x0000000000000000      0x131 poly_pedalsboard.o
+ .debug_abbrev  0x0000000000000131      0x19f usb_rawhid.o
+ .debug_abbrev  0x00000000000002d0       0xd7 analog.o
 
-.debug_line     0x0000000000000000      0xe9a
+.debug_line     0x0000000000000000      0xda8
  *(.debug_line)
- .debug_line    0x0000000000000000      0x286 poly_pedalsboard.o
- .debug_line    0x0000000000000286      0xafa usb_rawhid.o
- .debug_line    0x0000000000000d80      0x11a analog.o
+ .debug_line    0x0000000000000000      0x2a6 poly_pedalsboard.o
+ .debug_line    0x00000000000002a6      0x9fb usb_rawhid.o
+ .debug_line    0x0000000000000ca1      0x107 analog.o
 
-.debug_frame    0x0000000000000000       0xd0
+.debug_frame    0x0000000000000000       0xc0
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0x30 poly_pedalsboard.o
- .debug_frame   0x0000000000000030       0x80 usb_rawhid.o
- .debug_frame   0x00000000000000b0       0x20 analog.o
+ .debug_frame   0x0000000000000030       0x70 usb_rawhid.o
+ .debug_frame   0x00000000000000a0       0x20 analog.o
 
-.debug_str      0x0000000000000000      0x387
+.debug_str      0x0000000000000000      0x33b
  *(.debug_str)
- .debug_str     0x0000000000000000      0x134 poly_pedalsboard.o
-                                        0x175 (size before relaxing)
- .debug_str     0x0000000000000134      0x217 usb_rawhid.o
-                                        0x31e (size before relaxing)
- .debug_str     0x000000000000034b       0x3c analog.o
-                                        0x12e (size before relaxing)
+ .debug_str     0x0000000000000000       0xe8 poly_pedalsboard.o
+                                        0x129 (size before relaxing)
+ .debug_str     0x00000000000000e8      0x217 usb_rawhid.o
+                                        0x2eb (size before relaxing)
+ .debug_str     0x00000000000002ff       0x3c analog.o
+                                         0xfb (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x10f3
+.debug_loc      0x0000000000000000      0xd99
  *(.debug_loc)
- .debug_loc     0x0000000000000000       0x48 poly_pedalsboard.o
- .debug_loc     0x0000000000000048      0xffb usb_rawhid.o
- .debug_loc     0x0000000000001043       0xb0 analog.o
+ .debug_loc     0x0000000000000000       0x30 poly_pedalsboard.o
+ .debug_loc     0x0000000000000030      0xd02 usb_rawhid.o
+ .debug_loc     0x0000000000000d32       0x67 analog.o
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(poly_pedalsboard.elf elf32-avr)
 LOAD linker stubs
 
-.debug_pubtypes
-                0x0000000000000000       0xec
- .debug_pubtypes
-                0x0000000000000000       0x43 poly_pedalsboard.o
- .debug_pubtypes
-                0x0000000000000043       0x7e usb_rawhid.o
- .debug_pubtypes
-                0x00000000000000c1       0x2b analog.o
-
-.debug_ranges   0x0000000000000000       0xb0
- .debug_ranges  0x0000000000000000       0x18 poly_pedalsboard.o
- .debug_ranges  0x0000000000000018       0x88 usb_rawhid.o
- .debug_ranges  0x00000000000000a0       0x10 analog.o
+.debug_ranges   0x0000000000000000       0xc0
+ .debug_ranges  0x0000000000000000       0x20 poly_pedalsboard.o
+ .debug_ranges  0x0000000000000020       0x88 usb_rawhid.o
+ .debug_ranges  0x00000000000000a8       0x18 analog.o
 
 Cross Reference Table
 
 Symbol                                            File
-__bad_interrupt                                   /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__bss_end                                         /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-__bss_start                                       /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-__data_end                                        /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
-__data_load_start                                 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
-__data_start                                      /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
-__do_clear_bss                                    /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+__bad_interrupt                                   /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__bss_end                                         /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+__bss_start                                       /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+__data_end                                        /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+__data_load_start                                 /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+__data_start                                      /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
+__do_clear_bss                                    /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_clear_bss.o)
+                                                  analog.o
                                                   usb_rawhid.o
                                                   poly_pedalsboard.o
-__do_copy_data                                    /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+__do_copy_data                                    /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_copy_data.o)
                                                   analog.o
+                                                  usb_rawhid.o
                                                   poly_pedalsboard.o
-__heap_end                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__init                                            /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__stack                                           /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_1                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+__heap_end                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__init                                            /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__stack                                           /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_1                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 __vector_10                                       usb_rawhid.o
-                                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+                                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 __vector_11                                       usb_rawhid.o
-                                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_12                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_13                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_14                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_15                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_16                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_17                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_18                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_19                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_2                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_20                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_21                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_22                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+                                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_12                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_13                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_14                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_15                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_16                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_17                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_18                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_19                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_2                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_20                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_21                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_22                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 __vector_23                                       poly_pedalsboard.o
-                                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_24                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_25                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_26                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_27                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_28                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_29                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_3                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_30                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_31                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_32                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_33                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_34                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_35                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_36                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_37                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_38                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_39                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_4                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_40                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_41                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_42                                       /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_5                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_6                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_7                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_8                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_9                                        /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vector_default                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-__vectors                                         /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
-_exit                                             /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_24                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_25                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_26                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_27                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_28                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_29                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_3                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_30                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_31                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_32                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_33                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_34                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_35                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_36                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_37                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_38                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_39                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_4                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_40                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_41                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_42                                       /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_5                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_6                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_7                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_8                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_9                                        /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vector_default                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+__vectors                                         /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
+_exit                                             /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
 analogRead                                        analog.o
 analog_reference_config_val                       analog.o
 b                                                 poly_pedalsboard.o
@@ -540,11 +531,11 @@ buffer                                            poly_pedalsboard.o
 c                                                 poly_pedalsboard.o
 d                                                 poly_pedalsboard.o
 do_output                                         poly_pedalsboard.o
-exit                                              /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
-                                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+exit                                              /usr/lib/gcc/avr/4.3.4/avr5/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 f                                                 poly_pedalsboard.o
 main                                              poly_pedalsboard.o
-                                                  /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm32u4.o
+                                                  /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avr5/crtm32u4.o
 usb_configured                                    usb_rawhid.o
                                                   poly_pedalsboard.o
 usb_init                                          usb_rawhid.o

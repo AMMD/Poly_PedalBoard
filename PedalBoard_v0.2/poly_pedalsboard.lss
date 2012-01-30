@@ -3,40 +3,44 @@ poly_pedalsboard.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000020  00800100  00000a34  00000ac8  2**0
+  0 .data         00000020  00800100  000009fc  00000a90  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000a34  00000000  00000000  00000094  2**1
+  1 .text         000009fc  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000045  00800120  00800120  00000ae8  2**0
+  2 .bss          00000045  00800120  00800120  00000ab0  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  00000ae8  2**2
+  3 .stab         000006b4  00000000  00000000  00000ab0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000054  00000000  00000000  000011b4  2**0
+  4 .stabstr      00000054  00000000  00000000  00001164  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000098  00000000  00000000  00001208  2**0
+  5 .debug_aranges 00000090  00000000  00000000  000011b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_pubnames 00000117  00000000  00000000  000012a0  2**0
+  6 .debug_pubnames 00000117  00000000  00000000  00001248  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   00000a3c  00000000  00000000  000013b7  2**0
+  7 .debug_info   000009a5  00000000  00000000  0000135f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 000003d5  00000000  00000000  00001df3  2**0
+  8 .debug_abbrev 000003a7  00000000  00000000  00001d04  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000e9a  00000000  00000000  000021c8  2**0
+  9 .debug_line   00000da8  00000000  00000000  000020ab  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  000000d0  00000000  00000000  00003064  2**2
+ 10 .debug_frame  000000c0  00000000  00000000  00002e54  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    00000387  00000000  00000000  00003134  2**0
+ 11 .debug_str    0000033b  00000000  00000000  00002f14  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    000010f3  00000000  00000000  000034bb  2**0
+ 12 .debug_loc    00000d99  00000000  00000000  0000324f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_pubtypes 000000ec  00000000  00000000  000045ae  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 14 .debug_ranges 000000b0  00000000  00000000  0000469a  2**0
+ 13 .debug_ranges 000000c0  00000000  00000000  00003fe8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
+}
+
+
+// receive a packet, with timeout
+int8_t usb_rawhid_recv(uint8_t *buffer, uint8_t timeout)
+{
    0:	c0 c0       	rjmp	.+384    	; 0x182 <__ctors_end>
    2:	00 00       	nop
    4:	d9 c0       	rjmp	.+434    	; 0x1b8 <__bad_interrupt>
@@ -57,9 +61,9 @@ Disassembly of section .text:
   22:	00 00       	nop
   24:	c9 c0       	rjmp	.+402    	; 0x1b8 <__bad_interrupt>
   26:	00 00       	nop
-  28:	5f c3       	rjmp	.+1726   	; 0x6e8 <__vector_10>
+  28:	3e c3       	rjmp	.+1660   	; 0x6a6 <__vector_10>
   2a:	00 00       	nop
-  2c:	94 c3       	rjmp	.+1832   	; 0x756 <__vector_11>
+  2c:	74 c3       	rjmp	.+1768   	; 0x716 <__vector_11>
   2e:	00 00       	nop
   30:	c3 c0       	rjmp	.+390    	; 0x1b8 <__bad_interrupt>
   32:	00 00       	nop
@@ -83,7 +87,7 @@ Disassembly of section .text:
   56:	00 00       	nop
   58:	af c0       	rjmp	.+350    	; 0x1b8 <__bad_interrupt>
   5a:	00 00       	nop
-  5c:	91 c1       	rjmp	.+802    	; 0x380 <__vector_23>
+  5c:	ae c0       	rjmp	.+348    	; 0x1ba <__vector_23>
   5e:	00 00       	nop
   60:	ab c0       	rjmp	.+342    	; 0x1b8 <__bad_interrupt>
   62:	00 00       	nop
@@ -170,14 +174,18 @@ Disassembly of section .text:
  18e:	11 e0       	ldi	r17, 0x01	; 1
  190:	a0 e0       	ldi	r26, 0x00	; 0
  192:	b1 e0       	ldi	r27, 0x01	; 1
- 194:	e4 e3       	ldi	r30, 0x34	; 52
- 196:	fa e0       	ldi	r31, 0x0A	; 10
- 198:	02 c0       	rjmp	.+4      	; 0x19e <__do_copy_data+0x10>
+ 194:	ec ef       	ldi	r30, 0xFC	; 252
+ 196:	f9 e0       	ldi	r31, 0x09	; 9
+ 198:	02 c0       	rjmp	.+4      	; 0x19e <.do_copy_data_start>
+
+0000019a <.do_copy_data_loop>:
  19a:	05 90       	lpm	r0, Z+
  19c:	0d 92       	st	X+, r0
+
+0000019e <.do_copy_data_start>:
  19e:	a0 32       	cpi	r26, 0x20	; 32
  1a0:	b1 07       	cpc	r27, r17
- 1a2:	d9 f7       	brne	.-10     	; 0x19a <__do_copy_data+0xc>
+ 1a2:	d9 f7       	brne	.-10     	; 0x19a <.do_copy_data_loop>
 
 000001a4 <__do_clear_bss>:
  1a4:	11 e0       	ldi	r17, 0x01	; 1
@@ -192,1739 +200,1691 @@ Disassembly of section .text:
  1ae:	a5 36       	cpi	r26, 0x65	; 101
  1b0:	b1 07       	cpc	r27, r17
  1b2:	e1 f7       	brne	.-8      	; 0x1ac <.do_clear_bss_loop>
- 1b4:	02 d0       	rcall	.+4      	; 0x1ba <main>
- 1b6:	3c c4       	rjmp	.+2168   	; 0xa30 <_exit>
+ 1b4:	13 d0       	rcall	.+38     	; 0x1dc <main>
+ 1b6:	20 c4       	rjmp	.+2112   	; 0x9f8 <_exit>
 
 000001b8 <__bad_interrupt>:
  1b8:	23 cf       	rjmp	.-442    	; 0x0 <__vectors>
 
-000001ba <main>:
-uint8_t c[8] = {-1, -1, -1, -1, -1, -1, 9, 10};
-uint8_t d[8] = {5, 6, 7, 8, 22, 11, 23, 12};
-uint8_t f[8] = {21, 20, -1, -1,  19, 18, 17, 16};
-
-int main(void)
-{
- 1ba:	af 92       	push	r10
- 1bc:	bf 92       	push	r11
- 1be:	cf 92       	push	r12
- 1c0:	df 92       	push	r13
- 1c2:	ef 92       	push	r14
- 1c4:	ff 92       	push	r15
- 1c6:	0f 93       	push	r16
- 1c8:	1f 93       	push	r17
- 1ca:	cf 93       	push	r28
- 1cc:	df 93       	push	r29
-	int8_t r;
-	uint8_t i;
-	uint16_t val, count=0;
-
-	// set for 16 MHz clock
-	CPU_PRESCALE(0);
- 1ce:	80 e8       	ldi	r24, 0x80	; 128
- 1d0:	80 93 61 00 	sts	0x0061, r24
- 1d4:	10 92 61 00 	sts	0x0061, r1
-
-	// Initialize the USB, and then wait for the host to set configuration.
-	// If the Teensy is powered without a PC connected to the USB port,
-	// this will wait forever.
-	usb_init();
- 1d8:	e9 d0       	rcall	.+466    	; 0x3ac <usb_init>
-	while (!usb_configured()) /* wait */ ;
- 1da:	ff d0       	rcall	.+510    	; 0x3da <usb_configured>
- 1dc:	88 23       	and	r24, r24
- 1de:	e9 f3       	breq	.-6      	; 0x1da <main+0x20>
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- 1e0:	8f ef       	ldi	r24, 0xFF	; 255
- 1e2:	93 ed       	ldi	r25, 0xD3	; 211
- 1e4:	a0 e3       	ldi	r26, 0x30	; 48
- 1e6:	81 50       	subi	r24, 0x01	; 1
- 1e8:	90 40       	sbci	r25, 0x00	; 0
- 1ea:	a0 40       	sbci	r26, 0x00	; 0
- 1ec:	e1 f7       	brne	.-8      	; 0x1e6 <main+0x2c>
- 1ee:	00 c0       	rjmp	.+0      	; 0x1f0 <main+0x36>
- 1f0:	00 00       	nop
-	// and do whatever it does to actually be ready for input
-	_delay_ms(1000);
-
-        // Configure timer 0 to generate a timer overflow interrupt every
-        // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
-        TCCR0A = 0x00;
- 1f2:	14 bc       	out	0x24, r1	; 36
-        TCCR0B = 0x05;
- 1f4:	85 e0       	ldi	r24, 0x05	; 5
- 1f6:	85 bd       	out	0x25, r24	; 37
-        TIMSK0 = (1<<TOIE0);
- 1f8:	81 e0       	ldi	r24, 0x01	; 1
- 1fa:	80 93 6e 00 	sts	0x006E, r24
-
-	// Set all pins to inputs with pull up resistor
-	DDRD = 0x00;
- 1fe:	1a b8       	out	0x0a, r1	; 10
-	DDRC = 0x00;
- 200:	17 b8       	out	0x07, r1	; 7
-	DDRB = 0x00;
- 202:	14 b8       	out	0x04, r1	; 4
-	DDRF = 0x00;
- 204:	10 ba       	out	0x10, r1	; 16
-	
-	PORTB = 0xFF;
- 206:	8f ef       	ldi	r24, 0xFF	; 255
- 208:	85 b9       	out	0x05, r24	; 5
-	PORTC = 0xFF;
- 20a:	88 b9       	out	0x08, r24	; 8
-	PORTD = 0xFF;
- 20c:	8b b9       	out	0x0b, r24	; 11
-	PORTF = 0xFF;
- 20e:	81 bb       	out	0x11, r24	; 17
-
-int main(void)
-{
-	int8_t r;
-	uint8_t i;
-	uint16_t val, count=0;
- 210:	c0 e0       	ldi	r28, 0x00	; 0
- 212:	d0 e0       	ldi	r29, 0x00	; 0
-		}*/
-		// if time to send output, transmit something interesting
-		if (do_output) {
-			do_output = 0;
-			// send a packet, first 2 bytes 0xABCD
-			buffer[0] = 0xAB;
- 214:	fb ea       	ldi	r31, 0xAB	; 171
- 216:	bf 2e       	mov	r11, r31
-			buffer[1] = 0xCD;
- 218:	ed ec       	ldi	r30, 0xCD	; 205
- 21a:	ae 2e       	mov	r10, r30
-			  
-			  // valeur de pin digital
-			  if(PINB & (1<<i))
-			    buffer[b[i]*2+3] = 0;
-			  else 
-			    buffer[b[i]*2+3] = 1;
- 21c:	11 e0       	ldi	r17, 0x01	; 1
-			DDRD = 0x0F;
-			PORTD = (PORTD & 0xF0) | (buffer[0] & 0x0F);
-			// ignore the other 63.5 bytes....
-		}*/
-		// if time to send output, transmit something interesting
-		if (do_output) {
- 21e:	80 91 20 01 	lds	r24, 0x0120
- 222:	88 23       	and	r24, r24
- 224:	e1 f3       	breq	.-8      	; 0x21e <main+0x64>
-			do_output = 0;
- 226:	10 92 20 01 	sts	0x0120, r1
-			// send a packet, first 2 bytes 0xABCD
-			buffer[0] = 0xAB;
- 22a:	b0 92 25 01 	sts	0x0125, r11
-			buffer[1] = 0xCD;
- 22e:	a0 92 26 01 	sts	0x0126, r10
- 232:	40 e0       	ldi	r20, 0x00	; 0
- 234:	51 e0       	ldi	r21, 0x01	; 1
- 236:	a8 e1       	ldi	r26, 0x18	; 24
- 238:	b1 e0       	ldi	r27, 0x01	; 1
- 23a:	70 e1       	ldi	r23, 0x10	; 16
- 23c:	e7 2e       	mov	r14, r23
- 23e:	71 e0       	ldi	r23, 0x01	; 1
- 240:	f7 2e       	mov	r15, r23
- 242:	68 e0       	ldi	r22, 0x08	; 8
- 244:	c6 2e       	mov	r12, r22
- 246:	61 e0       	ldi	r22, 0x01	; 1
- 248:	d6 2e       	mov	r13, r22
- 24a:	80 e0       	ldi	r24, 0x00	; 0
- 24c:	90 e0       	ldi	r25, 0x00	; 0
- 24e:	08 2f       	mov	r16, r24
-			for (i=0; i<8 ; i++) {
-			    //			    val = analogRead(i);
-			  
-
-			  // Pin B
-			  buffer[b[i]*2+2] = b[i]+1;
- 250:	fa 01       	movw	r30, r20
- 252:	21 91       	ld	r18, Z+
- 254:	af 01       	movw	r20, r30
- 256:	62 2f       	mov	r22, r18
- 258:	70 e0       	ldi	r23, 0x00	; 0
- 25a:	fb 01       	movw	r30, r22
- 25c:	ee 0f       	add	r30, r30
- 25e:	ff 1f       	adc	r31, r31
- 260:	e9 5d       	subi	r30, 0xD9	; 217
- 262:	fe 4f       	sbci	r31, 0xFE	; 254
- 264:	2f 5f       	subi	r18, 0xFF	; 255
- 266:	20 83       	st	Z, r18
-			  
-			  // valeur de pin digital
-			  if(PINB & (1<<i))
- 268:	23 b1       	in	r18, 0x03	; 3
- 26a:	30 e0       	ldi	r19, 0x00	; 0
- 26c:	08 2e       	mov	r0, r24
- 26e:	02 c0       	rjmp	.+4      	; 0x274 <main+0xba>
- 270:	35 95       	asr	r19
- 272:	27 95       	ror	r18
- 274:	0a 94       	dec	r0
- 276:	e2 f7       	brpl	.-8      	; 0x270 <main+0xb6>
- 278:	66 0f       	add	r22, r22
- 27a:	77 1f       	adc	r23, r23
- 27c:	20 ff       	sbrs	r18, 0
- 27e:	05 c0       	rjmp	.+10     	; 0x28a <main+0xd0>
-			    buffer[b[i]*2+3] = 0;
- 280:	6b 5d       	subi	r22, 0xDB	; 219
- 282:	7e 4f       	sbci	r23, 0xFE	; 254
- 284:	fb 01       	movw	r30, r22
- 286:	13 82       	std	Z+3, r1	; 0x03
- 288:	04 c0       	rjmp	.+8      	; 0x292 <main+0xd8>
-			  else 
-			    buffer[b[i]*2+3] = 1;
- 28a:	6b 5d       	subi	r22, 0xDB	; 219
- 28c:	7e 4f       	sbci	r23, 0xFE	; 254
- 28e:	fb 01       	movw	r30, r22
- 290:	13 83       	std	Z+3, r17	; 0x03
-
-
-			  // Pin C
-			  if(c[i] != -1) {
-			    buffer[c[i]*2+2] = c[i]+1;
- 292:	f6 01       	movw	r30, r12
- 294:	21 91       	ld	r18, Z+
- 296:	6f 01       	movw	r12, r30
- 298:	62 2f       	mov	r22, r18
- 29a:	70 e0       	ldi	r23, 0x00	; 0
- 29c:	fb 01       	movw	r30, r22
- 29e:	ee 0f       	add	r30, r30
- 2a0:	ff 1f       	adc	r31, r31
- 2a2:	e9 5d       	subi	r30, 0xD9	; 217
- 2a4:	fe 4f       	sbci	r31, 0xFE	; 254
- 2a6:	2f 5f       	subi	r18, 0xFF	; 255
- 2a8:	20 83       	st	Z, r18
-
-			    // valeur de pin digital
-			    if(PINC & (1<<i))
- 2aa:	26 b1       	in	r18, 0x06	; 6
- 2ac:	30 e0       	ldi	r19, 0x00	; 0
- 2ae:	00 2e       	mov	r0, r16
- 2b0:	02 c0       	rjmp	.+4      	; 0x2b6 <main+0xfc>
- 2b2:	35 95       	asr	r19
- 2b4:	27 95       	ror	r18
- 2b6:	0a 94       	dec	r0
- 2b8:	e2 f7       	brpl	.-8      	; 0x2b2 <main+0xf8>
- 2ba:	66 0f       	add	r22, r22
- 2bc:	77 1f       	adc	r23, r23
- 2be:	20 ff       	sbrs	r18, 0
- 2c0:	05 c0       	rjmp	.+10     	; 0x2cc <main+0x112>
-			      buffer[c[i]*2+3] = 0;
- 2c2:	6b 5d       	subi	r22, 0xDB	; 219
- 2c4:	7e 4f       	sbci	r23, 0xFE	; 254
- 2c6:	fb 01       	movw	r30, r22
- 2c8:	13 82       	std	Z+3, r1	; 0x03
- 2ca:	04 c0       	rjmp	.+8      	; 0x2d4 <main+0x11a>
-			    else 
-			      buffer[c[i]*2+3] = 1;
- 2cc:	6b 5d       	subi	r22, 0xDB	; 219
- 2ce:	7e 4f       	sbci	r23, 0xFE	; 254
- 2d0:	fb 01       	movw	r30, r22
- 2d2:	13 83       	std	Z+3, r17	; 0x03
-			  }
-
-			  // Pin D
-			  if (d[i] != -1) {
-			    buffer[d[i]*2+2] = d[i]+1;
- 2d4:	f7 01       	movw	r30, r14
- 2d6:	21 91       	ld	r18, Z+
- 2d8:	7f 01       	movw	r14, r30
- 2da:	62 2f       	mov	r22, r18
- 2dc:	70 e0       	ldi	r23, 0x00	; 0
- 2de:	fb 01       	movw	r30, r22
- 2e0:	ee 0f       	add	r30, r30
- 2e2:	ff 1f       	adc	r31, r31
- 2e4:	e9 5d       	subi	r30, 0xD9	; 217
- 2e6:	fe 4f       	sbci	r31, 0xFE	; 254
- 2e8:	2f 5f       	subi	r18, 0xFF	; 255
- 2ea:	20 83       	st	Z, r18
-			    
-			    // valeur de pin digital
-			    if(PIND & (1<<i))
- 2ec:	29 b1       	in	r18, 0x09	; 9
- 2ee:	30 e0       	ldi	r19, 0x00	; 0
- 2f0:	00 2e       	mov	r0, r16
- 2f2:	02 c0       	rjmp	.+4      	; 0x2f8 <main+0x13e>
- 2f4:	35 95       	asr	r19
- 2f6:	27 95       	ror	r18
- 2f8:	0a 94       	dec	r0
- 2fa:	e2 f7       	brpl	.-8      	; 0x2f4 <main+0x13a>
- 2fc:	66 0f       	add	r22, r22
- 2fe:	77 1f       	adc	r23, r23
- 300:	20 ff       	sbrs	r18, 0
- 302:	05 c0       	rjmp	.+10     	; 0x30e <main+0x154>
-			      buffer[d[i]*2+3] = 0;
- 304:	6b 5d       	subi	r22, 0xDB	; 219
- 306:	7e 4f       	sbci	r23, 0xFE	; 254
- 308:	fb 01       	movw	r30, r22
- 30a:	13 82       	std	Z+3, r1	; 0x03
- 30c:	04 c0       	rjmp	.+8      	; 0x316 <main+0x15c>
-			    else 
-			      buffer[d[i]*2+3] = 1;
- 30e:	6b 5d       	subi	r22, 0xDB	; 219
- 310:	7e 4f       	sbci	r23, 0xFE	; 254
- 312:	fb 01       	movw	r30, r22
- 314:	13 83       	std	Z+3, r17	; 0x03
-			  }
-
-			  // Pin F
-			  if (f[i] != -1) {
-			    buffer[f[i]*2+2] = f[i]+1;
- 316:	2d 91       	ld	r18, X+
- 318:	62 2f       	mov	r22, r18
- 31a:	70 e0       	ldi	r23, 0x00	; 0
- 31c:	fb 01       	movw	r30, r22
- 31e:	ee 0f       	add	r30, r30
- 320:	ff 1f       	adc	r31, r31
- 322:	e9 5d       	subi	r30, 0xD9	; 217
- 324:	fe 4f       	sbci	r31, 0xFE	; 254
- 326:	2f 5f       	subi	r18, 0xFF	; 255
- 328:	20 83       	st	Z, r18
-			    
-			    // valeur de pin digital
-			    if(PIND & (1<<i))
- 32a:	29 b1       	in	r18, 0x09	; 9
- 32c:	30 e0       	ldi	r19, 0x00	; 0
- 32e:	02 c0       	rjmp	.+4      	; 0x334 <main+0x17a>
- 330:	35 95       	asr	r19
- 332:	27 95       	ror	r18
- 334:	0a 95       	dec	r16
- 336:	e2 f7       	brpl	.-8      	; 0x330 <main+0x176>
- 338:	66 0f       	add	r22, r22
- 33a:	77 1f       	adc	r23, r23
- 33c:	20 ff       	sbrs	r18, 0
- 33e:	05 c0       	rjmp	.+10     	; 0x34a <main+0x190>
-			      buffer[f[i]*2+3] = 0;
- 340:	6b 5d       	subi	r22, 0xDB	; 219
- 342:	7e 4f       	sbci	r23, 0xFE	; 254
- 344:	fb 01       	movw	r30, r22
- 346:	13 82       	std	Z+3, r1	; 0x03
- 348:	04 c0       	rjmp	.+8      	; 0x352 <main+0x198>
-			    else 
-			      buffer[f[i]*2+3] = 1;
- 34a:	6b 5d       	subi	r22, 0xDB	; 219
- 34c:	7e 4f       	sbci	r23, 0xFE	; 254
- 34e:	fb 01       	movw	r30, r22
- 350:	13 83       	std	Z+3, r17	; 0x03
- 352:	01 96       	adiw	r24, 0x01	; 1
-			buffer[0] = 0xAB;
-			buffer[1] = 0xCD;
-
-
- 			// put A/D measurements into next 24 bytes
-			for (i=0; i<8 ; i++) {
- 354:	88 30       	cpi	r24, 0x08	; 8
- 356:	91 05       	cpc	r25, r1
- 358:	09 f0       	breq	.+2      	; 0x35c <main+0x1a2>
- 35a:	79 cf       	rjmp	.-270    	; 0x24e <main+0x94>
- 35c:	ef e3       	ldi	r30, 0x3F	; 63
- 35e:	f1 e0       	ldi	r31, 0x01	; 1
-						}*/
-
-
-			// most of the packet filled with zero
-			for (i=26; i<62; i++) {
-			  buffer[i] = 0;
- 360:	11 92       	st	Z+, r1
-						buffer[i] = 0;
-						}*/
-
-
-			// most of the packet filled with zero
-			for (i=26; i<62; i++) {
- 362:	81 e0       	ldi	r24, 0x01	; 1
- 364:	e3 36       	cpi	r30, 0x63	; 99
- 366:	f8 07       	cpc	r31, r24
- 368:	d9 f7       	brne	.-10     	; 0x360 <main+0x1a6>
-			  buffer[i] = 0;
-			}
-
-			// put a count in the last 2 bytes
-			buffer[62] = count >> 8;
- 36a:	7e 01       	movw	r14, r28
- 36c:	f0 92 63 01 	sts	0x0163, r15
-			buffer[63] = count & 255;
- 370:	c0 93 64 01 	sts	0x0164, r28
-			// send the packet
-			usb_rawhid_send(buffer, 50);
- 374:	cf 01       	movw	r24, r30
- 376:	ce 97       	sbiw	r24, 0x3e	; 62
- 378:	62 e3       	ldi	r22, 0x32	; 50
- 37a:	32 d0       	rcall	.+100    	; 0x3e0 <usb_rawhid_send>
-			count++;
- 37c:	21 96       	adiw	r28, 0x01	; 1
- 37e:	4f cf       	rjmp	.-354    	; 0x21e <main+0x64>
-
-00000380 <__vector_23>:
+000001ba <__vector_23>:
 	}
 }
 
 // This interrupt routine is run approx 61 times per second.
 ISR(TIMER0_OVF_vect)
 {
- 380:	1f 92       	push	r1
- 382:	0f 92       	push	r0
- 384:	0f b6       	in	r0, 0x3f	; 63
- 386:	0f 92       	push	r0
- 388:	11 24       	eor	r1, r1
- 38a:	8f 93       	push	r24
+ 1ba:	1f 92       	push	r1
+ 1bc:	0f 92       	push	r0
+ 1be:	0f b6       	in	r0, 0x3f	; 63
+ 1c0:	0f 92       	push	r0
+ 1c2:	11 24       	eor	r1, r1
+ 1c4:	8f 93       	push	r24
   static uint8_t count=0;
   if(++count > -1){
     count = 0;
- 38c:	10 92 21 01 	sts	0x0121, r1
+ 1c6:	10 92 21 01 	sts	0x0121, r1
     do_output = 1;
- 390:	81 e0       	ldi	r24, 0x01	; 1
- 392:	80 93 20 01 	sts	0x0120, r24
+ 1ca:	81 e0       	ldi	r24, 0x01	; 1
+ 1cc:	80 93 20 01 	sts	0x0120, r24
   }
 }
- 396:	8f 91       	pop	r24
- 398:	0f 90       	pop	r0
- 39a:	0f be       	out	0x3f, r0	; 63
- 39c:	0f 90       	pop	r0
- 39e:	1f 90       	pop	r1
- 3a0:	18 95       	reti
+ 1d0:	8f 91       	pop	r24
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0f be       	out	0x3f, r0	; 63
+ 1d6:	0f 90       	pop	r0
+ 1d8:	1f 90       	pop	r1
+ 1da:	18 95       	reti
 
-000003a2 <usb_wait_in_ready>:
+000001dc <main>:
+uint8_t c[8] = {-1, -1, -1, -1, -1, -1, 9, 10};
+uint8_t d[8] = {5, 6, 7, 8, 22, 11, 23, 12};
+uint8_t f[8] = {21, 20, -1, -1,  19, 18, 17, 16};
 
-
-// Misc functions to wait for ready and send/receive packets
-static inline void usb_wait_in_ready(void)
+int main(void)
 {
-	while (!(UEINTX & (1<<TXINI))) ;
- 3a2:	80 91 e8 00 	lds	r24, 0x00E8
- 3a6:	80 ff       	sbrs	r24, 0
- 3a8:	fc cf       	rjmp	.-8      	; 0x3a2 <usb_wait_in_ready>
-}
- 3aa:	08 95       	ret
+ 1dc:	ff 92       	push	r15
+ 1de:	0f 93       	push	r16
+ 1e0:	1f 93       	push	r17
+ 1e2:	cf 93       	push	r28
+ 1e4:	df 93       	push	r29
+	int8_t r;
+	uint8_t i;
+	uint16_t val, count=0;
 
-000003ac <usb_init>:
+	// set for 16 MHz clock
+	CPU_PRESCALE(0);
+ 1e6:	80 e8       	ldi	r24, 0x80	; 128
+ 1e8:	80 93 61 00 	sts	0x0061, r24
+ 1ec:	10 92 61 00 	sts	0x0061, r1
+
+	// Initialize the USB, and then wait for the host to set configuration.
+	// If the Teensy is powered without a PC connected to the USB port,
+	// this will wait forever.
+	usb_init();
+ 1f0:	be d0       	rcall	.+380    	; 0x36e <usb_init>
+	while (!usb_configured()) /* wait */ ;
+ 1f2:	d4 d0       	rcall	.+424    	; 0x39c <usb_configured>
+ 1f4:	88 23       	and	r24, r24
+ 1f6:	e9 f3       	breq	.-6      	; 0x1f2 <main+0x16>
+ 1f8:	80 e1       	ldi	r24, 0x10	; 16
+ 1fa:	97 e2       	ldi	r25, 0x27	; 39
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 1fc:	20 e9       	ldi	r18, 0x90	; 144
+ 1fe:	31 e0       	ldi	r19, 0x01	; 1
+ 200:	f9 01       	movw	r30, r18
+ 202:	31 97       	sbiw	r30, 0x01	; 1
+ 204:	f1 f7       	brne	.-4      	; 0x202 <main+0x26>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 206:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 208:	d9 f7       	brne	.-10     	; 0x200 <main+0x24>
+	// and do whatever it does to actually be ready for input
+	_delay_ms(1000);
+
+        // Configure timer 0 to generate a timer overflow interrupt every
+        // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
+        TCCR0A = 0x00;
+ 20a:	14 bc       	out	0x24, r1	; 36
+        TCCR0B = 0x05;
+ 20c:	85 e0       	ldi	r24, 0x05	; 5
+ 20e:	85 bd       	out	0x25, r24	; 37
+        TIMSK0 = (1<<TOIE0);
+ 210:	81 e0       	ldi	r24, 0x01	; 1
+ 212:	80 93 6e 00 	sts	0x006E, r24
+
+	// Set all pins to inputs with pull up resistor
+	DDRD = 0x00;
+ 216:	1a b8       	out	0x0a, r1	; 10
+	DDRC = 0x00;
+ 218:	17 b8       	out	0x07, r1	; 7
+	DDRB = 0x00;
+ 21a:	14 b8       	out	0x04, r1	; 4
+	DDRF = 0x00;
+ 21c:	10 ba       	out	0x10, r1	; 16
+	
+	PORTB = 0xFF;
+ 21e:	8f ef       	ldi	r24, 0xFF	; 255
+ 220:	85 b9       	out	0x05, r24	; 5
+	PORTC = 0xFF;
+ 222:	88 b9       	out	0x08, r24	; 8
+	PORTD = 0xFF;
+ 224:	8b b9       	out	0x0b, r24	; 11
+	PORTF = 0xFF;
+ 226:	81 bb       	out	0x11, r24	; 17
+ 228:	c0 e0       	ldi	r28, 0x00	; 0
+ 22a:	d0 e0       	ldi	r29, 0x00	; 0
+		}*/
+		// if time to send output, transmit something interesting
+		if (do_output) {
+			do_output = 0;
+			// send a packet, first 2 bytes 0xABCD
+			buffer[0] = 0xAB;
+ 22c:	1b ea       	ldi	r17, 0xAB	; 171
+ 22e:	f1 2e       	mov	r15, r17
+			buffer[1] = 0xCD;
+ 230:	0d ec       	ldi	r16, 0xCD	; 205
+			  
+			  // valeur de pin digital
+			  if(PINB & (1<<i))
+			    buffer[b[i]*2+3] = 0;
+			  else 
+			    buffer[b[i]*2+3] = 1;
+ 232:	11 e0       	ldi	r17, 0x01	; 1
+			DDRD = 0x0F;
+			PORTD = (PORTD & 0xF0) | (buffer[0] & 0x0F);
+			// ignore the other 63.5 bytes....
+		}*/
+		// if time to send output, transmit something interesting
+		if (do_output) {
+ 234:	80 91 20 01 	lds	r24, 0x0120
+ 238:	88 23       	and	r24, r24
+ 23a:	e1 f3       	breq	.-8      	; 0x234 <main+0x58>
+			do_output = 0;
+ 23c:	10 92 20 01 	sts	0x0120, r1
+			// send a packet, first 2 bytes 0xABCD
+			buffer[0] = 0xAB;
+ 240:	f0 92 25 01 	sts	0x0125, r15
+			buffer[1] = 0xCD;
+ 244:	00 93 26 01 	sts	0x0126, r16
+ 248:	40 e0       	ldi	r20, 0x00	; 0
+ 24a:	50 e0       	ldi	r21, 0x00	; 0
+ 24c:	64 2f       	mov	r22, r20
+			for (i=0; i<8 ; i++) {
+			    //			    val = analogRead(i);
+			  
+
+			  // Pin B
+			  buffer[b[i]*2+2] = b[i]+1;
+ 24e:	fa 01       	movw	r30, r20
+ 250:	e0 50       	subi	r30, 0x00	; 0
+ 252:	ff 4f       	sbci	r31, 0xFF	; 255
+ 254:	80 81       	ld	r24, Z
+ 256:	28 2f       	mov	r18, r24
+ 258:	30 e0       	ldi	r19, 0x00	; 0
+ 25a:	22 0f       	add	r18, r18
+ 25c:	33 1f       	adc	r19, r19
+ 25e:	f9 01       	movw	r30, r18
+ 260:	e9 5d       	subi	r30, 0xD9	; 217
+ 262:	fe 4f       	sbci	r31, 0xFE	; 254
+ 264:	8f 5f       	subi	r24, 0xFF	; 255
+ 266:	80 83       	st	Z, r24
+			  
+			  // valeur de pin digital
+			  if(PINB & (1<<i))
+ 268:	83 b1       	in	r24, 0x03	; 3
+ 26a:	90 e0       	ldi	r25, 0x00	; 0
+ 26c:	04 2e       	mov	r0, r20
+ 26e:	02 c0       	rjmp	.+4      	; 0x274 <main+0x98>
+ 270:	95 95       	asr	r25
+ 272:	87 95       	ror	r24
+ 274:	0a 94       	dec	r0
+ 276:	e2 f7       	brpl	.-8      	; 0x270 <main+0x94>
+ 278:	f9 01       	movw	r30, r18
+ 27a:	80 ff       	sbrs	r24, 0
+ 27c:	04 c0       	rjmp	.+8      	; 0x286 <main+0xaa>
+			    buffer[b[i]*2+3] = 0;
+ 27e:	eb 5d       	subi	r30, 0xDB	; 219
+ 280:	fe 4f       	sbci	r31, 0xFE	; 254
+ 282:	13 82       	std	Z+3, r1	; 0x03
+ 284:	03 c0       	rjmp	.+6      	; 0x28c <main+0xb0>
+			  else 
+			    buffer[b[i]*2+3] = 1;
+ 286:	eb 5d       	subi	r30, 0xDB	; 219
+ 288:	fe 4f       	sbci	r31, 0xFE	; 254
+ 28a:	13 83       	std	Z+3, r17	; 0x03
+
+
+			  // Pin C
+			  if(c[i] != -1) {
+			    buffer[c[i]*2+2] = c[i]+1;
+ 28c:	fa 01       	movw	r30, r20
+ 28e:	e8 5f       	subi	r30, 0xF8	; 248
+ 290:	fe 4f       	sbci	r31, 0xFE	; 254
+ 292:	80 81       	ld	r24, Z
+ 294:	28 2f       	mov	r18, r24
+ 296:	30 e0       	ldi	r19, 0x00	; 0
+ 298:	22 0f       	add	r18, r18
+ 29a:	33 1f       	adc	r19, r19
+ 29c:	f9 01       	movw	r30, r18
+ 29e:	e9 5d       	subi	r30, 0xD9	; 217
+ 2a0:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2a2:	8f 5f       	subi	r24, 0xFF	; 255
+ 2a4:	80 83       	st	Z, r24
+
+			    // valeur de pin digital
+			    if(PINC & (1<<i))
+ 2a6:	86 b1       	in	r24, 0x06	; 6
+ 2a8:	90 e0       	ldi	r25, 0x00	; 0
+ 2aa:	06 2e       	mov	r0, r22
+ 2ac:	02 c0       	rjmp	.+4      	; 0x2b2 <main+0xd6>
+ 2ae:	95 95       	asr	r25
+ 2b0:	87 95       	ror	r24
+ 2b2:	0a 94       	dec	r0
+ 2b4:	e2 f7       	brpl	.-8      	; 0x2ae <main+0xd2>
+ 2b6:	f9 01       	movw	r30, r18
+ 2b8:	80 ff       	sbrs	r24, 0
+ 2ba:	04 c0       	rjmp	.+8      	; 0x2c4 <main+0xe8>
+			      buffer[c[i]*2+3] = 0;
+ 2bc:	eb 5d       	subi	r30, 0xDB	; 219
+ 2be:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2c0:	13 82       	std	Z+3, r1	; 0x03
+ 2c2:	03 c0       	rjmp	.+6      	; 0x2ca <main+0xee>
+			    else 
+			      buffer[c[i]*2+3] = 1;
+ 2c4:	eb 5d       	subi	r30, 0xDB	; 219
+ 2c6:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2c8:	13 83       	std	Z+3, r17	; 0x03
+			  }
+
+			  // Pin D
+			  if (d[i] != -1) {
+			    buffer[d[i]*2+2] = d[i]+1;
+ 2ca:	fa 01       	movw	r30, r20
+ 2cc:	e0 5f       	subi	r30, 0xF0	; 240
+ 2ce:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2d0:	80 81       	ld	r24, Z
+ 2d2:	28 2f       	mov	r18, r24
+ 2d4:	30 e0       	ldi	r19, 0x00	; 0
+ 2d6:	22 0f       	add	r18, r18
+ 2d8:	33 1f       	adc	r19, r19
+ 2da:	f9 01       	movw	r30, r18
+ 2dc:	e9 5d       	subi	r30, 0xD9	; 217
+ 2de:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2e0:	8f 5f       	subi	r24, 0xFF	; 255
+ 2e2:	80 83       	st	Z, r24
+			    
+			    // valeur de pin digital
+			    if(PIND & (1<<i))
+ 2e4:	89 b1       	in	r24, 0x09	; 9
+ 2e6:	90 e0       	ldi	r25, 0x00	; 0
+ 2e8:	06 2e       	mov	r0, r22
+ 2ea:	02 c0       	rjmp	.+4      	; 0x2f0 <main+0x114>
+ 2ec:	95 95       	asr	r25
+ 2ee:	87 95       	ror	r24
+ 2f0:	0a 94       	dec	r0
+ 2f2:	e2 f7       	brpl	.-8      	; 0x2ec <main+0x110>
+ 2f4:	f9 01       	movw	r30, r18
+ 2f6:	80 ff       	sbrs	r24, 0
+ 2f8:	04 c0       	rjmp	.+8      	; 0x302 <main+0x126>
+			      buffer[d[i]*2+3] = 0;
+ 2fa:	eb 5d       	subi	r30, 0xDB	; 219
+ 2fc:	fe 4f       	sbci	r31, 0xFE	; 254
+ 2fe:	13 82       	std	Z+3, r1	; 0x03
+ 300:	03 c0       	rjmp	.+6      	; 0x308 <main+0x12c>
+			    else 
+			      buffer[d[i]*2+3] = 1;
+ 302:	eb 5d       	subi	r30, 0xDB	; 219
+ 304:	fe 4f       	sbci	r31, 0xFE	; 254
+ 306:	13 83       	std	Z+3, r17	; 0x03
+			  }
+
+			  // Pin F
+			  if (f[i] != -1) {
+			    buffer[f[i]*2+2] = f[i]+1;
+ 308:	fa 01       	movw	r30, r20
+ 30a:	e8 5e       	subi	r30, 0xE8	; 232
+ 30c:	fe 4f       	sbci	r31, 0xFE	; 254
+ 30e:	80 81       	ld	r24, Z
+ 310:	28 2f       	mov	r18, r24
+ 312:	30 e0       	ldi	r19, 0x00	; 0
+ 314:	22 0f       	add	r18, r18
+ 316:	33 1f       	adc	r19, r19
+ 318:	f9 01       	movw	r30, r18
+ 31a:	e9 5d       	subi	r30, 0xD9	; 217
+ 31c:	fe 4f       	sbci	r31, 0xFE	; 254
+ 31e:	8f 5f       	subi	r24, 0xFF	; 255
+ 320:	80 83       	st	Z, r24
+			    
+			    // valeur de pin digital
+			    if(PINF & (1<<i))
+ 322:	8f b1       	in	r24, 0x0f	; 15
+ 324:	90 e0       	ldi	r25, 0x00	; 0
+ 326:	02 c0       	rjmp	.+4      	; 0x32c <main+0x150>
+ 328:	95 95       	asr	r25
+ 32a:	87 95       	ror	r24
+ 32c:	6a 95       	dec	r22
+ 32e:	e2 f7       	brpl	.-8      	; 0x328 <main+0x14c>
+ 330:	f9 01       	movw	r30, r18
+ 332:	80 ff       	sbrs	r24, 0
+ 334:	04 c0       	rjmp	.+8      	; 0x33e <main+0x162>
+			      buffer[f[i]*2+3] = 0;
+ 336:	eb 5d       	subi	r30, 0xDB	; 219
+ 338:	fe 4f       	sbci	r31, 0xFE	; 254
+ 33a:	13 82       	std	Z+3, r1	; 0x03
+ 33c:	03 c0       	rjmp	.+6      	; 0x344 <main+0x168>
+			    else 
+			      buffer[f[i]*2+3] = 1;
+ 33e:	eb 5d       	subi	r30, 0xDB	; 219
+ 340:	fe 4f       	sbci	r31, 0xFE	; 254
+ 342:	13 83       	std	Z+3, r17	; 0x03
+ 344:	4f 5f       	subi	r20, 0xFF	; 255
+ 346:	5f 4f       	sbci	r21, 0xFF	; 255
+			buffer[0] = 0xAB;
+			buffer[1] = 0xCD;
+
+
+ 			// put A/D measurements into next 24 bytes
+			for (i=0; i<8 ; i++) {
+ 348:	48 30       	cpi	r20, 0x08	; 8
+ 34a:	51 05       	cpc	r21, r1
+ 34c:	09 f0       	breq	.+2      	; 0x350 <main+0x174>
+ 34e:	7e cf       	rjmp	.-260    	; 0x24c <main+0x70>
+ 350:	e7 e5       	ldi	r30, 0x57	; 87
+ 352:	f1 e0       	ldi	r31, 0x01	; 1
+						}*/
+
+
+			// most of the packet filled with zero
+			for (i=50; i<62; i++) {
+			  buffer[i] = 0;
+ 354:	11 92       	st	Z+, r1
+						buffer[i] = 0;
+						}*/
+
+
+			// most of the packet filled with zero
+			for (i=50; i<62; i++) {
+ 356:	81 e0       	ldi	r24, 0x01	; 1
+ 358:	e3 36       	cpi	r30, 0x63	; 99
+ 35a:	f8 07       	cpc	r31, r24
+ 35c:	d9 f7       	brne	.-10     	; 0x354 <main+0x178>
+			  buffer[i] = 0;
+			}
+
+			// put a count in the last 2 bytes
+			buffer[62] = count >> 8;
+ 35e:	d0 83       	st	Z, r29
+			buffer[63] = count & 255;
+ 360:	c1 83       	std	Z+1, r28	; 0x01
+			// send the packet
+			usb_rawhid_send(buffer, 50);
+ 362:	cf 01       	movw	r24, r30
+ 364:	ce 97       	sbiw	r24, 0x3e	; 62
+ 366:	62 e3       	ldi	r22, 0x32	; 50
+ 368:	1c d0       	rcall	.+56     	; 0x3a2 <usb_rawhid_send>
+			count++;
+ 36a:	21 96       	adiw	r28, 0x01	; 1
+ 36c:	63 cf       	rjmp	.-314    	; 0x234 <main+0x58>
+
+0000036e <usb_init>:
 
 
 // initialize USB
 void usb_init(void)
 {
 	HW_CONFIG();
- 3ac:	81 e0       	ldi	r24, 0x01	; 1
- 3ae:	80 93 d7 00 	sts	0x00D7, r24
+ 36e:	81 e0       	ldi	r24, 0x01	; 1
+ 370:	80 93 d7 00 	sts	0x00D7, r24
 	USB_FREEZE();				// enable USB
- 3b2:	80 ea       	ldi	r24, 0xA0	; 160
- 3b4:	80 93 d8 00 	sts	0x00D8, r24
+ 374:	80 ea       	ldi	r24, 0xA0	; 160
+ 376:	80 93 d8 00 	sts	0x00D8, r24
 	PLL_CONFIG();				// config PLL
- 3b8:	82 e1       	ldi	r24, 0x12	; 18
- 3ba:	89 bd       	out	0x29, r24	; 41
+ 37a:	82 e1       	ldi	r24, 0x12	; 18
+ 37c:	89 bd       	out	0x29, r24	; 41
         while (!(PLLCSR & (1<<PLOCK))) ;	// wait for PLL lock
- 3bc:	09 b4       	in	r0, 0x29	; 41
- 3be:	00 fe       	sbrs	r0, 0
- 3c0:	fd cf       	rjmp	.-6      	; 0x3bc <usb_init+0x10>
+ 37e:	09 b4       	in	r0, 0x29	; 41
+ 380:	00 fe       	sbrs	r0, 0
+ 382:	fd cf       	rjmp	.-6      	; 0x37e <usb_init+0x10>
         USB_CONFIG();				// start USB clock
- 3c2:	80 e9       	ldi	r24, 0x90	; 144
- 3c4:	80 93 d8 00 	sts	0x00D8, r24
+ 384:	80 e9       	ldi	r24, 0x90	; 144
+ 386:	80 93 d8 00 	sts	0x00D8, r24
         UDCON = 0;				// enable attach resistor
- 3c8:	10 92 e0 00 	sts	0x00E0, r1
+ 38a:	10 92 e0 00 	sts	0x00E0, r1
 	usb_configuration = 0;
- 3cc:	10 92 22 01 	sts	0x0122, r1
+ 38e:	10 92 22 01 	sts	0x0122, r1
         UDIEN = (1<<EORSTE)|(1<<SOFE);
- 3d0:	8c e0       	ldi	r24, 0x0C	; 12
- 3d2:	80 93 e2 00 	sts	0x00E2, r24
+ 392:	8c e0       	ldi	r24, 0x0C	; 12
+ 394:	80 93 e2 00 	sts	0x00E2, r24
 	sei();
- 3d6:	78 94       	sei
+ 398:	78 94       	sei
 }
- 3d8:	08 95       	ret
+ 39a:	08 95       	ret
 
-000003da <usb_configured>:
+0000039c <usb_configured>:
 
 // return 0 if the USB is not configured, or the configuration
 // number selected by the HOST
 uint8_t usb_configured(void)
 {
 	return usb_configuration;
- 3da:	80 91 22 01 	lds	r24, 0x0122
+ 39c:	80 91 22 01 	lds	r24, 0x0122
 }
- 3de:	08 95       	ret
+ 3a0:	08 95       	ret
 
-000003e0 <usb_rawhid_send>:
+000003a2 <usb_rawhid_send>:
+	return RAWHID_RX_SIZE;
+}
+
+// send a packet, with timeout
 int8_t usb_rawhid_send(const uint8_t *buffer, uint8_t timeout)
 {
+ 3a2:	dc 01       	movw	r26, r24
 	uint8_t intr_state;
 
 	// if we're not online (enumerated and configured), error
 	if (!usb_configuration) return -1;
- 3e0:	20 91 22 01 	lds	r18, 0x0122
- 3e4:	22 23       	and	r18, r18
- 3e6:	09 f4       	brne	.+2      	; 0x3ea <usb_rawhid_send+0xa>
- 3e8:	79 c1       	rjmp	.+754    	; 0x6dc <usb_rawhid_send+0x2fc>
+ 3a4:	80 91 22 01 	lds	r24, 0x0122
+ 3a8:	88 23       	and	r24, r24
+ 3aa:	09 f4       	brne	.+2      	; 0x3ae <usb_rawhid_send+0xc>
+ 3ac:	7a c1       	rjmp	.+756    	; 0x6a2 <usb_rawhid_send+0x300>
 	intr_state = SREG;
- 3ea:	2f b7       	in	r18, 0x3f	; 63
+ 3ae:	2f b7       	in	r18, 0x3f	; 63
 	cli();
- 3ec:	f8 94       	cli
+ 3b0:	f8 94       	cli
 	tx_timeout_count = timeout;
- 3ee:	60 93 24 01 	sts	0x0124, r22
+ 3b2:	60 93 24 01 	sts	0x0124, r22
 	UENUM = RAWHID_TX_ENDPOINT;
- 3f2:	31 e0       	ldi	r19, 0x01	; 1
- 3f4:	30 93 e9 00 	sts	0x00E9, r19
+ 3b6:	81 e0       	ldi	r24, 0x01	; 1
+ 3b8:	80 93 e9 00 	sts	0x00E9, r24
+		SREG = intr_state;
+		if (tx_timeout_count == 0) return 0;
+		if (!usb_configuration) return -1;
+		intr_state = SREG;
+		cli();
+		UENUM = RAWHID_TX_ENDPOINT;
+ 3bc:	91 e0       	ldi	r25, 0x01	; 1
+	cli();
+	tx_timeout_count = timeout;
+	UENUM = RAWHID_TX_ENDPOINT;
 	// wait for the FIFO to be ready to accept data
 	while (1) {
 		if (UEINTX & (1<<RWAL)) break;
- 3f8:	40 91 e8 00 	lds	r20, 0x00E8
- 3fc:	45 fd       	sbrc	r20, 5
- 3fe:	0e c0       	rjmp	.+28     	; 0x41c <usb_rawhid_send+0x3c>
+ 3be:	80 91 e8 00 	lds	r24, 0x00E8
+ 3c2:	85 fd       	sbrc	r24, 5
+ 3c4:	10 c0       	rjmp	.+32     	; 0x3e6 <usb_rawhid_send+0x44>
 		SREG = intr_state;
- 400:	2f bf       	out	0x3f, r18	; 63
+ 3c6:	2f bf       	out	0x3f, r18	; 63
 		if (tx_timeout_count == 0) return 0;
- 402:	20 91 24 01 	lds	r18, 0x0124
- 406:	22 23       	and	r18, r18
- 408:	09 f4       	brne	.+2      	; 0x40c <usb_rawhid_send+0x2c>
- 40a:	6a c1       	rjmp	.+724    	; 0x6e0 <usb_rawhid_send+0x300>
+ 3c8:	80 91 24 01 	lds	r24, 0x0124
+ 3cc:	88 23       	and	r24, r24
+ 3ce:	09 f4       	brne	.+2      	; 0x3d2 <usb_rawhid_send+0x30>
+ 3d0:	69 c1       	rjmp	.+722    	; 0x6a4 <usb_rawhid_send+0x302>
 		if (!usb_configuration) return -1;
- 40c:	20 91 22 01 	lds	r18, 0x0122
- 410:	22 23       	and	r18, r18
- 412:	09 f4       	brne	.+2      	; 0x416 <usb_rawhid_send+0x36>
- 414:	67 c1       	rjmp	.+718    	; 0x6e4 <usb_rawhid_send+0x304>
+ 3d2:	80 91 22 01 	lds	r24, 0x0122
+ 3d6:	88 23       	and	r24, r24
+ 3d8:	09 f4       	brne	.+2      	; 0x3dc <usb_rawhid_send+0x3a>
+ 3da:	63 c1       	rjmp	.+710    	; 0x6a2 <usb_rawhid_send+0x300>
 		intr_state = SREG;
- 416:	2f b7       	in	r18, 0x3f	; 63
+ 3dc:	2f b7       	in	r18, 0x3f	; 63
 		cli();
- 418:	f8 94       	cli
- 41a:	ec cf       	rjmp	.-40     	; 0x3f4 <usb_rawhid_send+0x14>
+ 3de:	f8 94       	cli
 		UENUM = RAWHID_TX_ENDPOINT;
+ 3e0:	90 93 e9 00 	sts	0x00E9, r25
+ 3e4:	ec cf       	rjmp	.-40     	; 0x3be <usb_rawhid_send+0x1c>
 	}
 	// write bytes from the FIFO
 	#if (RAWHID_TX_SIZE >= 64)
 	UEDATX = *buffer++;
- 41c:	fc 01       	movw	r30, r24
- 41e:	31 91       	ld	r19, Z+
- 420:	30 93 f1 00 	sts	0x00F1, r19
+ 3e6:	fd 01       	movw	r30, r26
+ 3e8:	81 91       	ld	r24, Z+
+ 3ea:	80 93 f1 00 	sts	0x00F1, r24
 	#endif
 	#if (RAWHID_TX_SIZE >= 63)
 	UEDATX = *buffer++;
- 424:	dc 01       	movw	r26, r24
- 426:	11 96       	adiw	r26, 0x01	; 1
- 428:	8c 91       	ld	r24, X
- 42a:	80 93 f1 00 	sts	0x00F1, r24
- 42e:	df 01       	movw	r26, r30
- 430:	11 96       	adiw	r26, 0x01	; 1
+ 3ee:	11 96       	adiw	r26, 0x01	; 1
+ 3f0:	8c 91       	ld	r24, X
+ 3f2:	80 93 f1 00 	sts	0x00F1, r24
+ 3f6:	df 01       	movw	r26, r30
+ 3f8:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 62)
 	UEDATX = *buffer++;
- 432:	81 81       	ldd	r24, Z+1	; 0x01
- 434:	80 93 f1 00 	sts	0x00F1, r24
- 438:	fd 01       	movw	r30, r26
- 43a:	31 96       	adiw	r30, 0x01	; 1
+ 3fa:	81 81       	ldd	r24, Z+1	; 0x01
+ 3fc:	80 93 f1 00 	sts	0x00F1, r24
+ 400:	fd 01       	movw	r30, r26
+ 402:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 61)
 	UEDATX = *buffer++;
- 43c:	11 96       	adiw	r26, 0x01	; 1
- 43e:	8c 91       	ld	r24, X
- 440:	80 93 f1 00 	sts	0x00F1, r24
- 444:	df 01       	movw	r26, r30
- 446:	11 96       	adiw	r26, 0x01	; 1
+ 404:	11 96       	adiw	r26, 0x01	; 1
+ 406:	8c 91       	ld	r24, X
+ 408:	80 93 f1 00 	sts	0x00F1, r24
+ 40c:	df 01       	movw	r26, r30
+ 40e:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 60)
 	UEDATX = *buffer++;
- 448:	81 81       	ldd	r24, Z+1	; 0x01
- 44a:	80 93 f1 00 	sts	0x00F1, r24
- 44e:	fd 01       	movw	r30, r26
- 450:	31 96       	adiw	r30, 0x01	; 1
+ 410:	81 81       	ldd	r24, Z+1	; 0x01
+ 412:	80 93 f1 00 	sts	0x00F1, r24
+ 416:	fd 01       	movw	r30, r26
+ 418:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 59)
 	UEDATX = *buffer++;
- 452:	11 96       	adiw	r26, 0x01	; 1
- 454:	8c 91       	ld	r24, X
- 456:	80 93 f1 00 	sts	0x00F1, r24
- 45a:	df 01       	movw	r26, r30
- 45c:	11 96       	adiw	r26, 0x01	; 1
+ 41a:	11 96       	adiw	r26, 0x01	; 1
+ 41c:	8c 91       	ld	r24, X
+ 41e:	80 93 f1 00 	sts	0x00F1, r24
+ 422:	df 01       	movw	r26, r30
+ 424:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 58)
 	UEDATX = *buffer++;
- 45e:	81 81       	ldd	r24, Z+1	; 0x01
- 460:	80 93 f1 00 	sts	0x00F1, r24
- 464:	fd 01       	movw	r30, r26
- 466:	31 96       	adiw	r30, 0x01	; 1
+ 426:	81 81       	ldd	r24, Z+1	; 0x01
+ 428:	80 93 f1 00 	sts	0x00F1, r24
+ 42c:	fd 01       	movw	r30, r26
+ 42e:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 57)
 	UEDATX = *buffer++;
- 468:	11 96       	adiw	r26, 0x01	; 1
- 46a:	8c 91       	ld	r24, X
- 46c:	80 93 f1 00 	sts	0x00F1, r24
- 470:	df 01       	movw	r26, r30
- 472:	11 96       	adiw	r26, 0x01	; 1
+ 430:	11 96       	adiw	r26, 0x01	; 1
+ 432:	8c 91       	ld	r24, X
+ 434:	80 93 f1 00 	sts	0x00F1, r24
+ 438:	df 01       	movw	r26, r30
+ 43a:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 56)
 	UEDATX = *buffer++;
- 474:	81 81       	ldd	r24, Z+1	; 0x01
- 476:	80 93 f1 00 	sts	0x00F1, r24
- 47a:	fd 01       	movw	r30, r26
- 47c:	31 96       	adiw	r30, 0x01	; 1
+ 43c:	81 81       	ldd	r24, Z+1	; 0x01
+ 43e:	80 93 f1 00 	sts	0x00F1, r24
+ 442:	fd 01       	movw	r30, r26
+ 444:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 55)
 	UEDATX = *buffer++;
- 47e:	11 96       	adiw	r26, 0x01	; 1
- 480:	8c 91       	ld	r24, X
- 482:	80 93 f1 00 	sts	0x00F1, r24
- 486:	df 01       	movw	r26, r30
- 488:	11 96       	adiw	r26, 0x01	; 1
+ 446:	11 96       	adiw	r26, 0x01	; 1
+ 448:	8c 91       	ld	r24, X
+ 44a:	80 93 f1 00 	sts	0x00F1, r24
+ 44e:	df 01       	movw	r26, r30
+ 450:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 54)
 	UEDATX = *buffer++;
- 48a:	81 81       	ldd	r24, Z+1	; 0x01
- 48c:	80 93 f1 00 	sts	0x00F1, r24
- 490:	fd 01       	movw	r30, r26
- 492:	31 96       	adiw	r30, 0x01	; 1
+ 452:	81 81       	ldd	r24, Z+1	; 0x01
+ 454:	80 93 f1 00 	sts	0x00F1, r24
+ 458:	fd 01       	movw	r30, r26
+ 45a:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 53)
 	UEDATX = *buffer++;
- 494:	11 96       	adiw	r26, 0x01	; 1
- 496:	8c 91       	ld	r24, X
- 498:	80 93 f1 00 	sts	0x00F1, r24
- 49c:	df 01       	movw	r26, r30
- 49e:	11 96       	adiw	r26, 0x01	; 1
+ 45c:	11 96       	adiw	r26, 0x01	; 1
+ 45e:	8c 91       	ld	r24, X
+ 460:	80 93 f1 00 	sts	0x00F1, r24
+ 464:	df 01       	movw	r26, r30
+ 466:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 52)
 	UEDATX = *buffer++;
- 4a0:	81 81       	ldd	r24, Z+1	; 0x01
- 4a2:	80 93 f1 00 	sts	0x00F1, r24
- 4a6:	fd 01       	movw	r30, r26
- 4a8:	31 96       	adiw	r30, 0x01	; 1
+ 468:	81 81       	ldd	r24, Z+1	; 0x01
+ 46a:	80 93 f1 00 	sts	0x00F1, r24
+ 46e:	fd 01       	movw	r30, r26
+ 470:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 51)
 	UEDATX = *buffer++;
- 4aa:	11 96       	adiw	r26, 0x01	; 1
- 4ac:	8c 91       	ld	r24, X
- 4ae:	80 93 f1 00 	sts	0x00F1, r24
- 4b2:	df 01       	movw	r26, r30
- 4b4:	11 96       	adiw	r26, 0x01	; 1
+ 472:	11 96       	adiw	r26, 0x01	; 1
+ 474:	8c 91       	ld	r24, X
+ 476:	80 93 f1 00 	sts	0x00F1, r24
+ 47a:	df 01       	movw	r26, r30
+ 47c:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 50)
 	UEDATX = *buffer++;
- 4b6:	81 81       	ldd	r24, Z+1	; 0x01
- 4b8:	80 93 f1 00 	sts	0x00F1, r24
- 4bc:	fd 01       	movw	r30, r26
- 4be:	31 96       	adiw	r30, 0x01	; 1
+ 47e:	81 81       	ldd	r24, Z+1	; 0x01
+ 480:	80 93 f1 00 	sts	0x00F1, r24
+ 484:	fd 01       	movw	r30, r26
+ 486:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 49)
 	UEDATX = *buffer++;
- 4c0:	11 96       	adiw	r26, 0x01	; 1
- 4c2:	8c 91       	ld	r24, X
- 4c4:	80 93 f1 00 	sts	0x00F1, r24
- 4c8:	df 01       	movw	r26, r30
- 4ca:	11 96       	adiw	r26, 0x01	; 1
+ 488:	11 96       	adiw	r26, 0x01	; 1
+ 48a:	8c 91       	ld	r24, X
+ 48c:	80 93 f1 00 	sts	0x00F1, r24
+ 490:	df 01       	movw	r26, r30
+ 492:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 48)
 	UEDATX = *buffer++;
- 4cc:	81 81       	ldd	r24, Z+1	; 0x01
- 4ce:	80 93 f1 00 	sts	0x00F1, r24
- 4d2:	fd 01       	movw	r30, r26
- 4d4:	31 96       	adiw	r30, 0x01	; 1
+ 494:	81 81       	ldd	r24, Z+1	; 0x01
+ 496:	80 93 f1 00 	sts	0x00F1, r24
+ 49a:	fd 01       	movw	r30, r26
+ 49c:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 47)
 	UEDATX = *buffer++;
- 4d6:	11 96       	adiw	r26, 0x01	; 1
- 4d8:	8c 91       	ld	r24, X
- 4da:	80 93 f1 00 	sts	0x00F1, r24
- 4de:	df 01       	movw	r26, r30
- 4e0:	11 96       	adiw	r26, 0x01	; 1
+ 49e:	11 96       	adiw	r26, 0x01	; 1
+ 4a0:	8c 91       	ld	r24, X
+ 4a2:	80 93 f1 00 	sts	0x00F1, r24
+ 4a6:	df 01       	movw	r26, r30
+ 4a8:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 46)
 	UEDATX = *buffer++;
- 4e2:	81 81       	ldd	r24, Z+1	; 0x01
- 4e4:	80 93 f1 00 	sts	0x00F1, r24
- 4e8:	fd 01       	movw	r30, r26
- 4ea:	31 96       	adiw	r30, 0x01	; 1
+ 4aa:	81 81       	ldd	r24, Z+1	; 0x01
+ 4ac:	80 93 f1 00 	sts	0x00F1, r24
+ 4b0:	fd 01       	movw	r30, r26
+ 4b2:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 45)
 	UEDATX = *buffer++;
- 4ec:	11 96       	adiw	r26, 0x01	; 1
- 4ee:	8c 91       	ld	r24, X
- 4f0:	80 93 f1 00 	sts	0x00F1, r24
- 4f4:	df 01       	movw	r26, r30
- 4f6:	11 96       	adiw	r26, 0x01	; 1
+ 4b4:	11 96       	adiw	r26, 0x01	; 1
+ 4b6:	8c 91       	ld	r24, X
+ 4b8:	80 93 f1 00 	sts	0x00F1, r24
+ 4bc:	df 01       	movw	r26, r30
+ 4be:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 44)
 	UEDATX = *buffer++;
- 4f8:	81 81       	ldd	r24, Z+1	; 0x01
- 4fa:	80 93 f1 00 	sts	0x00F1, r24
- 4fe:	fd 01       	movw	r30, r26
- 500:	31 96       	adiw	r30, 0x01	; 1
+ 4c0:	81 81       	ldd	r24, Z+1	; 0x01
+ 4c2:	80 93 f1 00 	sts	0x00F1, r24
+ 4c6:	fd 01       	movw	r30, r26
+ 4c8:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 43)
 	UEDATX = *buffer++;
- 502:	11 96       	adiw	r26, 0x01	; 1
- 504:	8c 91       	ld	r24, X
- 506:	80 93 f1 00 	sts	0x00F1, r24
- 50a:	df 01       	movw	r26, r30
- 50c:	11 96       	adiw	r26, 0x01	; 1
+ 4ca:	11 96       	adiw	r26, 0x01	; 1
+ 4cc:	8c 91       	ld	r24, X
+ 4ce:	80 93 f1 00 	sts	0x00F1, r24
+ 4d2:	df 01       	movw	r26, r30
+ 4d4:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 42)
 	UEDATX = *buffer++;
- 50e:	81 81       	ldd	r24, Z+1	; 0x01
- 510:	80 93 f1 00 	sts	0x00F1, r24
- 514:	fd 01       	movw	r30, r26
- 516:	31 96       	adiw	r30, 0x01	; 1
+ 4d6:	81 81       	ldd	r24, Z+1	; 0x01
+ 4d8:	80 93 f1 00 	sts	0x00F1, r24
+ 4dc:	fd 01       	movw	r30, r26
+ 4de:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 41)
 	UEDATX = *buffer++;
- 518:	11 96       	adiw	r26, 0x01	; 1
- 51a:	8c 91       	ld	r24, X
- 51c:	80 93 f1 00 	sts	0x00F1, r24
- 520:	df 01       	movw	r26, r30
- 522:	11 96       	adiw	r26, 0x01	; 1
+ 4e0:	11 96       	adiw	r26, 0x01	; 1
+ 4e2:	8c 91       	ld	r24, X
+ 4e4:	80 93 f1 00 	sts	0x00F1, r24
+ 4e8:	df 01       	movw	r26, r30
+ 4ea:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 40)
 	UEDATX = *buffer++;
- 524:	81 81       	ldd	r24, Z+1	; 0x01
- 526:	80 93 f1 00 	sts	0x00F1, r24
- 52a:	fd 01       	movw	r30, r26
- 52c:	31 96       	adiw	r30, 0x01	; 1
+ 4ec:	81 81       	ldd	r24, Z+1	; 0x01
+ 4ee:	80 93 f1 00 	sts	0x00F1, r24
+ 4f2:	fd 01       	movw	r30, r26
+ 4f4:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 39)
 	UEDATX = *buffer++;
- 52e:	11 96       	adiw	r26, 0x01	; 1
- 530:	8c 91       	ld	r24, X
- 532:	80 93 f1 00 	sts	0x00F1, r24
- 536:	df 01       	movw	r26, r30
- 538:	11 96       	adiw	r26, 0x01	; 1
+ 4f6:	11 96       	adiw	r26, 0x01	; 1
+ 4f8:	8c 91       	ld	r24, X
+ 4fa:	80 93 f1 00 	sts	0x00F1, r24
+ 4fe:	df 01       	movw	r26, r30
+ 500:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 38)
 	UEDATX = *buffer++;
- 53a:	81 81       	ldd	r24, Z+1	; 0x01
- 53c:	80 93 f1 00 	sts	0x00F1, r24
- 540:	fd 01       	movw	r30, r26
- 542:	31 96       	adiw	r30, 0x01	; 1
+ 502:	81 81       	ldd	r24, Z+1	; 0x01
+ 504:	80 93 f1 00 	sts	0x00F1, r24
+ 508:	fd 01       	movw	r30, r26
+ 50a:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 37)
 	UEDATX = *buffer++;
- 544:	11 96       	adiw	r26, 0x01	; 1
- 546:	8c 91       	ld	r24, X
- 548:	80 93 f1 00 	sts	0x00F1, r24
- 54c:	df 01       	movw	r26, r30
- 54e:	11 96       	adiw	r26, 0x01	; 1
+ 50c:	11 96       	adiw	r26, 0x01	; 1
+ 50e:	8c 91       	ld	r24, X
+ 510:	80 93 f1 00 	sts	0x00F1, r24
+ 514:	df 01       	movw	r26, r30
+ 516:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 36)
 	UEDATX = *buffer++;
- 550:	81 81       	ldd	r24, Z+1	; 0x01
- 552:	80 93 f1 00 	sts	0x00F1, r24
- 556:	fd 01       	movw	r30, r26
- 558:	31 96       	adiw	r30, 0x01	; 1
+ 518:	81 81       	ldd	r24, Z+1	; 0x01
+ 51a:	80 93 f1 00 	sts	0x00F1, r24
+ 51e:	fd 01       	movw	r30, r26
+ 520:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 35)
 	UEDATX = *buffer++;
- 55a:	11 96       	adiw	r26, 0x01	; 1
- 55c:	8c 91       	ld	r24, X
- 55e:	80 93 f1 00 	sts	0x00F1, r24
- 562:	df 01       	movw	r26, r30
- 564:	11 96       	adiw	r26, 0x01	; 1
+ 522:	11 96       	adiw	r26, 0x01	; 1
+ 524:	8c 91       	ld	r24, X
+ 526:	80 93 f1 00 	sts	0x00F1, r24
+ 52a:	df 01       	movw	r26, r30
+ 52c:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 34)
 	UEDATX = *buffer++;
- 566:	81 81       	ldd	r24, Z+1	; 0x01
- 568:	80 93 f1 00 	sts	0x00F1, r24
- 56c:	fd 01       	movw	r30, r26
- 56e:	31 96       	adiw	r30, 0x01	; 1
+ 52e:	81 81       	ldd	r24, Z+1	; 0x01
+ 530:	80 93 f1 00 	sts	0x00F1, r24
+ 534:	fd 01       	movw	r30, r26
+ 536:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 33)
 	UEDATX = *buffer++;
- 570:	11 96       	adiw	r26, 0x01	; 1
- 572:	8c 91       	ld	r24, X
- 574:	80 93 f1 00 	sts	0x00F1, r24
- 578:	df 01       	movw	r26, r30
- 57a:	11 96       	adiw	r26, 0x01	; 1
+ 538:	11 96       	adiw	r26, 0x01	; 1
+ 53a:	8c 91       	ld	r24, X
+ 53c:	80 93 f1 00 	sts	0x00F1, r24
+ 540:	df 01       	movw	r26, r30
+ 542:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 32)
 	UEDATX = *buffer++;
- 57c:	81 81       	ldd	r24, Z+1	; 0x01
- 57e:	80 93 f1 00 	sts	0x00F1, r24
- 582:	fd 01       	movw	r30, r26
- 584:	31 96       	adiw	r30, 0x01	; 1
+ 544:	81 81       	ldd	r24, Z+1	; 0x01
+ 546:	80 93 f1 00 	sts	0x00F1, r24
+ 54a:	fd 01       	movw	r30, r26
+ 54c:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 31)
 	UEDATX = *buffer++;
- 586:	11 96       	adiw	r26, 0x01	; 1
- 588:	8c 91       	ld	r24, X
- 58a:	80 93 f1 00 	sts	0x00F1, r24
- 58e:	df 01       	movw	r26, r30
- 590:	11 96       	adiw	r26, 0x01	; 1
+ 54e:	11 96       	adiw	r26, 0x01	; 1
+ 550:	8c 91       	ld	r24, X
+ 552:	80 93 f1 00 	sts	0x00F1, r24
+ 556:	df 01       	movw	r26, r30
+ 558:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 30)
 	UEDATX = *buffer++;
- 592:	81 81       	ldd	r24, Z+1	; 0x01
- 594:	80 93 f1 00 	sts	0x00F1, r24
- 598:	fd 01       	movw	r30, r26
- 59a:	31 96       	adiw	r30, 0x01	; 1
+ 55a:	81 81       	ldd	r24, Z+1	; 0x01
+ 55c:	80 93 f1 00 	sts	0x00F1, r24
+ 560:	fd 01       	movw	r30, r26
+ 562:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 29)
 	UEDATX = *buffer++;
- 59c:	11 96       	adiw	r26, 0x01	; 1
- 59e:	8c 91       	ld	r24, X
- 5a0:	80 93 f1 00 	sts	0x00F1, r24
- 5a4:	df 01       	movw	r26, r30
- 5a6:	11 96       	adiw	r26, 0x01	; 1
+ 564:	11 96       	adiw	r26, 0x01	; 1
+ 566:	8c 91       	ld	r24, X
+ 568:	80 93 f1 00 	sts	0x00F1, r24
+ 56c:	df 01       	movw	r26, r30
+ 56e:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 28)
 	UEDATX = *buffer++;
- 5a8:	81 81       	ldd	r24, Z+1	; 0x01
- 5aa:	80 93 f1 00 	sts	0x00F1, r24
- 5ae:	fd 01       	movw	r30, r26
- 5b0:	31 96       	adiw	r30, 0x01	; 1
+ 570:	81 81       	ldd	r24, Z+1	; 0x01
+ 572:	80 93 f1 00 	sts	0x00F1, r24
+ 576:	fd 01       	movw	r30, r26
+ 578:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 27)
 	UEDATX = *buffer++;
- 5b2:	11 96       	adiw	r26, 0x01	; 1
- 5b4:	8c 91       	ld	r24, X
- 5b6:	80 93 f1 00 	sts	0x00F1, r24
- 5ba:	df 01       	movw	r26, r30
- 5bc:	11 96       	adiw	r26, 0x01	; 1
+ 57a:	11 96       	adiw	r26, 0x01	; 1
+ 57c:	8c 91       	ld	r24, X
+ 57e:	80 93 f1 00 	sts	0x00F1, r24
+ 582:	df 01       	movw	r26, r30
+ 584:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 26)
 	UEDATX = *buffer++;
- 5be:	81 81       	ldd	r24, Z+1	; 0x01
- 5c0:	80 93 f1 00 	sts	0x00F1, r24
- 5c4:	fd 01       	movw	r30, r26
- 5c6:	31 96       	adiw	r30, 0x01	; 1
+ 586:	81 81       	ldd	r24, Z+1	; 0x01
+ 588:	80 93 f1 00 	sts	0x00F1, r24
+ 58c:	fd 01       	movw	r30, r26
+ 58e:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 25)
 	UEDATX = *buffer++;
- 5c8:	11 96       	adiw	r26, 0x01	; 1
- 5ca:	8c 91       	ld	r24, X
- 5cc:	80 93 f1 00 	sts	0x00F1, r24
- 5d0:	df 01       	movw	r26, r30
- 5d2:	11 96       	adiw	r26, 0x01	; 1
+ 590:	11 96       	adiw	r26, 0x01	; 1
+ 592:	8c 91       	ld	r24, X
+ 594:	80 93 f1 00 	sts	0x00F1, r24
+ 598:	df 01       	movw	r26, r30
+ 59a:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 24)
 	UEDATX = *buffer++;
- 5d4:	81 81       	ldd	r24, Z+1	; 0x01
- 5d6:	80 93 f1 00 	sts	0x00F1, r24
- 5da:	fd 01       	movw	r30, r26
- 5dc:	31 96       	adiw	r30, 0x01	; 1
+ 59c:	81 81       	ldd	r24, Z+1	; 0x01
+ 59e:	80 93 f1 00 	sts	0x00F1, r24
+ 5a2:	fd 01       	movw	r30, r26
+ 5a4:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 23)
 	UEDATX = *buffer++;
- 5de:	11 96       	adiw	r26, 0x01	; 1
- 5e0:	8c 91       	ld	r24, X
- 5e2:	80 93 f1 00 	sts	0x00F1, r24
- 5e6:	df 01       	movw	r26, r30
- 5e8:	11 96       	adiw	r26, 0x01	; 1
+ 5a6:	11 96       	adiw	r26, 0x01	; 1
+ 5a8:	8c 91       	ld	r24, X
+ 5aa:	80 93 f1 00 	sts	0x00F1, r24
+ 5ae:	df 01       	movw	r26, r30
+ 5b0:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 22)
 	UEDATX = *buffer++;
- 5ea:	81 81       	ldd	r24, Z+1	; 0x01
- 5ec:	80 93 f1 00 	sts	0x00F1, r24
- 5f0:	fd 01       	movw	r30, r26
- 5f2:	31 96       	adiw	r30, 0x01	; 1
+ 5b2:	81 81       	ldd	r24, Z+1	; 0x01
+ 5b4:	80 93 f1 00 	sts	0x00F1, r24
+ 5b8:	fd 01       	movw	r30, r26
+ 5ba:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 21)
 	UEDATX = *buffer++;
- 5f4:	11 96       	adiw	r26, 0x01	; 1
- 5f6:	8c 91       	ld	r24, X
- 5f8:	80 93 f1 00 	sts	0x00F1, r24
- 5fc:	df 01       	movw	r26, r30
- 5fe:	11 96       	adiw	r26, 0x01	; 1
+ 5bc:	11 96       	adiw	r26, 0x01	; 1
+ 5be:	8c 91       	ld	r24, X
+ 5c0:	80 93 f1 00 	sts	0x00F1, r24
+ 5c4:	df 01       	movw	r26, r30
+ 5c6:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 20)
 	UEDATX = *buffer++;
- 600:	81 81       	ldd	r24, Z+1	; 0x01
- 602:	80 93 f1 00 	sts	0x00F1, r24
- 606:	fd 01       	movw	r30, r26
- 608:	31 96       	adiw	r30, 0x01	; 1
+ 5c8:	81 81       	ldd	r24, Z+1	; 0x01
+ 5ca:	80 93 f1 00 	sts	0x00F1, r24
+ 5ce:	fd 01       	movw	r30, r26
+ 5d0:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 19)
 	UEDATX = *buffer++;
- 60a:	11 96       	adiw	r26, 0x01	; 1
- 60c:	8c 91       	ld	r24, X
- 60e:	80 93 f1 00 	sts	0x00F1, r24
- 612:	df 01       	movw	r26, r30
- 614:	11 96       	adiw	r26, 0x01	; 1
+ 5d2:	11 96       	adiw	r26, 0x01	; 1
+ 5d4:	8c 91       	ld	r24, X
+ 5d6:	80 93 f1 00 	sts	0x00F1, r24
+ 5da:	df 01       	movw	r26, r30
+ 5dc:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 18)
 	UEDATX = *buffer++;
- 616:	81 81       	ldd	r24, Z+1	; 0x01
- 618:	80 93 f1 00 	sts	0x00F1, r24
- 61c:	fd 01       	movw	r30, r26
- 61e:	31 96       	adiw	r30, 0x01	; 1
+ 5de:	81 81       	ldd	r24, Z+1	; 0x01
+ 5e0:	80 93 f1 00 	sts	0x00F1, r24
+ 5e4:	fd 01       	movw	r30, r26
+ 5e6:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 17)
 	UEDATX = *buffer++;
- 620:	11 96       	adiw	r26, 0x01	; 1
- 622:	8c 91       	ld	r24, X
- 624:	80 93 f1 00 	sts	0x00F1, r24
- 628:	df 01       	movw	r26, r30
- 62a:	11 96       	adiw	r26, 0x01	; 1
+ 5e8:	11 96       	adiw	r26, 0x01	; 1
+ 5ea:	8c 91       	ld	r24, X
+ 5ec:	80 93 f1 00 	sts	0x00F1, r24
+ 5f0:	df 01       	movw	r26, r30
+ 5f2:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 16)
 	UEDATX = *buffer++;
- 62c:	81 81       	ldd	r24, Z+1	; 0x01
- 62e:	80 93 f1 00 	sts	0x00F1, r24
- 632:	fd 01       	movw	r30, r26
- 634:	31 96       	adiw	r30, 0x01	; 1
+ 5f4:	81 81       	ldd	r24, Z+1	; 0x01
+ 5f6:	80 93 f1 00 	sts	0x00F1, r24
+ 5fa:	fd 01       	movw	r30, r26
+ 5fc:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 15)
 	UEDATX = *buffer++;
- 636:	11 96       	adiw	r26, 0x01	; 1
- 638:	8c 91       	ld	r24, X
- 63a:	80 93 f1 00 	sts	0x00F1, r24
- 63e:	df 01       	movw	r26, r30
- 640:	11 96       	adiw	r26, 0x01	; 1
+ 5fe:	11 96       	adiw	r26, 0x01	; 1
+ 600:	8c 91       	ld	r24, X
+ 602:	80 93 f1 00 	sts	0x00F1, r24
+ 606:	df 01       	movw	r26, r30
+ 608:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 14)
 	UEDATX = *buffer++;
- 642:	81 81       	ldd	r24, Z+1	; 0x01
- 644:	80 93 f1 00 	sts	0x00F1, r24
- 648:	fd 01       	movw	r30, r26
- 64a:	31 96       	adiw	r30, 0x01	; 1
+ 60a:	81 81       	ldd	r24, Z+1	; 0x01
+ 60c:	80 93 f1 00 	sts	0x00F1, r24
+ 610:	fd 01       	movw	r30, r26
+ 612:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 13)
 	UEDATX = *buffer++;
- 64c:	11 96       	adiw	r26, 0x01	; 1
- 64e:	8c 91       	ld	r24, X
- 650:	80 93 f1 00 	sts	0x00F1, r24
- 654:	df 01       	movw	r26, r30
- 656:	11 96       	adiw	r26, 0x01	; 1
+ 614:	11 96       	adiw	r26, 0x01	; 1
+ 616:	8c 91       	ld	r24, X
+ 618:	80 93 f1 00 	sts	0x00F1, r24
+ 61c:	df 01       	movw	r26, r30
+ 61e:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 12)
 	UEDATX = *buffer++;
- 658:	81 81       	ldd	r24, Z+1	; 0x01
- 65a:	80 93 f1 00 	sts	0x00F1, r24
- 65e:	fd 01       	movw	r30, r26
- 660:	31 96       	adiw	r30, 0x01	; 1
+ 620:	81 81       	ldd	r24, Z+1	; 0x01
+ 622:	80 93 f1 00 	sts	0x00F1, r24
+ 626:	fd 01       	movw	r30, r26
+ 628:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 11)
 	UEDATX = *buffer++;
- 662:	11 96       	adiw	r26, 0x01	; 1
- 664:	8c 91       	ld	r24, X
- 666:	80 93 f1 00 	sts	0x00F1, r24
- 66a:	df 01       	movw	r26, r30
- 66c:	11 96       	adiw	r26, 0x01	; 1
+ 62a:	11 96       	adiw	r26, 0x01	; 1
+ 62c:	8c 91       	ld	r24, X
+ 62e:	80 93 f1 00 	sts	0x00F1, r24
+ 632:	df 01       	movw	r26, r30
+ 634:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 10)
 	UEDATX = *buffer++;
- 66e:	81 81       	ldd	r24, Z+1	; 0x01
- 670:	80 93 f1 00 	sts	0x00F1, r24
- 674:	fd 01       	movw	r30, r26
- 676:	31 96       	adiw	r30, 0x01	; 1
+ 636:	81 81       	ldd	r24, Z+1	; 0x01
+ 638:	80 93 f1 00 	sts	0x00F1, r24
+ 63c:	fd 01       	movw	r30, r26
+ 63e:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 9)
 	UEDATX = *buffer++;
- 678:	11 96       	adiw	r26, 0x01	; 1
- 67a:	8c 91       	ld	r24, X
- 67c:	80 93 f1 00 	sts	0x00F1, r24
- 680:	df 01       	movw	r26, r30
- 682:	11 96       	adiw	r26, 0x01	; 1
+ 640:	11 96       	adiw	r26, 0x01	; 1
+ 642:	8c 91       	ld	r24, X
+ 644:	80 93 f1 00 	sts	0x00F1, r24
+ 648:	df 01       	movw	r26, r30
+ 64a:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 8)
 	UEDATX = *buffer++;
- 684:	81 81       	ldd	r24, Z+1	; 0x01
- 686:	80 93 f1 00 	sts	0x00F1, r24
- 68a:	fd 01       	movw	r30, r26
- 68c:	31 96       	adiw	r30, 0x01	; 1
+ 64c:	81 81       	ldd	r24, Z+1	; 0x01
+ 64e:	80 93 f1 00 	sts	0x00F1, r24
+ 652:	fd 01       	movw	r30, r26
+ 654:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 7)
 	UEDATX = *buffer++;
- 68e:	11 96       	adiw	r26, 0x01	; 1
- 690:	8c 91       	ld	r24, X
- 692:	80 93 f1 00 	sts	0x00F1, r24
- 696:	df 01       	movw	r26, r30
- 698:	11 96       	adiw	r26, 0x01	; 1
+ 656:	11 96       	adiw	r26, 0x01	; 1
+ 658:	8c 91       	ld	r24, X
+ 65a:	80 93 f1 00 	sts	0x00F1, r24
+ 65e:	df 01       	movw	r26, r30
+ 660:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 6)
 	UEDATX = *buffer++;
- 69a:	81 81       	ldd	r24, Z+1	; 0x01
- 69c:	80 93 f1 00 	sts	0x00F1, r24
- 6a0:	fd 01       	movw	r30, r26
- 6a2:	31 96       	adiw	r30, 0x01	; 1
+ 662:	81 81       	ldd	r24, Z+1	; 0x01
+ 664:	80 93 f1 00 	sts	0x00F1, r24
+ 668:	fd 01       	movw	r30, r26
+ 66a:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 5)
 	UEDATX = *buffer++;
- 6a4:	11 96       	adiw	r26, 0x01	; 1
- 6a6:	8c 91       	ld	r24, X
- 6a8:	80 93 f1 00 	sts	0x00F1, r24
- 6ac:	df 01       	movw	r26, r30
- 6ae:	11 96       	adiw	r26, 0x01	; 1
+ 66c:	11 96       	adiw	r26, 0x01	; 1
+ 66e:	8c 91       	ld	r24, X
+ 670:	80 93 f1 00 	sts	0x00F1, r24
+ 674:	df 01       	movw	r26, r30
+ 676:	11 96       	adiw	r26, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 4)
 	UEDATX = *buffer++;
- 6b0:	81 81       	ldd	r24, Z+1	; 0x01
- 6b2:	80 93 f1 00 	sts	0x00F1, r24
- 6b6:	fd 01       	movw	r30, r26
- 6b8:	31 96       	adiw	r30, 0x01	; 1
+ 678:	81 81       	ldd	r24, Z+1	; 0x01
+ 67a:	80 93 f1 00 	sts	0x00F1, r24
+ 67e:	fd 01       	movw	r30, r26
+ 680:	31 96       	adiw	r30, 0x01	; 1
 	#endif
 	#if (RAWHID_TX_SIZE >= 3)
 	UEDATX = *buffer++;
- 6ba:	11 96       	adiw	r26, 0x01	; 1
- 6bc:	8c 91       	ld	r24, X
- 6be:	11 97       	sbiw	r26, 0x01	; 1
- 6c0:	80 93 f1 00 	sts	0x00F1, r24
+ 682:	11 96       	adiw	r26, 0x01	; 1
+ 684:	8c 91       	ld	r24, X
+ 686:	80 93 f1 00 	sts	0x00F1, r24
 	#endif
 	#if (RAWHID_TX_SIZE >= 2)
 	UEDATX = *buffer++;
- 6c4:	81 81       	ldd	r24, Z+1	; 0x01
- 6c6:	80 93 f1 00 	sts	0x00F1, r24
+ 68a:	81 81       	ldd	r24, Z+1	; 0x01
+ 68c:	80 93 f1 00 	sts	0x00F1, r24
 	#endif
 	#if (RAWHID_TX_SIZE >= 1)
 	UEDATX = *buffer++;
- 6ca:	82 81       	ldd	r24, Z+2	; 0x02
- 6cc:	80 93 f1 00 	sts	0x00F1, r24
+ 690:	82 81       	ldd	r24, Z+2	; 0x02
+ 692:	80 93 f1 00 	sts	0x00F1, r24
 	#endif
 	// transmit it now
 	UEINTX = 0x3A;
- 6d0:	8a e3       	ldi	r24, 0x3A	; 58
- 6d2:	80 93 e8 00 	sts	0x00E8, r24
+ 696:	8a e3       	ldi	r24, 0x3A	; 58
+ 698:	80 93 e8 00 	sts	0x00E8, r24
 	SREG = intr_state;
- 6d6:	2f bf       	out	0x3f, r18	; 63
+ 69c:	2f bf       	out	0x3f, r18	; 63
+ 69e:	80 e4       	ldi	r24, 0x40	; 64
+ 6a0:	08 95       	ret
 	return RAWHID_TX_SIZE;
- 6d8:	80 e4       	ldi	r24, 0x40	; 64
- 6da:	08 95       	ret
-int8_t usb_rawhid_send(const uint8_t *buffer, uint8_t timeout)
-{
-	uint8_t intr_state;
-
-	// if we're not online (enumerated and configured), error
-	if (!usb_configuration) return -1;
- 6dc:	8f ef       	ldi	r24, 0xFF	; 255
- 6de:	08 95       	ret
-	UENUM = RAWHID_TX_ENDPOINT;
-	// wait for the FIFO to be ready to accept data
-	while (1) {
-		if (UEINTX & (1<<RWAL)) break;
-		SREG = intr_state;
-		if (tx_timeout_count == 0) return 0;
- 6e0:	80 e0       	ldi	r24, 0x00	; 0
- 6e2:	08 95       	ret
-		if (!usb_configuration) return -1;
- 6e4:	8f ef       	ldi	r24, 0xFF	; 255
-	#endif
-	// transmit it now
-	UEINTX = 0x3A;
-	SREG = intr_state;
-	return RAWHID_TX_SIZE;
+ 6a2:	8f ef       	ldi	r24, 0xFF	; 255
 }
- 6e6:	08 95       	ret
+ 6a4:	08 95       	ret
 
-000006e8 <__vector_10>:
+000006a6 <__vector_10>:
 
 // USB Device Interrupt - handle all device-level events
 // the transmit buffer flushing is triggered by the start of frame
 //
 ISR(USB_GEN_vect)
 {
- 6e8:	1f 92       	push	r1
- 6ea:	0f 92       	push	r0
- 6ec:	0f b6       	in	r0, 0x3f	; 63
- 6ee:	0f 92       	push	r0
- 6f0:	11 24       	eor	r1, r1
- 6f2:	8f 93       	push	r24
- 6f4:	9f 93       	push	r25
+ 6a6:	1f 92       	push	r1
+ 6a8:	0f 92       	push	r0
+ 6aa:	0f b6       	in	r0, 0x3f	; 63
+ 6ac:	0f 92       	push	r0
+ 6ae:	11 24       	eor	r1, r1
+ 6b0:	8f 93       	push	r24
+ 6b2:	9f 93       	push	r25
 	uint8_t intbits, t;
 
         intbits = UDINT;
- 6f6:	80 91 e1 00 	lds	r24, 0x00E1
+ 6b4:	80 91 e1 00 	lds	r24, 0x00E1
         UDINT = 0;
- 6fa:	10 92 e1 00 	sts	0x00E1, r1
+ 6b8:	10 92 e1 00 	sts	0x00E1, r1
         if (intbits & (1<<EORSTI)) {
- 6fe:	83 ff       	sbrs	r24, 3
- 700:	0f c0       	rjmp	.+30     	; 0x720 <__vector_10+0x38>
+ 6bc:	98 2f       	mov	r25, r24
+ 6be:	93 ff       	sbrs	r25, 3
+ 6c0:	0f c0       	rjmp	.+30     	; 0x6e0 <__vector_10+0x3a>
 		UENUM = 0;
- 702:	10 92 e9 00 	sts	0x00E9, r1
+ 6c2:	10 92 e9 00 	sts	0x00E9, r1
 		UECONX = 1;
- 706:	91 e0       	ldi	r25, 0x01	; 1
- 708:	90 93 eb 00 	sts	0x00EB, r25
+ 6c6:	81 e0       	ldi	r24, 0x01	; 1
+ 6c8:	80 93 eb 00 	sts	0x00EB, r24
 		UECFG0X = EP_TYPE_CONTROL;
- 70c:	10 92 ec 00 	sts	0x00EC, r1
+ 6cc:	10 92 ec 00 	sts	0x00EC, r1
 		UECFG1X = EP_SIZE(ENDPOINT0_SIZE) | EP_SINGLE_BUFFER;
- 710:	92 e2       	ldi	r25, 0x22	; 34
- 712:	90 93 ed 00 	sts	0x00ED, r25
+ 6d0:	82 e2       	ldi	r24, 0x22	; 34
+ 6d2:	80 93 ed 00 	sts	0x00ED, r24
 		UEIENX = (1<<RXSTPE);
- 716:	98 e0       	ldi	r25, 0x08	; 8
- 718:	90 93 f0 00 	sts	0x00F0, r25
+ 6d6:	88 e0       	ldi	r24, 0x08	; 8
+ 6d8:	80 93 f0 00 	sts	0x00F0, r24
 		usb_configuration = 0;
- 71c:	10 92 22 01 	sts	0x0122, r1
+ 6dc:	10 92 22 01 	sts	0x0122, r1
         }
 	if ((intbits & (1<<SOFI)) && usb_configuration) {
- 720:	82 ff       	sbrs	r24, 2
- 722:	12 c0       	rjmp	.+36     	; 0x748 <__vector_10+0x60>
- 724:	80 91 22 01 	lds	r24, 0x0122
- 728:	88 23       	and	r24, r24
- 72a:	71 f0       	breq	.+28     	; 0x748 <__vector_10+0x60>
+ 6e0:	92 ff       	sbrs	r25, 2
+ 6e2:	12 c0       	rjmp	.+36     	; 0x708 <__vector_10+0x62>
+ 6e4:	80 91 22 01 	lds	r24, 0x0122
+ 6e8:	88 23       	and	r24, r24
+ 6ea:	71 f0       	breq	.+28     	; 0x708 <__vector_10+0x62>
 		t = rx_timeout_count;
- 72c:	80 91 23 01 	lds	r24, 0x0123
+ 6ec:	80 91 23 01 	lds	r24, 0x0123
 		if (t) rx_timeout_count = --t;
- 730:	88 23       	and	r24, r24
- 732:	19 f0       	breq	.+6      	; 0x73a <__vector_10+0x52>
- 734:	81 50       	subi	r24, 0x01	; 1
- 736:	80 93 23 01 	sts	0x0123, r24
+ 6f0:	88 23       	and	r24, r24
+ 6f2:	19 f0       	breq	.+6      	; 0x6fa <__vector_10+0x54>
+ 6f4:	81 50       	subi	r24, 0x01	; 1
+ 6f6:	80 93 23 01 	sts	0x0123, r24
 		t = tx_timeout_count;
- 73a:	80 91 24 01 	lds	r24, 0x0124
+ 6fa:	80 91 24 01 	lds	r24, 0x0124
 		if (t) tx_timeout_count = --t;
- 73e:	88 23       	and	r24, r24
- 740:	19 f0       	breq	.+6      	; 0x748 <__vector_10+0x60>
- 742:	81 50       	subi	r24, 0x01	; 1
- 744:	80 93 24 01 	sts	0x0124, r24
+ 6fe:	88 23       	and	r24, r24
+ 700:	19 f0       	breq	.+6      	; 0x708 <__vector_10+0x62>
+ 702:	81 50       	subi	r24, 0x01	; 1
+ 704:	80 93 24 01 	sts	0x0124, r24
 	}
 }
- 748:	9f 91       	pop	r25
- 74a:	8f 91       	pop	r24
- 74c:	0f 90       	pop	r0
- 74e:	0f be       	out	0x3f, r0	; 63
- 750:	0f 90       	pop	r0
- 752:	1f 90       	pop	r1
- 754:	18 95       	reti
+ 708:	9f 91       	pop	r25
+ 70a:	8f 91       	pop	r24
+ 70c:	0f 90       	pop	r0
+ 70e:	0f be       	out	0x3f, r0	; 63
+ 710:	0f 90       	pop	r0
+ 712:	1f 90       	pop	r1
+ 714:	18 95       	reti
 
-00000756 <__vector_11>:
+00000716 <__vector_11>:
 // USB Endpoint Interrupt - endpoint 0 is handled here.  The
 // other endpoints are manipulated by the user-callable
 // functions, and the start-of-frame interrupt.
 //
 ISR(USB_COM_vect)
 {
- 756:	1f 92       	push	r1
- 758:	0f 92       	push	r0
- 75a:	0f b6       	in	r0, 0x3f	; 63
- 75c:	0f 92       	push	r0
- 75e:	11 24       	eor	r1, r1
- 760:	ef 92       	push	r14
- 762:	ff 92       	push	r15
- 764:	0f 93       	push	r16
- 766:	1f 93       	push	r17
- 768:	2f 93       	push	r18
- 76a:	3f 93       	push	r19
- 76c:	4f 93       	push	r20
- 76e:	5f 93       	push	r21
- 770:	6f 93       	push	r22
- 772:	7f 93       	push	r23
- 774:	8f 93       	push	r24
- 776:	9f 93       	push	r25
- 778:	af 93       	push	r26
- 77a:	bf 93       	push	r27
- 77c:	ef 93       	push	r30
- 77e:	ff 93       	push	r31
- 780:	df 93       	push	r29
- 782:	cf 93       	push	r28
- 784:	0f 92       	push	r0
- 786:	cd b7       	in	r28, 0x3d	; 61
- 788:	de b7       	in	r29, 0x3e	; 62
+ 716:	1f 92       	push	r1
+ 718:	0f 92       	push	r0
+ 71a:	0f b6       	in	r0, 0x3f	; 63
+ 71c:	0f 92       	push	r0
+ 71e:	11 24       	eor	r1, r1
+ 720:	0f 93       	push	r16
+ 722:	1f 93       	push	r17
+ 724:	2f 93       	push	r18
+ 726:	3f 93       	push	r19
+ 728:	4f 93       	push	r20
+ 72a:	5f 93       	push	r21
+ 72c:	6f 93       	push	r22
+ 72e:	7f 93       	push	r23
+ 730:	8f 93       	push	r24
+ 732:	9f 93       	push	r25
+ 734:	af 93       	push	r26
+ 736:	bf 93       	push	r27
+ 738:	ef 93       	push	r30
+ 73a:	ff 93       	push	r31
 	uint16_t wLength;
 	uint16_t desc_val;
 	const uint8_t *desc_addr;
 	uint8_t	desc_length;
 
         UENUM = 0;
- 78a:	10 92 e9 00 	sts	0x00E9, r1
+ 73c:	10 92 e9 00 	sts	0x00E9, r1
 	intbits = UEINTX;
- 78e:	80 91 e8 00 	lds	r24, 0x00E8
+ 740:	80 91 e8 00 	lds	r24, 0x00E8
         if (intbits & (1<<RXSTPI)) {
- 792:	83 ff       	sbrs	r24, 3
- 794:	32 c1       	rjmp	.+612    	; 0x9fa <__vector_11+0x2a4>
+ 744:	83 ff       	sbrs	r24, 3
+ 746:	42 c1       	rjmp	.+644    	; 0x9cc <__vector_11+0x2b6>
                 bmRequestType = UEDATX;
- 796:	20 91 f1 00 	lds	r18, 0x00F1
+ 748:	40 91 f1 00 	lds	r20, 0x00F1
                 bRequest = UEDATX;
- 79a:	30 91 f1 00 	lds	r19, 0x00F1
+ 74c:	30 91 f1 00 	lds	r19, 0x00F1
                 wValue = UEDATX;
- 79e:	00 91 f1 00 	lds	r16, 0x00F1
- 7a2:	10 e0       	ldi	r17, 0x00	; 0
+ 750:	80 91 f1 00 	lds	r24, 0x00F1
+ 754:	a8 2f       	mov	r26, r24
+ 756:	b0 e0       	ldi	r27, 0x00	; 0
                 wValue |= (UEDATX << 8);
- 7a4:	40 91 f1 00 	lds	r20, 0x00F1
- 7a8:	94 2f       	mov	r25, r20
- 7aa:	80 e0       	ldi	r24, 0x00	; 0
- 7ac:	08 2b       	or	r16, r24
- 7ae:	19 2b       	or	r17, r25
+ 758:	20 91 f1 00 	lds	r18, 0x00F1
+ 75c:	92 2f       	mov	r25, r18
+ 75e:	80 e0       	ldi	r24, 0x00	; 0
+ 760:	a8 2b       	or	r26, r24
+ 762:	b9 2b       	or	r27, r25
                 wIndex = UEDATX;
- 7b0:	80 91 f1 00 	lds	r24, 0x00F1
- 7b4:	e8 2e       	mov	r14, r24
- 7b6:	ff 24       	eor	r15, r15
+ 764:	80 91 f1 00 	lds	r24, 0x00F1
+ 768:	68 2f       	mov	r22, r24
+ 76a:	70 e0       	ldi	r23, 0x00	; 0
                 wIndex |= (UEDATX << 8);
- 7b8:	40 91 f1 00 	lds	r20, 0x00F1
- 7bc:	94 2f       	mov	r25, r20
- 7be:	80 e0       	ldi	r24, 0x00	; 0
- 7c0:	e8 2a       	or	r14, r24
- 7c2:	f9 2a       	or	r15, r25
+ 76c:	20 91 f1 00 	lds	r18, 0x00F1
+ 770:	92 2f       	mov	r25, r18
+ 772:	80 e0       	ldi	r24, 0x00	; 0
+ 774:	68 2b       	or	r22, r24
+ 776:	79 2b       	or	r23, r25
                 wLength = UEDATX;
- 7c4:	60 91 f1 00 	lds	r22, 0x00F1
+ 778:	10 91 f1 00 	lds	r17, 0x00F1
                 wLength |= (UEDATX << 8);
- 7c8:	a0 91 f1 00 	lds	r26, 0x00F1
+ 77c:	00 91 f1 00 	lds	r16, 0x00F1
                 UEINTX = ~((1<<RXSTPI) | (1<<RXOUTI) | (1<<TXINI));
- 7cc:	82 ef       	ldi	r24, 0xF2	; 242
- 7ce:	80 93 e8 00 	sts	0x00E8, r24
+ 780:	82 ef       	ldi	r24, 0xF2	; 242
+ 782:	80 93 e8 00 	sts	0x00E8, r24
                 if (bRequest == GET_DESCRIPTOR) {
- 7d2:	36 30       	cpi	r19, 0x06	; 6
- 7d4:	09 f0       	breq	.+2      	; 0x7d8 <__vector_11+0x82>
- 7d6:	59 c0       	rjmp	.+178    	; 0x88a <__vector_11+0x134>
-
-// USB Endpoint Interrupt - endpoint 0 is handled here.  The
-// other endpoints are manipulated by the user-callable
-// functions, and the start-of-frame interrupt.
-//
-ISR(USB_COM_vect)
- 7d8:	83 eb       	ldi	r24, 0xB3	; 179
- 7da:	90 e0       	ldi	r25, 0x00	; 0
- 7dc:	9c 01       	movw	r18, r24
- 7de:	25 50       	subi	r18, 0x05	; 5
- 7e0:	30 40       	sbci	r19, 0x00	; 0
-                if (bRequest == GET_DESCRIPTOR) {
+ 786:	36 30       	cpi	r19, 0x06	; 6
+ 788:	09 f0       	breq	.+2      	; 0x78c <__vector_11+0x76>
+ 78a:	5a c0       	rjmp	.+180    	; 0x840 <__vector_11+0x12a>
+ 78c:	23 eb       	ldi	r18, 0xB3	; 179
+ 78e:	30 e0       	ldi	r19, 0x00	; 0
+ 790:	a9 01       	movw	r20, r18
+ 792:	45 50       	subi	r20, 0x05	; 5
+ 794:	50 40       	sbci	r21, 0x00	; 0
 			list = (const uint8_t *)descriptor_list;
 			for (i=0; ; i++) {
 				if (i >= NUM_DESC_LIST) {
 					UECONX = (1<<STALLRQ)|(1<<EPEN);  //stall
 					return;
- 7e2:	fc 01       	movw	r30, r24
- 7e4:	37 97       	sbiw	r30, 0x07	; 7
+ 796:	f9 01       	movw	r30, r18
+ 798:	37 97       	sbiw	r30, 0x07	; 7
 				}
 				desc_val = pgm_read_word(list);
- 7e6:	45 91       	lpm	r20, Z+
- 7e8:	54 91       	lpm	r21, Z+
+ 79a:	85 91       	lpm	r24, Z+
+ 79c:	94 91       	lpm	r25, Z+
 				if (desc_val != wValue) {
- 7ea:	40 17       	cp	r20, r16
- 7ec:	51 07       	cpc	r21, r17
- 7ee:	f9 f4       	brne	.+62     	; 0x82e <__vector_11+0xd8>
+ 79e:	8a 17       	cp	r24, r26
+ 7a0:	9b 07       	cpc	r25, r27
+ 7a2:	01 f5       	brne	.+64     	; 0x7e4 <__vector_11+0xce>
 					list += sizeof(struct descriptor_list_struct);
 					continue;
 				}
 				list += 2;
 				desc_val = pgm_read_word(list);
- 7f0:	f9 01       	movw	r30, r18
- 7f2:	45 91       	lpm	r20, Z+
- 7f4:	54 91       	lpm	r21, Z+
+ 7a4:	fa 01       	movw	r30, r20
+ 7a6:	85 91       	lpm	r24, Z+
+ 7a8:	94 91       	lpm	r25, Z+
 				if (desc_val != wIndex) {
- 7f6:	4e 15       	cp	r20, r14
- 7f8:	5f 05       	cpc	r21, r15
- 7fa:	c9 f4       	brne	.+50     	; 0x82e <__vector_11+0xd8>
+ 7aa:	86 17       	cp	r24, r22
+ 7ac:	97 07       	cpc	r25, r23
+ 7ae:	d1 f4       	brne	.+52     	; 0x7e4 <__vector_11+0xce>
 					list += sizeof(struct descriptor_list_struct)-2;
 					continue;
 				}
 				list += 2;
- 7fc:	2e 5f       	subi	r18, 0xFE	; 254
- 7fe:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7b0:	9a 01       	movw	r18, r20
+ 7b2:	2e 5f       	subi	r18, 0xFE	; 254
+ 7b4:	3f 4f       	sbci	r19, 0xFF	; 255
 				desc_addr = (const uint8_t *)pgm_read_word(list);
- 800:	f9 01       	movw	r30, r18
- 802:	85 91       	lpm	r24, Z+
- 804:	94 91       	lpm	r25, Z+
+ 7b6:	f9 01       	movw	r30, r18
+ 7b8:	65 91       	lpm	r22, Z+
+ 7ba:	74 91       	lpm	r23, Z+
 				list += 2;
- 806:	2e 5f       	subi	r18, 0xFE	; 254
- 808:	3f 4f       	sbci	r19, 0xFF	; 255
 				desc_length = pgm_read_byte(list);
- 80a:	f9 01       	movw	r30, r18
- 80c:	24 91       	lpm	r18, Z+
+ 7bc:	2e 5f       	subi	r18, 0xFE	; 254
+ 7be:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7c0:	f9 01       	movw	r30, r18
+ 7c2:	44 91       	lpm	r20, Z+
                 bRequest = UEDATX;
                 wValue = UEDATX;
                 wValue |= (UEDATX << 8);
                 wIndex = UEDATX;
                 wIndex |= (UEDATX << 8);
                 wLength = UEDATX;
- 80e:	46 2f       	mov	r20, r22
- 810:	50 e0       	ldi	r21, 0x00	; 0
-                wLength |= (UEDATX << 8);
- 812:	7a 2f       	mov	r23, r26
- 814:	60 e0       	ldi	r22, 0x00	; 0
- 816:	46 2b       	or	r20, r22
- 818:	57 2b       	or	r21, r23
+ 7c4:	21 2f       	mov	r18, r17
+ 7c6:	30 e0       	ldi	r19, 0x00	; 0
 				desc_addr = (const uint8_t *)pgm_read_word(list);
 				list += 2;
 				desc_length = pgm_read_byte(list);
 				break;
 			}
 			len = (wLength < 256) ? wLength : 255;
- 81a:	4f 3f       	cpi	r20, 0xFF	; 255
- 81c:	51 05       	cpc	r21, r1
- 81e:	19 f0       	breq	.+6      	; 0x826 <__vector_11+0xd0>
- 820:	10 f0       	brcs	.+4      	; 0x826 <__vector_11+0xd0>
- 822:	4f ef       	ldi	r20, 0xFF	; 255
- 824:	50 e0       	ldi	r21, 0x00	; 0
- 826:	42 17       	cp	r20, r18
- 828:	50 f4       	brcc	.+20     	; 0x83e <__vector_11+0xe8>
- 82a:	24 2f       	mov	r18, r20
- 82c:	08 c0       	rjmp	.+16     	; 0x83e <__vector_11+0xe8>
- 82e:	07 96       	adiw	r24, 0x07	; 7
- 830:	29 5f       	subi	r18, 0xF9	; 249
- 832:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7c8:	90 2f       	mov	r25, r16
+ 7ca:	80 e0       	ldi	r24, 0x00	; 0
+ 7cc:	28 2b       	or	r18, r24
+ 7ce:	39 2b       	or	r19, r25
+ 7d0:	2f 3f       	cpi	r18, 0xFF	; 255
+ 7d2:	31 05       	cpc	r19, r1
+ 7d4:	19 f0       	breq	.+6      	; 0x7dc <__vector_11+0xc6>
+ 7d6:	10 f0       	brcs	.+4      	; 0x7dc <__vector_11+0xc6>
+ 7d8:	2f ef       	ldi	r18, 0xFF	; 255
+ 7da:	30 e0       	ldi	r19, 0x00	; 0
+ 7dc:	24 17       	cp	r18, r20
+ 7de:	58 f4       	brcc	.+22     	; 0x7f6 <__vector_11+0xe0>
+ 7e0:	42 2f       	mov	r20, r18
+ 7e2:	09 c0       	rjmp	.+18     	; 0x7f6 <__vector_11+0xe0>
+ 7e4:	29 5f       	subi	r18, 0xF9	; 249
+ 7e6:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7e8:	49 5f       	subi	r20, 0xF9	; 249
+ 7ea:	5f 4f       	sbci	r21, 0xFF	; 255
                 wLength |= (UEDATX << 8);
                 UEINTX = ~((1<<RXSTPI) | (1<<RXOUTI) | (1<<TXINI));
                 if (bRequest == GET_DESCRIPTOR) {
 			list = (const uint8_t *)descriptor_list;
 			for (i=0; ; i++) {
 				if (i >= NUM_DESC_LIST) {
- 834:	f0 e0       	ldi	r31, 0x00	; 0
- 836:	84 3e       	cpi	r24, 0xE4	; 228
- 838:	9f 07       	cpc	r25, r31
- 83a:	99 f6       	brne	.-90     	; 0x7e2 <__vector_11+0x8c>
- 83c:	de c0       	rjmp	.+444    	; 0x9fa <__vector_11+0x2a4>
+ 7ec:	f0 e0       	ldi	r31, 0x00	; 0
+ 7ee:	24 3e       	cpi	r18, 0xE4	; 228
+ 7f0:	3f 07       	cpc	r19, r31
+ 7f2:	89 f6       	brne	.-94     	; 0x796 <__vector_11+0x80>
+ 7f4:	eb c0       	rjmp	.+470    	; 0x9cc <__vector_11+0x2b6>
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 83e:	ae ef       	ldi	r26, 0xFE	; 254
+ 7f6:	5e ef       	ldi	r21, 0xFE	; 254
 			len = (wLength < 256) ? wLength : 255;
 			if (len > desc_length) len = desc_length;
 			do {
 				// wait for host ready for IN packet
 				do {
 					i = UEINTX;
- 840:	40 91 e8 00 	lds	r20, 0x00E8
+ 7f8:	80 91 e8 00 	lds	r24, 0x00E8
 				} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
- 844:	50 e0       	ldi	r21, 0x00	; 0
- 846:	ba 01       	movw	r22, r20
- 848:	65 70       	andi	r22, 0x05	; 5
- 84a:	70 70       	andi	r23, 0x00	; 0
- 84c:	61 15       	cp	r22, r1
- 84e:	71 05       	cpc	r23, r1
- 850:	b9 f3       	breq	.-18     	; 0x840 <__vector_11+0xea>
+ 7fc:	28 2f       	mov	r18, r24
+ 7fe:	30 e0       	ldi	r19, 0x00	; 0
+ 800:	c9 01       	movw	r24, r18
+ 802:	85 70       	andi	r24, 0x05	; 5
+ 804:	90 70       	andi	r25, 0x00	; 0
+ 806:	89 2b       	or	r24, r25
+ 808:	b9 f3       	breq	.-18     	; 0x7f8 <__vector_11+0xe2>
 				if (i & (1<<RXOUTI)) return;	// abort
- 852:	42 fd       	sbrc	r20, 2
- 854:	d5 c0       	rjmp	.+426    	; 0xa00 <__vector_11+0x2aa>
+ 80a:	22 fd       	sbrc	r18, 2
+ 80c:	e2 c0       	rjmp	.+452    	; 0x9d2 <__vector_11+0x2bc>
 				// send IN packet
 				n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
- 856:	32 2f       	mov	r19, r18
- 858:	21 32       	cpi	r18, 0x21	; 33
- 85a:	08 f0       	brcs	.+2      	; 0x85e <__vector_11+0x108>
- 85c:	30 e2       	ldi	r19, 0x20	; 32
+ 80e:	34 2f       	mov	r19, r20
+ 810:	41 32       	cpi	r20, 0x21	; 33
+ 812:	08 f0       	brcs	.+2      	; 0x816 <__vector_11+0x100>
+ 814:	30 e2       	ldi	r19, 0x20	; 32
+ 816:	cb 01       	movw	r24, r22
+ 818:	23 2f       	mov	r18, r19
+ 81a:	06 c0       	rjmp	.+12     	; 0x828 <__vector_11+0x112>
 				for (i = n; i; i--) {
- 85e:	ac 01       	movw	r20, r24
- 860:	63 2f       	mov	r22, r19
- 862:	07 c0       	rjmp	.+14     	; 0x872 <__vector_11+0x11c>
- 864:	fa 01       	movw	r30, r20
+ 81c:	fc 01       	movw	r30, r24
 					UEDATX = pgm_read_byte(desc_addr++);
- 866:	4f 5f       	subi	r20, 0xFF	; 255
- 868:	5f 4f       	sbci	r21, 0xFF	; 255
- 86a:	e4 91       	lpm	r30, Z+
- 86c:	e0 93 f1 00 	sts	0x00F1, r30
+ 81e:	01 96       	adiw	r24, 0x01	; 1
+ 820:	e4 91       	lpm	r30, Z+
+ 822:	e0 93 f1 00 	sts	0x00F1, r30
 					i = UEINTX;
 				} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
 				if (i & (1<<RXOUTI)) return;	// abort
 				// send IN packet
 				n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
 				for (i = n; i; i--) {
- 870:	61 50       	subi	r22, 0x01	; 1
- 872:	66 23       	and	r22, r22
- 874:	b9 f7       	brne	.-18     	; 0x864 <__vector_11+0x10e>
- 876:	83 0f       	add	r24, r19
- 878:	91 1d       	adc	r25, r1
+ 826:	21 50       	subi	r18, 0x01	; 1
+ 828:	22 23       	and	r18, r18
+ 82a:	c1 f7       	brne	.-16     	; 0x81c <__vector_11+0x106>
+ 82c:	63 0f       	add	r22, r19
+ 82e:	71 1d       	adc	r23, r1
 					UEDATX = pgm_read_byte(desc_addr++);
 				}
 				len -= n;
- 87a:	23 1b       	sub	r18, r19
+ 830:	43 1b       	sub	r20, r19
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 87c:	a0 93 e8 00 	sts	0x00E8, r26
+ 832:	50 93 e8 00 	sts	0x00E8, r21
 				for (i = n; i; i--) {
 					UEDATX = pgm_read_byte(desc_addr++);
 				}
 				len -= n;
 				usb_send_in();
 			} while (len || n == ENDPOINT0_SIZE);
- 880:	22 23       	and	r18, r18
- 882:	f1 f6       	brne	.-68     	; 0x840 <__vector_11+0xea>
- 884:	30 32       	cpi	r19, 0x20	; 32
- 886:	e1 f2       	breq	.-72     	; 0x840 <__vector_11+0xea>
- 888:	bb c0       	rjmp	.+374    	; 0xa00 <__vector_11+0x2aa>
+ 836:	44 23       	and	r20, r20
+ 838:	f9 f6       	brne	.-66     	; 0x7f8 <__vector_11+0xe2>
+ 83a:	30 32       	cpi	r19, 0x20	; 32
+ 83c:	e9 f2       	breq	.-70     	; 0x7f8 <__vector_11+0xe2>
+ 83e:	c9 c0       	rjmp	.+402    	; 0x9d2 <__vector_11+0x2bc>
 			return;
                 }
 		if (bRequest == SET_ADDRESS) {
- 88a:	35 30       	cpi	r19, 0x05	; 5
- 88c:	41 f4       	brne	.+16     	; 0x89e <__vector_11+0x148>
+ 840:	35 30       	cpi	r19, 0x05	; 5
+ 842:	61 f4       	brne	.+24     	; 0x85c <__vector_11+0x146>
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 88e:	8e ef       	ldi	r24, 0xFE	; 254
- 890:	80 93 e8 00 	sts	0x00E8, r24
-			} while (len || n == ENDPOINT0_SIZE);
+ 844:	8e ef       	ldi	r24, 0xFE	; 254
+ 846:	80 93 e8 00 	sts	0x00E8, r24
+
+
+// Misc functions to wait for ready and send/receive packets
+static inline void usb_wait_in_ready(void)
+{
+	while (!(UEINTX & (1<<TXINI))) ;
+ 84a:	80 91 e8 00 	lds	r24, 0x00E8
+ 84e:	80 ff       	sbrs	r24, 0
+ 850:	fc cf       	rjmp	.-8      	; 0x84a <__vector_11+0x134>
 			return;
                 }
 		if (bRequest == SET_ADDRESS) {
 			usb_send_in();
 			usb_wait_in_ready();
- 894:	86 dd       	rcall	.-1268   	; 0x3a2 <usb_wait_in_ready>
 			UDADDR = wValue | (1<<ADDEN);
- 896:	00 68       	ori	r16, 0x80	; 128
- 898:	00 93 e3 00 	sts	0x00E3, r16
+ 852:	8a 2f       	mov	r24, r26
+ 854:	80 68       	ori	r24, 0x80	; 128
+ 856:	80 93 e3 00 	sts	0x00E3, r24
+ 85a:	bb c0       	rjmp	.+374    	; 0x9d2 <__vector_11+0x2bc>
 			return;
- 89c:	b1 c0       	rjmp	.+354    	; 0xa00 <__vector_11+0x2aa>
 		}
 		if (bRequest == SET_CONFIGURATION && bmRequestType == 0) {
- 89e:	39 30       	cpi	r19, 0x09	; 9
- 8a0:	31 f5       	brne	.+76     	; 0x8ee <__vector_11+0x198>
- 8a2:	22 23       	and	r18, r18
- 8a4:	09 f0       	breq	.+2      	; 0x8a8 <__vector_11+0x152>
- 8a6:	6b c0       	rjmp	.+214    	; 0x97e <__vector_11+0x228>
+ 85c:	39 30       	cpi	r19, 0x09	; 9
+ 85e:	31 f5       	brne	.+76     	; 0x8ac <__vector_11+0x196>
+ 860:	44 23       	and	r20, r20
+ 862:	09 f0       	breq	.+2      	; 0x866 <__vector_11+0x150>
+ 864:	72 c0       	rjmp	.+228    	; 0x94a <__vector_11+0x234>
 			usb_configuration = wValue;
- 8a8:	00 93 22 01 	sts	0x0122, r16
+ 866:	a0 93 22 01 	sts	0x0122, r26
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 8ac:	8e ef       	ldi	r24, 0xFE	; 254
- 8ae:	80 93 e8 00 	sts	0x00E8, r24
-		}
+ 86a:	8e ef       	ldi	r24, 0xFE	; 254
+ 86c:	80 93 e8 00 	sts	0x00E8, r24
+ 870:	8d ed       	ldi	r24, 0xDD	; 221
+ 872:	90 e0       	ldi	r25, 0x00	; 0
+ 874:	21 e0       	ldi	r18, 0x01	; 1
 		if (bRequest == SET_CONFIGURATION && bmRequestType == 0) {
 			usb_configuration = wValue;
 			usb_send_in();
 			cfg = endpoint_config_table;
-			for (i=1; i<5; i++) {
- 8b2:	41 e0       	ldi	r20, 0x01	; 1
-			return;
-		}
-		if (bRequest == SET_CONFIGURATION && bmRequestType == 0) {
-			usb_configuration = wValue;
-			usb_send_in();
-			cfg = endpoint_config_table;
- 8b4:	8d ed       	ldi	r24, 0xDD	; 221
- 8b6:	90 e0       	ldi	r25, 0x00	; 0
 			for (i=1; i<5; i++) {
 				UENUM = i;
- 8b8:	40 93 e9 00 	sts	0x00E9, r20
+ 876:	20 93 e9 00 	sts	0x00E9, r18
 				en = pgm_read_byte(cfg++);
- 8bc:	fc 01       	movw	r30, r24
- 8be:	01 96       	adiw	r24, 0x01	; 1
- 8c0:	e4 91       	lpm	r30, Z+
+ 87a:	fc 01       	movw	r30, r24
+ 87c:	01 96       	adiw	r24, 0x01	; 1
+ 87e:	e4 91       	lpm	r30, Z+
 				UECONX = en;
- 8c2:	e0 93 eb 00 	sts	0x00EB, r30
+ 880:	e0 93 eb 00 	sts	0x00EB, r30
 				if (en) {
- 8c6:	ee 23       	and	r30, r30
- 8c8:	69 f0       	breq	.+26     	; 0x8e4 <__vector_11+0x18e>
+ 884:	ee 23       	and	r30, r30
+ 886:	69 f0       	breq	.+26     	; 0x8a2 <__vector_11+0x18c>
 					UECFG0X = pgm_read_byte(cfg++);
- 8ca:	9c 01       	movw	r18, r24
- 8cc:	2f 5f       	subi	r18, 0xFF	; 255
- 8ce:	3f 4f       	sbci	r19, 0xFF	; 255
- 8d0:	fc 01       	movw	r30, r24
- 8d2:	84 91       	lpm	r24, Z+
- 8d4:	80 93 ec 00 	sts	0x00EC, r24
+ 888:	ac 01       	movw	r20, r24
+ 88a:	4f 5f       	subi	r20, 0xFF	; 255
+ 88c:	5f 4f       	sbci	r21, 0xFF	; 255
+ 88e:	fc 01       	movw	r30, r24
+ 890:	84 91       	lpm	r24, Z+
+ 892:	80 93 ec 00 	sts	0x00EC, r24
 					UECFG1X = pgm_read_byte(cfg++);
- 8d8:	c9 01       	movw	r24, r18
- 8da:	01 96       	adiw	r24, 0x01	; 1
- 8dc:	f9 01       	movw	r30, r18
- 8de:	24 91       	lpm	r18, Z+
- 8e0:	20 93 ed 00 	sts	0x00ED, r18
+ 896:	ca 01       	movw	r24, r20
+ 898:	01 96       	adiw	r24, 0x01	; 1
+ 89a:	fa 01       	movw	r30, r20
+ 89c:	34 91       	lpm	r19, Z+
+ 89e:	30 93 ed 00 	sts	0x00ED, r19
 		}
 		if (bRequest == SET_CONFIGURATION && bmRequestType == 0) {
 			usb_configuration = wValue;
 			usb_send_in();
 			cfg = endpoint_config_table;
 			for (i=1; i<5; i++) {
- 8e4:	4f 5f       	subi	r20, 0xFF	; 255
- 8e6:	45 30       	cpi	r20, 0x05	; 5
- 8e8:	39 f7       	brne	.-50     	; 0x8b8 <__vector_11+0x162>
+ 8a2:	2f 5f       	subi	r18, 0xFF	; 255
+ 8a4:	25 30       	cpi	r18, 0x05	; 5
+ 8a6:	39 f7       	brne	.-50     	; 0x876 <__vector_11+0x160>
 				if (en) {
 					UECFG0X = pgm_read_byte(cfg++);
 					UECFG1X = pgm_read_byte(cfg++);
 				}
 			}
         		UERST = 0x1E;
- 8ea:	8e e1       	ldi	r24, 0x1E	; 30
- 8ec:	43 c0       	rjmp	.+134    	; 0x974 <__vector_11+0x21e>
+ 8a8:	8e e1       	ldi	r24, 0x1E	; 30
+ 8aa:	4a c0       	rjmp	.+148    	; 0x940 <__vector_11+0x22a>
         		UERST = 0;
 			return;
 		}
 		if (bRequest == GET_CONFIGURATION && bmRequestType == 0x80) {
- 8ee:	38 30       	cpi	r19, 0x08	; 8
- 8f0:	49 f4       	brne	.+18     	; 0x904 <__vector_11+0x1ae>
- 8f2:	20 38       	cpi	r18, 0x80	; 128
- 8f4:	09 f0       	breq	.+2      	; 0x8f8 <__vector_11+0x1a2>
- 8f6:	43 c0       	rjmp	.+134    	; 0x97e <__vector_11+0x228>
+ 8ac:	38 30       	cpi	r19, 0x08	; 8
+ 8ae:	61 f4       	brne	.+24     	; 0x8c8 <__vector_11+0x1b2>
+ 8b0:	40 38       	cpi	r20, 0x80	; 128
+ 8b2:	09 f0       	breq	.+2      	; 0x8b6 <__vector_11+0x1a0>
+ 8b4:	4a c0       	rjmp	.+148    	; 0x94a <__vector_11+0x234>
+
+
+// Misc functions to wait for ready and send/receive packets
+static inline void usb_wait_in_ready(void)
+{
+	while (!(UEINTX & (1<<TXINI))) ;
+ 8b6:	80 91 e8 00 	lds	r24, 0x00E8
+ 8ba:	80 ff       	sbrs	r24, 0
+ 8bc:	fc cf       	rjmp	.-8      	; 0x8b6 <__vector_11+0x1a0>
+        		UERST = 0;
+			return;
+		}
+		if (bRequest == GET_CONFIGURATION && bmRequestType == 0x80) {
 			usb_wait_in_ready();
- 8f8:	54 dd       	rcall	.-1368   	; 0x3a2 <usb_wait_in_ready>
 			UEDATX = usb_configuration;
- 8fa:	80 91 22 01 	lds	r24, 0x0122
- 8fe:	80 93 f1 00 	sts	0x00F1, r24
- 902:	77 c0       	rjmp	.+238    	; 0x9f2 <__vector_11+0x29c>
+ 8be:	80 91 22 01 	lds	r24, 0x0122
+ 8c2:	80 93 f1 00 	sts	0x00F1, r24
+ 8c6:	7e c0       	rjmp	.+252    	; 0x9c4 <__vector_11+0x2ae>
 			usb_send_in();
 			return;
 		}
 
 		if (bRequest == GET_STATUS) {
- 904:	33 23       	and	r19, r19
- 906:	a9 f4       	brne	.+42     	; 0x932 <__vector_11+0x1dc>
-			usb_wait_in_ready();
- 908:	29 83       	std	Y+1, r18	; 0x01
- 90a:	4b dd       	rcall	.-1386   	; 0x3a2 <usb_wait_in_ready>
-			i = 0;
-			if (bmRequestType == 0x82) {
- 90c:	29 81       	ldd	r18, Y+1	; 0x01
- 90e:	22 38       	cpi	r18, 0x82	; 130
- 910:	51 f4       	brne	.+20     	; 0x926 <__vector_11+0x1d0>
-				UENUM = wIndex;
- 912:	e0 92 e9 00 	sts	0x00E9, r14
-				if (UECONX & (1<<STALLRQ)) i = 1;
- 916:	90 91 eb 00 	lds	r25, 0x00EB
-			return;
+ 8c8:	33 23       	and	r19, r19
+ 8ca:	d1 f4       	brne	.+52     	; 0x900 <__vector_11+0x1ea>
+
+
+// Misc functions to wait for ready and send/receive packets
+static inline void usb_wait_in_ready(void)
+{
+	while (!(UEINTX & (1<<TXINI))) ;
+ 8cc:	80 91 e8 00 	lds	r24, 0x00E8
+ 8d0:	80 ff       	sbrs	r24, 0
+ 8d2:	fc cf       	rjmp	.-8      	; 0x8cc <__vector_11+0x1b6>
 		}
 
 		if (bRequest == GET_STATUS) {
 			usb_wait_in_ready();
 			i = 0;
- 91a:	81 e0       	ldi	r24, 0x01	; 1
- 91c:	95 ff       	sbrs	r25, 5
- 91e:	80 e0       	ldi	r24, 0x00	; 0
 			if (bmRequestType == 0x82) {
+ 8d4:	42 38       	cpi	r20, 0x82	; 130
+ 8d6:	11 f0       	breq	.+4      	; 0x8dc <__vector_11+0x1c6>
+ 8d8:	80 e0       	ldi	r24, 0x00	; 0
+ 8da:	0d c0       	rjmp	.+26     	; 0x8f6 <__vector_11+0x1e0>
 				UENUM = wIndex;
+ 8dc:	60 93 e9 00 	sts	0x00E9, r22
 				if (UECONX & (1<<STALLRQ)) i = 1;
+ 8e0:	80 91 eb 00 	lds	r24, 0x00EB
+ 8e4:	90 e0       	ldi	r25, 0x00	; 0
+ 8e6:	25 e0       	ldi	r18, 0x05	; 5
+ 8e8:	96 95       	lsr	r25
+ 8ea:	87 95       	ror	r24
+ 8ec:	2a 95       	dec	r18
+ 8ee:	e1 f7       	brne	.-8      	; 0x8e8 <__vector_11+0x1d2>
+ 8f0:	81 70       	andi	r24, 0x01	; 1
 				UENUM = 0;
- 920:	10 92 e9 00 	sts	0x00E9, r1
- 924:	01 c0       	rjmp	.+2      	; 0x928 <__vector_11+0x1d2>
-			return;
-		}
-
-		if (bRequest == GET_STATUS) {
-			usb_wait_in_ready();
-			i = 0;
- 926:	80 e0       	ldi	r24, 0x00	; 0
-			if (bmRequestType == 0x82) {
-				UENUM = wIndex;
-				if (UECONX & (1<<STALLRQ)) i = 1;
-				UENUM = 0;
+ 8f2:	10 92 e9 00 	sts	0x00E9, r1
 			}
 			UEDATX = i;
- 928:	80 93 f1 00 	sts	0x00F1, r24
+ 8f6:	80 93 f1 00 	sts	0x00F1, r24
 			UEDATX = 0;
- 92c:	10 92 f1 00 	sts	0x00F1, r1
- 930:	60 c0       	rjmp	.+192    	; 0x9f2 <__vector_11+0x29c>
+ 8fa:	10 92 f1 00 	sts	0x00F1, r1
+ 8fe:	62 c0       	rjmp	.+196    	; 0x9c4 <__vector_11+0x2ae>
 			usb_send_in();
 			return;
 		}
 		if ((bRequest == CLEAR_FEATURE || bRequest == SET_FEATURE)
- 932:	31 30       	cpi	r19, 0x01	; 1
- 934:	11 f0       	breq	.+4      	; 0x93a <__vector_11+0x1e4>
- 936:	33 30       	cpi	r19, 0x03	; 3
- 938:	11 f5       	brne	.+68     	; 0x97e <__vector_11+0x228>
+ 900:	31 30       	cpi	r19, 0x01	; 1
+ 902:	11 f0       	breq	.+4      	; 0x908 <__vector_11+0x1f2>
+ 904:	33 30       	cpi	r19, 0x03	; 3
+ 906:	09 f5       	brne	.+66     	; 0x94a <__vector_11+0x234>
+ 908:	42 30       	cpi	r20, 0x02	; 2
+ 90a:	f9 f4       	brne	.+62     	; 0x94a <__vector_11+0x234>
+ 90c:	ab 2b       	or	r26, r27
+ 90e:	e9 f4       	brne	.+58     	; 0x94a <__vector_11+0x234>
 		  && bmRequestType == 0x02 && wValue == 0) {
- 93a:	22 30       	cpi	r18, 0x02	; 2
- 93c:	01 f5       	brne	.+64     	; 0x97e <__vector_11+0x228>
- 93e:	01 15       	cp	r16, r1
- 940:	11 05       	cpc	r17, r1
- 942:	e9 f4       	brne	.+58     	; 0x97e <__vector_11+0x228>
 			i = wIndex & 0x7F;
- 944:	4e 2d       	mov	r20, r14
- 946:	4f 77       	andi	r20, 0x7F	; 127
+ 910:	26 2f       	mov	r18, r22
+ 912:	2f 77       	andi	r18, 0x7F	; 127
 			if (i >= 1 && i <= MAX_ENDPOINT) {
- 948:	84 2f       	mov	r24, r20
- 94a:	81 50       	subi	r24, 0x01	; 1
- 94c:	84 30       	cpi	r24, 0x04	; 4
- 94e:	b8 f4       	brcc	.+46     	; 0x97e <__vector_11+0x228>
+ 914:	82 2f       	mov	r24, r18
+ 916:	81 50       	subi	r24, 0x01	; 1
+ 918:	84 30       	cpi	r24, 0x04	; 4
+ 91a:	b8 f4       	brcc	.+46     	; 0x94a <__vector_11+0x234>
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 950:	8e ef       	ldi	r24, 0xFE	; 254
- 952:	80 93 e8 00 	sts	0x00E8, r24
+ 91c:	8e ef       	ldi	r24, 0xFE	; 254
+ 91e:	80 93 e8 00 	sts	0x00E8, r24
 		if ((bRequest == CLEAR_FEATURE || bRequest == SET_FEATURE)
 		  && bmRequestType == 0x02 && wValue == 0) {
 			i = wIndex & 0x7F;
 			if (i >= 1 && i <= MAX_ENDPOINT) {
 				usb_send_in();
 				UENUM = i;
- 956:	40 93 e9 00 	sts	0x00E9, r20
+ 922:	20 93 e9 00 	sts	0x00E9, r18
 				if (bRequest == SET_FEATURE) {
- 95a:	33 30       	cpi	r19, 0x03	; 3
- 95c:	09 f4       	brne	.+2      	; 0x960 <__vector_11+0x20a>
- 95e:	4d c0       	rjmp	.+154    	; 0x9fa <__vector_11+0x2a4>
+ 926:	33 30       	cpi	r19, 0x03	; 3
+ 928:	09 f4       	brne	.+2      	; 0x92c <__vector_11+0x216>
+ 92a:	50 c0       	rjmp	.+160    	; 0x9cc <__vector_11+0x2b6>
 					UECONX = (1<<STALLRQ)|(1<<EPEN);
 				} else {
 					UECONX = (1<<STALLRQC)|(1<<RSTDT)|(1<<EPEN);
- 960:	89 e1       	ldi	r24, 0x19	; 25
- 962:	80 93 eb 00 	sts	0x00EB, r24
+ 92c:	89 e1       	ldi	r24, 0x19	; 25
+ 92e:	80 93 eb 00 	sts	0x00EB, r24
 					UERST = (1 << i);
- 966:	81 e0       	ldi	r24, 0x01	; 1
- 968:	90 e0       	ldi	r25, 0x00	; 0
- 96a:	02 c0       	rjmp	.+4      	; 0x970 <__vector_11+0x21a>
- 96c:	88 0f       	add	r24, r24
- 96e:	99 1f       	adc	r25, r25
- 970:	4a 95       	dec	r20
- 972:	e2 f7       	brpl	.-8      	; 0x96c <__vector_11+0x216>
- 974:	80 93 ea 00 	sts	0x00EA, r24
+ 932:	81 e0       	ldi	r24, 0x01	; 1
+ 934:	90 e0       	ldi	r25, 0x00	; 0
+ 936:	02 c0       	rjmp	.+4      	; 0x93c <__vector_11+0x226>
+ 938:	88 0f       	add	r24, r24
+ 93a:	99 1f       	adc	r25, r25
+ 93c:	2a 95       	dec	r18
+ 93e:	e2 f7       	brpl	.-8      	; 0x938 <__vector_11+0x222>
+ 940:	80 93 ea 00 	sts	0x00EA, r24
 					UERST = 0;
- 978:	10 92 ea 00 	sts	0x00EA, r1
- 97c:	41 c0       	rjmp	.+130    	; 0xa00 <__vector_11+0x2aa>
+ 944:	10 92 ea 00 	sts	0x00EA, r1
+ 948:	44 c0       	rjmp	.+136    	; 0x9d2 <__vector_11+0x2bc>
 				}
 				return;
 			}
 		}
 		if (wIndex == RAWHID_INTERFACE) {
- 97e:	e1 14       	cp	r14, r1
- 980:	f1 04       	cpc	r15, r1
- 982:	d9 f5       	brne	.+118    	; 0x9fa <__vector_11+0x2a4>
+ 94a:	67 2b       	or	r22, r23
+ 94c:	09 f0       	breq	.+2      	; 0x950 <__vector_11+0x23a>
+ 94e:	3e c0       	rjmp	.+124    	; 0x9cc <__vector_11+0x2b6>
 			if (bmRequestType == 0xA1 && bRequest == HID_GET_REPORT) {
- 984:	21 3a       	cpi	r18, 0xA1	; 161
- 986:	11 f5       	brne	.+68     	; 0x9cc <__vector_11+0x276>
- 988:	31 30       	cpi	r19, 0x01	; 1
- 98a:	b9 f5       	brne	.+110    	; 0x9fa <__vector_11+0x2a4>
- 98c:	40 e4       	ldi	r20, 0x40	; 64
+ 950:	41 3a       	cpi	r20, 0xA1	; 161
+ 952:	11 f5       	brne	.+68     	; 0x998 <__vector_11+0x282>
+ 954:	31 30       	cpi	r19, 0x01	; 1
+ 956:	d1 f5       	brne	.+116    	; 0x9cc <__vector_11+0x2b6>
+ 958:	40 e4       	ldi	r20, 0x40	; 64
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 98e:	5e ef       	ldi	r21, 0xFE	; 254
+ 95a:	5e ef       	ldi	r21, 0xFE	; 254
 			if (bmRequestType == 0xA1 && bRequest == HID_GET_REPORT) {
 				len = RAWHID_TX_SIZE;
 				do {
 					// wait for host ready for IN packet
 					do {
 						i = UEINTX;
- 990:	80 91 e8 00 	lds	r24, 0x00E8
+ 95c:	80 91 e8 00 	lds	r24, 0x00E8
 					} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
- 994:	90 e0       	ldi	r25, 0x00	; 0
- 996:	9c 01       	movw	r18, r24
- 998:	25 70       	andi	r18, 0x05	; 5
- 99a:	30 70       	andi	r19, 0x00	; 0
- 99c:	21 15       	cp	r18, r1
- 99e:	31 05       	cpc	r19, r1
- 9a0:	b9 f3       	breq	.-18     	; 0x990 <__vector_11+0x23a>
+ 960:	28 2f       	mov	r18, r24
+ 962:	30 e0       	ldi	r19, 0x00	; 0
+ 964:	c9 01       	movw	r24, r18
+ 966:	85 70       	andi	r24, 0x05	; 5
+ 968:	90 70       	andi	r25, 0x00	; 0
+ 96a:	89 2b       	or	r24, r25
+ 96c:	b9 f3       	breq	.-18     	; 0x95c <__vector_11+0x246>
 					if (i & (1<<RXOUTI)) return;	// abort
- 9a2:	82 fd       	sbrc	r24, 2
- 9a4:	2d c0       	rjmp	.+90     	; 0xa00 <__vector_11+0x2aa>
+ 96e:	22 fd       	sbrc	r18, 2
+ 970:	30 c0       	rjmp	.+96     	; 0x9d2 <__vector_11+0x2bc>
 					// send IN packet
 					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
- 9a6:	84 2f       	mov	r24, r20
- 9a8:	41 32       	cpi	r20, 0x21	; 33
- 9aa:	08 f0       	brcs	.+2      	; 0x9ae <__vector_11+0x258>
- 9ac:	80 e2       	ldi	r24, 0x20	; 32
+ 972:	94 2f       	mov	r25, r20
+ 974:	41 32       	cpi	r20, 0x21	; 33
+ 976:	08 f0       	brcs	.+2      	; 0x97a <__vector_11+0x264>
+ 978:	90 e2       	ldi	r25, 0x20	; 32
+ 97a:	89 2f       	mov	r24, r25
+ 97c:	03 c0       	rjmp	.+6      	; 0x984 <__vector_11+0x26e>
 					for (i = n; i; i--) {
- 9ae:	98 2f       	mov	r25, r24
- 9b0:	03 c0       	rjmp	.+6      	; 0x9b8 <__vector_11+0x262>
 						// just send zeros
 						UEDATX = 0;
- 9b2:	10 92 f1 00 	sts	0x00F1, r1
+ 97e:	10 92 f1 00 	sts	0x00F1, r1
 						i = UEINTX;
 					} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
 					if (i & (1<<RXOUTI)) return;	// abort
 					// send IN packet
 					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
 					for (i = n; i; i--) {
- 9b6:	91 50       	subi	r25, 0x01	; 1
- 9b8:	99 23       	and	r25, r25
- 9ba:	d9 f7       	brne	.-10     	; 0x9b2 <__vector_11+0x25c>
+ 982:	81 50       	subi	r24, 0x01	; 1
+ 984:	88 23       	and	r24, r24
+ 986:	d9 f7       	brne	.-10     	; 0x97e <__vector_11+0x268>
 						// just send zeros
 						UEDATX = 0;
 					}
 					len -= n;
- 9bc:	48 1b       	sub	r20, r24
+ 988:	49 1b       	sub	r20, r25
 {
 	while (!(UEINTX & (1<<TXINI))) ;
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 9be:	50 93 e8 00 	sts	0x00E8, r21
+ 98a:	50 93 e8 00 	sts	0x00E8, r21
 						// just send zeros
 						UEDATX = 0;
 					}
 					len -= n;
 					usb_send_in();
 				} while (len || n == ENDPOINT0_SIZE);
- 9c2:	44 23       	and	r20, r20
- 9c4:	29 f7       	brne	.-54     	; 0x990 <__vector_11+0x23a>
- 9c6:	80 32       	cpi	r24, 0x20	; 32
- 9c8:	19 f3       	breq	.-58     	; 0x990 <__vector_11+0x23a>
- 9ca:	1a c0       	rjmp	.+52     	; 0xa00 <__vector_11+0x2aa>
+ 98e:	44 23       	and	r20, r20
+ 990:	29 f7       	brne	.-54     	; 0x95c <__vector_11+0x246>
+ 992:	90 32       	cpi	r25, 0x20	; 32
+ 994:	19 f3       	breq	.-58     	; 0x95c <__vector_11+0x246>
+ 996:	1d c0       	rjmp	.+58     	; 0x9d2 <__vector_11+0x2bc>
 				return;
 			}
 			if (bmRequestType == 0x21 && bRequest == HID_SET_REPORT) {
- 9cc:	21 32       	cpi	r18, 0x21	; 33
- 9ce:	a9 f4       	brne	.+42     	; 0x9fa <__vector_11+0x2a4>
- 9d0:	39 30       	cpi	r19, 0x09	; 9
- 9d2:	99 f4       	brne	.+38     	; 0x9fa <__vector_11+0x2a4>
- 9d4:	80 e4       	ldi	r24, 0x40	; 64
+ 998:	41 32       	cpi	r20, 0x21	; 33
+ 99a:	c1 f4       	brne	.+48     	; 0x9cc <__vector_11+0x2b6>
+ 99c:	39 30       	cpi	r19, 0x09	; 9
+ 99e:	b1 f4       	brne	.+44     	; 0x9cc <__vector_11+0x2b6>
+ 9a0:	90 e4       	ldi	r25, 0x40	; 64
 {
 	while (!(UEINTX & (1<<RXOUTI))) ;
 }
 static inline void usb_ack_out(void)
 {
 	UEINTX = ~(1<<RXOUTI);
- 9d6:	2b ef       	ldi	r18, 0xFB	; 251
-				return;
-			}
-			if (bmRequestType == 0x21 && bRequest == HID_SET_REPORT) {
-				len = RAWHID_RX_SIZE;
-				do {
-					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
- 9d8:	98 2f       	mov	r25, r24
- 9da:	81 32       	cpi	r24, 0x21	; 33
- 9dc:	08 f0       	brcs	.+2      	; 0x9e0 <__vector_11+0x28a>
- 9de:	90 e2       	ldi	r25, 0x20	; 32
+ 9a2:	2b ef       	ldi	r18, 0xFB	; 251
 {
 	UEINTX = ~(1<<TXINI);
 }
 static inline void usb_wait_receive_out(void)
 {
 	while (!(UEINTX & (1<<RXOUTI))) ;
- 9e0:	30 91 e8 00 	lds	r19, 0x00E8
- 9e4:	32 ff       	sbrs	r19, 2
- 9e6:	fc cf       	rjmp	.-8      	; 0x9e0 <__vector_11+0x28a>
+ 9a4:	80 91 e8 00 	lds	r24, 0x00E8
+ 9a8:	82 ff       	sbrs	r24, 2
+ 9aa:	fc cf       	rjmp	.-8      	; 0x9a4 <__vector_11+0x28e>
 }
 static inline void usb_ack_out(void)
 {
 	UEINTX = ~(1<<RXOUTI);
- 9e8:	20 93 e8 00 	sts	0x00E8, r18
+ 9ac:	20 93 e8 00 	sts	0x00E8, r18
+				return;
+			}
+			if (bmRequestType == 0x21 && bRequest == HID_SET_REPORT) {
+				len = RAWHID_RX_SIZE;
 				do {
 					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
+ 9b0:	89 2f       	mov	r24, r25
+ 9b2:	91 32       	cpi	r25, 0x21	; 33
+ 9b4:	08 f0       	brcs	.+2      	; 0x9b8 <__vector_11+0x2a2>
+ 9b6:	80 e2       	ldi	r24, 0x20	; 32
 					usb_wait_receive_out();
 					// ignore incoming bytes
 					usb_ack_out();
 					len -= n;
- 9ec:	89 1b       	sub	r24, r25
+ 9b8:	98 1b       	sub	r25, r24
 				} while (len);
- 9ee:	a1 f7       	brne	.-24     	; 0x9d8 <__vector_11+0x282>
-				usb_wait_in_ready();
- 9f0:	d8 dc       	rcall	.-1616   	; 0x3a2 <usb_wait_in_ready>
+ 9ba:	a1 f7       	brne	.-24     	; 0x9a4 <__vector_11+0x28e>
+
+
+// Misc functions to wait for ready and send/receive packets
+static inline void usb_wait_in_ready(void)
 {
 	while (!(UEINTX & (1<<TXINI))) ;
+ 9bc:	80 91 e8 00 	lds	r24, 0x00E8
+ 9c0:	80 ff       	sbrs	r24, 0
+ 9c2:	fc cf       	rjmp	.-8      	; 0x9bc <__vector_11+0x2a6>
 }
 static inline void usb_send_in(void)
 {
 	UEINTX = ~(1<<TXINI);
- 9f2:	8e ef       	ldi	r24, 0xFE	; 254
- 9f4:	80 93 e8 00 	sts	0x00E8, r24
- 9f8:	03 c0       	rjmp	.+6      	; 0xa00 <__vector_11+0x2aa>
+ 9c4:	8e ef       	ldi	r24, 0xFE	; 254
+ 9c6:	80 93 e8 00 	sts	0x00E8, r24
+ 9ca:	03 c0       	rjmp	.+6      	; 0x9d2 <__vector_11+0x2bc>
 				usb_send_in();
 				return;
 			}
 		}
 	}
 	UECONX = (1<<STALLRQ) | (1<<EPEN);	// stall
- 9fa:	81 e2       	ldi	r24, 0x21	; 33
- 9fc:	80 93 eb 00 	sts	0x00EB, r24
+ 9cc:	81 e2       	ldi	r24, 0x21	; 33
+ 9ce:	80 93 eb 00 	sts	0x00EB, r24
 }
- a00:	0f 90       	pop	r0
- a02:	cf 91       	pop	r28
- a04:	df 91       	pop	r29
- a06:	ff 91       	pop	r31
- a08:	ef 91       	pop	r30
- a0a:	bf 91       	pop	r27
- a0c:	af 91       	pop	r26
- a0e:	9f 91       	pop	r25
- a10:	8f 91       	pop	r24
- a12:	7f 91       	pop	r23
- a14:	6f 91       	pop	r22
- a16:	5f 91       	pop	r21
- a18:	4f 91       	pop	r20
- a1a:	3f 91       	pop	r19
- a1c:	2f 91       	pop	r18
- a1e:	1f 91       	pop	r17
- a20:	0f 91       	pop	r16
- a22:	ff 90       	pop	r15
- a24:	ef 90       	pop	r14
- a26:	0f 90       	pop	r0
- a28:	0f be       	out	0x3f, r0	; 63
- a2a:	0f 90       	pop	r0
- a2c:	1f 90       	pop	r1
- a2e:	18 95       	reti
+ 9d2:	ff 91       	pop	r31
+ 9d4:	ef 91       	pop	r30
+ 9d6:	bf 91       	pop	r27
+ 9d8:	af 91       	pop	r26
+ 9da:	9f 91       	pop	r25
+ 9dc:	8f 91       	pop	r24
+ 9de:	7f 91       	pop	r23
+ 9e0:	6f 91       	pop	r22
+ 9e2:	5f 91       	pop	r21
+ 9e4:	4f 91       	pop	r20
+ 9e6:	3f 91       	pop	r19
+ 9e8:	2f 91       	pop	r18
+ 9ea:	1f 91       	pop	r17
+ 9ec:	0f 91       	pop	r16
+ 9ee:	0f 90       	pop	r0
+ 9f0:	0f be       	out	0x3f, r0	; 63
+ 9f2:	0f 90       	pop	r0
+ 9f4:	1f 90       	pop	r1
+ 9f6:	18 95       	reti
 
-00000a30 <_exit>:
- a30:	f8 94       	cli
+000009f8 <_exit>:
+ 9f8:	f8 94       	cli
 
-00000a32 <__stop_program>:
- a32:	ff cf       	rjmp	.-2      	; 0xa32 <__stop_program>
+000009fa <__stop_program>:
+ 9fa:	ff cf       	rjmp	.-2      	; 0x9fa <__stop_program>
