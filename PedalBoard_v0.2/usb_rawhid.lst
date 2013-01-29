@@ -1,1968 +1,2887 @@
    1               		.file	"usb_rawhid.c"
-   2               	__SREG__ = 0x3f
-   3               	__SP_H__ = 0x3e
-   4               	__SP_L__ = 0x3d
-   5               	__CCP__  = 0x34
-   6               	__tmp_reg__ = 0
-   7               	__zero_reg__ = 1
-   8               		.global __do_copy_data
-   9               		.global __do_clear_bss
-  17               	.Ltext0:
-  18               		.section	.text.usb_init,"ax",@progbits
-  19               	.global	usb_init
-  21               	usb_init:
-  22               	.LFB2:
-  23               	.LSM0:
-  24               	/* prologue: function */
-  25               	/* frame size = 0 */
-  26               	.LSM1:
-  27 0000 81E0      		ldi r24,lo8(1)
-  28 0002 8093 D700 		sts 215,r24
-  29               	.LSM2:
-  30 0006 80EA      		ldi r24,lo8(-96)
-  31 0008 8093 D800 		sts 216,r24
-  32               	.LSM3:
-  33 000c 82E1      		ldi r24,lo8(18)
-  34 000e 89BD      		out 73-32,r24
-  35               	.L2:
-  36               	.LSM4:
-  37 0010 09B4      		in __tmp_reg__,73-32
-  38 0012 00FE      		sbrs __tmp_reg__,0
-  39 0014 00C0      		rjmp .L2
-  40               	.LSM5:
-  41 0016 80E9      		ldi r24,lo8(-112)
-  42 0018 8093 D800 		sts 216,r24
-  43               	.LSM6:
-  44 001c 1092 E000 		sts 224,__zero_reg__
-  45               	.LSM7:
-  46 0020 1092 0000 		sts usb_configuration,__zero_reg__
-  47               	.LSM8:
-  48 0024 8CE0      		ldi r24,lo8(12)
-  49 0026 8093 E200 		sts 226,r24
-  50               	.LSM9:
-  51               	/* #APP */
-  52               	 ;  257 "usb_rawhid.c" 1
-  53 002a 7894      		sei
-  54               	 ;  0 "" 2
-  55               	/* epilogue start */
-  56               	.LSM10:
-  57               	/* #NOAPP */
-  58 002c 0895      		ret
-  59               	.LFE2:
-  61               		.section	.text.usb_configured,"ax",@progbits
-  62               	.global	usb_configured
-  64               	usb_configured:
-  65               	.LFB3:
-  66               	.LSM11:
-  67               	/* prologue: function */
-  68               	/* frame size = 0 */
-  69               	.LSM12:
-  70 0000 8091 0000 		lds r24,usb_configuration
-  71               	/* epilogue start */
-  72               	.LSM13:
-  73 0004 0895      		ret
-  74               	.LFE3:
-  76               		.section	.text.usb_rawhid_recv,"ax",@progbits
-  77               	.global	usb_rawhid_recv
-  79               	usb_rawhid_recv:
-  80               	.LFB4:
-  81               	.LSM14:
-  82               	.LVL0:
-  83               	/* prologue: function */
-  84               	/* frame size = 0 */
-  85 0000 DC01      		movw r26,r24
-  86               	.LSM15:
-  87 0002 8091 0000 		lds r24,usb_configuration
-  88               	.LVL1:
-  89 0006 8823      		tst r24
-  90 0008 01F4      		brne .+2
-  91 000a 00C0      		rjmp .L8
-  92               	.LSM16:
-  93 000c 2FB7      		in r18,__SREG__
-  94               	.LVL2:
-  95               	.LSM17:
-  96               	/* #APP */
-  97               	 ;  276 "usb_rawhid.c" 1
-  98 000e F894      		cli
-  99               	 ;  0 "" 2
- 100               	.LSM18:
- 101               	/* #NOAPP */
- 102 0010 6093 0000 		sts rx_timeout_count,r22
- 103               	.LSM19:
- 104 0014 82E0      		ldi r24,lo8(2)
- 105 0016 8093 E900 		sts 233,r24
- 106               	.LSM20:
- 107 001a 92E0      		ldi r25,lo8(2)
- 108               	.L12:
- 109               	.LSM21:
- 110 001c 8091 E800 		lds r24,232
- 111 0020 85FD      		sbrc r24,5
- 112 0022 00C0      		rjmp .L9
- 113               	.LSM22:
- 114 0024 2FBF      		out __SREG__,r18
- 115               	.LSM23:
- 116 0026 8091 0000 		lds r24,rx_timeout_count
- 117 002a 8823      		tst r24
- 118 002c 01F4      		brne .+2
- 119 002e 00C0      		rjmp .L11
- 120               	.LSM24:
- 121 0030 8091 0000 		lds r24,usb_configuration
- 122 0034 8823      		tst r24
- 123 0036 01F4      		brne .+2
- 124 0038 00C0      		rjmp .L8
- 125               	.LSM25:
- 126 003a 2FB7      		in r18,__SREG__
- 127               	.LSM26:
- 128               	/* #APP */
- 129               	 ;  286 "usb_rawhid.c" 1
- 130 003c F894      		cli
- 131               	 ;  0 "" 2
- 132               	.LSM27:
- 133               	/* #NOAPP */
- 134 003e 9093 E900 		sts 233,r25
- 135 0042 00C0      		rjmp .L12
- 136               	.L9:
- 137               	.LSM28:
- 138 0044 8091 F100 		lds r24,241
- 139 0048 FD01      		movw r30,r26
- 140 004a 8193      		st Z+,r24
- 141               	.LSM29:
- 142 004c 8091 F100 		lds r24,241
- 143 0050 1196      		adiw r26,1
- 144 0052 8C93      		st X,r24
- 145 0054 DF01      		movw r26,r30
- 146 0056 1196      		adiw r26,1
- 147               	.LSM30:
- 148 0058 8091 F100 		lds r24,241
- 149 005c 8183      		std Z+1,r24
- 150 005e FD01      		movw r30,r26
- 151 0060 3196      		adiw r30,1
- 152               	.LVL3:
- 153               	.LSM31:
- 154 0062 8091 F100 		lds r24,241
- 155 0066 1196      		adiw r26,1
- 156 0068 8C93      		st X,r24
- 157 006a DF01      		movw r26,r30
- 158 006c 1196      		adiw r26,1
- 159               	.LVL4:
- 160               	.LSM32:
- 161 006e 8091 F100 		lds r24,241
- 162 0072 8183      		std Z+1,r24
- 163 0074 FD01      		movw r30,r26
- 164 0076 3196      		adiw r30,1
- 165               	.LVL5:
- 166               	.LSM33:
- 167 0078 8091 F100 		lds r24,241
- 168 007c 1196      		adiw r26,1
- 169 007e 8C93      		st X,r24
- 170 0080 DF01      		movw r26,r30
- 171 0082 1196      		adiw r26,1
- 172               	.LVL6:
- 173               	.LSM34:
- 174 0084 8091 F100 		lds r24,241
- 175 0088 8183      		std Z+1,r24
- 176 008a FD01      		movw r30,r26
- 177 008c 3196      		adiw r30,1
- 178               	.LVL7:
- 179               	.LSM35:
- 180 008e 8091 F100 		lds r24,241
- 181 0092 1196      		adiw r26,1
- 182 0094 8C93      		st X,r24
- 183 0096 DF01      		movw r26,r30
- 184 0098 1196      		adiw r26,1
- 185               	.LVL8:
- 186               	.LSM36:
- 187 009a 8091 F100 		lds r24,241
- 188 009e 8183      		std Z+1,r24
- 189 00a0 FD01      		movw r30,r26
- 190 00a2 3196      		adiw r30,1
- 191               	.LVL9:
- 192               	.LSM37:
- 193 00a4 8091 F100 		lds r24,241
- 194 00a8 1196      		adiw r26,1
- 195 00aa 8C93      		st X,r24
- 196 00ac DF01      		movw r26,r30
- 197 00ae 1196      		adiw r26,1
- 198               	.LVL10:
- 199               	.LSM38:
- 200 00b0 8091 F100 		lds r24,241
- 201 00b4 8183      		std Z+1,r24
- 202 00b6 FD01      		movw r30,r26
- 203 00b8 3196      		adiw r30,1
- 204               	.LVL11:
- 205               	.LSM39:
- 206 00ba 8091 F100 		lds r24,241
- 207 00be 1196      		adiw r26,1
- 208 00c0 8C93      		st X,r24
- 209 00c2 DF01      		movw r26,r30
- 210 00c4 1196      		adiw r26,1
- 211               	.LVL12:
- 212               	.LSM40:
- 213 00c6 8091 F100 		lds r24,241
- 214 00ca 8183      		std Z+1,r24
- 215 00cc FD01      		movw r30,r26
- 216 00ce 3196      		adiw r30,1
- 217               	.LVL13:
- 218               	.LSM41:
- 219 00d0 8091 F100 		lds r24,241
- 220 00d4 1196      		adiw r26,1
- 221 00d6 8C93      		st X,r24
- 222 00d8 DF01      		movw r26,r30
- 223 00da 1196      		adiw r26,1
- 224               	.LVL14:
- 225               	.LSM42:
- 226 00dc 8091 F100 		lds r24,241
- 227 00e0 8183      		std Z+1,r24
- 228 00e2 FD01      		movw r30,r26
- 229 00e4 3196      		adiw r30,1
- 230               	.LVL15:
- 231               	.LSM43:
- 232 00e6 8091 F100 		lds r24,241
- 233 00ea 1196      		adiw r26,1
- 234 00ec 8C93      		st X,r24
- 235 00ee DF01      		movw r26,r30
- 236 00f0 1196      		adiw r26,1
- 237               	.LVL16:
- 238               	.LSM44:
- 239 00f2 8091 F100 		lds r24,241
- 240 00f6 8183      		std Z+1,r24
- 241 00f8 FD01      		movw r30,r26
- 242 00fa 3196      		adiw r30,1
- 243               	.LVL17:
- 244               	.LSM45:
- 245 00fc 8091 F100 		lds r24,241
- 246 0100 1196      		adiw r26,1
- 247 0102 8C93      		st X,r24
- 248 0104 DF01      		movw r26,r30
- 249 0106 1196      		adiw r26,1
- 250               	.LVL18:
- 251               	.LSM46:
- 252 0108 8091 F100 		lds r24,241
- 253 010c 8183      		std Z+1,r24
- 254 010e FD01      		movw r30,r26
- 255 0110 3196      		adiw r30,1
- 256               	.LVL19:
- 257               	.LSM47:
- 258 0112 8091 F100 		lds r24,241
- 259 0116 1196      		adiw r26,1
- 260 0118 8C93      		st X,r24
- 261 011a DF01      		movw r26,r30
- 262 011c 1196      		adiw r26,1
- 263               	.LVL20:
- 264               	.LSM48:
- 265 011e 8091 F100 		lds r24,241
- 266 0122 8183      		std Z+1,r24
- 267 0124 FD01      		movw r30,r26
- 268 0126 3196      		adiw r30,1
- 269               	.LVL21:
- 270               	.LSM49:
- 271 0128 8091 F100 		lds r24,241
- 272 012c 1196      		adiw r26,1
- 273 012e 8C93      		st X,r24
- 274 0130 DF01      		movw r26,r30
- 275 0132 1196      		adiw r26,1
- 276               	.LVL22:
- 277               	.LSM50:
- 278 0134 8091 F100 		lds r24,241
- 279 0138 8183      		std Z+1,r24
- 280 013a FD01      		movw r30,r26
- 281 013c 3196      		adiw r30,1
- 282               	.LVL23:
- 283               	.LSM51:
- 284 013e 8091 F100 		lds r24,241
- 285 0142 1196      		adiw r26,1
- 286 0144 8C93      		st X,r24
- 287 0146 DF01      		movw r26,r30
- 288 0148 1196      		adiw r26,1
- 289               	.LVL24:
- 290               	.LSM52:
- 291 014a 8091 F100 		lds r24,241
- 292 014e 8183      		std Z+1,r24
- 293 0150 FD01      		movw r30,r26
- 294 0152 3196      		adiw r30,1
- 295               	.LVL25:
- 296               	.LSM53:
- 297 0154 8091 F100 		lds r24,241
- 298 0158 1196      		adiw r26,1
- 299 015a 8C93      		st X,r24
- 300 015c DF01      		movw r26,r30
- 301 015e 1196      		adiw r26,1
- 302               	.LVL26:
- 303               	.LSM54:
- 304 0160 8091 F100 		lds r24,241
- 305 0164 8183      		std Z+1,r24
- 306 0166 FD01      		movw r30,r26
- 307 0168 3196      		adiw r30,1
- 308               	.LVL27:
- 309               	.LSM55:
- 310 016a 8091 F100 		lds r24,241
- 311 016e 1196      		adiw r26,1
- 312 0170 8C93      		st X,r24
- 313 0172 DF01      		movw r26,r30
- 314 0174 1196      		adiw r26,1
- 315               	.LVL28:
- 316               	.LSM56:
- 317 0176 8091 F100 		lds r24,241
- 318 017a 8183      		std Z+1,r24
- 319 017c FD01      		movw r30,r26
- 320 017e 3196      		adiw r30,1
- 321               	.LVL29:
- 322               	.LSM57:
- 323 0180 8091 F100 		lds r24,241
- 324 0184 1196      		adiw r26,1
- 325 0186 8C93      		st X,r24
- 326 0188 DF01      		movw r26,r30
- 327 018a 1196      		adiw r26,1
- 328               	.LVL30:
- 329               	.LSM58:
- 330 018c 8091 F100 		lds r24,241
- 331 0190 8183      		std Z+1,r24
- 332 0192 FD01      		movw r30,r26
- 333 0194 3196      		adiw r30,1
- 334               	.LVL31:
- 335               	.LSM59:
- 336 0196 8091 F100 		lds r24,241
- 337 019a 1196      		adiw r26,1
- 338 019c 8C93      		st X,r24
- 339 019e DF01      		movw r26,r30
- 340 01a0 1196      		adiw r26,1
- 341               	.LVL32:
- 342               	.LSM60:
- 343 01a2 8091 F100 		lds r24,241
- 344 01a6 8183      		std Z+1,r24
- 345 01a8 FD01      		movw r30,r26
- 346 01aa 3196      		adiw r30,1
- 347               	.LVL33:
- 348               	.LSM61:
- 349 01ac 8091 F100 		lds r24,241
- 350 01b0 1196      		adiw r26,1
- 351 01b2 8C93      		st X,r24
- 352 01b4 DF01      		movw r26,r30
- 353 01b6 1196      		adiw r26,1
- 354               	.LVL34:
- 355               	.LSM62:
- 356 01b8 8091 F100 		lds r24,241
- 357 01bc 8183      		std Z+1,r24
- 358 01be FD01      		movw r30,r26
- 359 01c0 3196      		adiw r30,1
- 360               	.LVL35:
- 361               	.LSM63:
- 362 01c2 8091 F100 		lds r24,241
- 363 01c6 1196      		adiw r26,1
- 364 01c8 8C93      		st X,r24
- 365 01ca DF01      		movw r26,r30
- 366 01cc 1196      		adiw r26,1
- 367               	.LVL36:
- 368               	.LSM64:
- 369 01ce 8091 F100 		lds r24,241
- 370 01d2 8183      		std Z+1,r24
- 371 01d4 FD01      		movw r30,r26
- 372 01d6 3196      		adiw r30,1
- 373               	.LVL37:
- 374               	.LSM65:
- 375 01d8 8091 F100 		lds r24,241
- 376 01dc 1196      		adiw r26,1
- 377 01de 8C93      		st X,r24
- 378 01e0 DF01      		movw r26,r30
- 379 01e2 1196      		adiw r26,1
- 380               	.LVL38:
- 381               	.LSM66:
- 382 01e4 8091 F100 		lds r24,241
- 383 01e8 8183      		std Z+1,r24
- 384 01ea FD01      		movw r30,r26
- 385 01ec 3196      		adiw r30,1
- 386               	.LVL39:
- 387               	.LSM67:
- 388 01ee 8091 F100 		lds r24,241
- 389 01f2 1196      		adiw r26,1
- 390 01f4 8C93      		st X,r24
- 391 01f6 DF01      		movw r26,r30
- 392 01f8 1196      		adiw r26,1
- 393               	.LVL40:
- 394               	.LSM68:
- 395 01fa 8091 F100 		lds r24,241
- 396 01fe 8183      		std Z+1,r24
- 397 0200 FD01      		movw r30,r26
- 398 0202 3196      		adiw r30,1
- 399               	.LVL41:
- 400               	.LSM69:
- 401 0204 8091 F100 		lds r24,241
- 402 0208 1196      		adiw r26,1
- 403 020a 8C93      		st X,r24
- 404 020c DF01      		movw r26,r30
- 405 020e 1196      		adiw r26,1
- 406               	.LVL42:
- 407               	.LSM70:
- 408 0210 8091 F100 		lds r24,241
- 409 0214 8183      		std Z+1,r24
- 410 0216 FD01      		movw r30,r26
- 411 0218 3196      		adiw r30,1
- 412               	.LVL43:
- 413               	.LSM71:
- 414 021a 8091 F100 		lds r24,241
- 415 021e 1196      		adiw r26,1
- 416 0220 8C93      		st X,r24
- 417 0222 DF01      		movw r26,r30
- 418 0224 1196      		adiw r26,1
- 419               	.LVL44:
- 420               	.LSM72:
- 421 0226 8091 F100 		lds r24,241
- 422 022a 8183      		std Z+1,r24
- 423 022c FD01      		movw r30,r26
- 424 022e 3196      		adiw r30,1
- 425               	.LVL45:
- 426               	.LSM73:
- 427 0230 8091 F100 		lds r24,241
- 428 0234 1196      		adiw r26,1
- 429 0236 8C93      		st X,r24
- 430 0238 DF01      		movw r26,r30
- 431 023a 1196      		adiw r26,1
- 432               	.LVL46:
- 433               	.LSM74:
- 434 023c 8091 F100 		lds r24,241
- 435 0240 8183      		std Z+1,r24
- 436 0242 FD01      		movw r30,r26
- 437 0244 3196      		adiw r30,1
- 438               	.LVL47:
- 439               	.LSM75:
- 440 0246 8091 F100 		lds r24,241
- 441 024a 1196      		adiw r26,1
- 442 024c 8C93      		st X,r24
- 443 024e DF01      		movw r26,r30
- 444 0250 1196      		adiw r26,1
- 445               	.LVL48:
- 446               	.LSM76:
- 447 0252 8091 F100 		lds r24,241
- 448 0256 8183      		std Z+1,r24
- 449 0258 FD01      		movw r30,r26
- 450 025a 3196      		adiw r30,1
- 451               	.LVL49:
- 452               	.LSM77:
- 453 025c 8091 F100 		lds r24,241
- 454 0260 1196      		adiw r26,1
- 455 0262 8C93      		st X,r24
- 456 0264 DF01      		movw r26,r30
- 457 0266 1196      		adiw r26,1
- 458               	.LVL50:
- 459               	.LSM78:
- 460 0268 8091 F100 		lds r24,241
- 461 026c 8183      		std Z+1,r24
- 462 026e FD01      		movw r30,r26
- 463 0270 3196      		adiw r30,1
- 464               	.LVL51:
- 465               	.LSM79:
- 466 0272 8091 F100 		lds r24,241
- 467 0276 1196      		adiw r26,1
- 468 0278 8C93      		st X,r24
- 469 027a DF01      		movw r26,r30
- 470 027c 1196      		adiw r26,1
- 471               	.LVL52:
- 472               	.LSM80:
- 473 027e 8091 F100 		lds r24,241
- 474 0282 8183      		std Z+1,r24
- 475 0284 FD01      		movw r30,r26
- 476 0286 3196      		adiw r30,1
- 477               	.LVL53:
- 478               	.LSM81:
- 479 0288 8091 F100 		lds r24,241
- 480 028c 1196      		adiw r26,1
- 481 028e 8C93      		st X,r24
- 482 0290 DF01      		movw r26,r30
- 483 0292 1196      		adiw r26,1
- 484               	.LVL54:
- 485               	.LSM82:
- 486 0294 8091 F100 		lds r24,241
- 487 0298 8183      		std Z+1,r24
- 488 029a FD01      		movw r30,r26
- 489 029c 3196      		adiw r30,1
- 490               	.LVL55:
- 491               	.LSM83:
- 492 029e 8091 F100 		lds r24,241
- 493 02a2 1196      		adiw r26,1
- 494 02a4 8C93      		st X,r24
- 495 02a6 DF01      		movw r26,r30
- 496 02a8 1196      		adiw r26,1
- 497               	.LVL56:
- 498               	.LSM84:
- 499 02aa 8091 F100 		lds r24,241
- 500 02ae 8183      		std Z+1,r24
- 501 02b0 FD01      		movw r30,r26
- 502 02b2 3196      		adiw r30,1
- 503               	.LVL57:
- 504               	.LSM85:
- 505 02b4 8091 F100 		lds r24,241
- 506 02b8 1196      		adiw r26,1
- 507 02ba 8C93      		st X,r24
- 508 02bc DF01      		movw r26,r30
- 509 02be 1196      		adiw r26,1
- 510               	.LVL58:
- 511               	.LSM86:
- 512 02c0 8091 F100 		lds r24,241
- 513 02c4 8183      		std Z+1,r24
- 514 02c6 FD01      		movw r30,r26
- 515 02c8 3196      		adiw r30,1
- 516               	.LVL59:
- 517               	.LSM87:
- 518 02ca 8091 F100 		lds r24,241
- 519 02ce 1196      		adiw r26,1
- 520 02d0 8C93      		st X,r24
- 521 02d2 DF01      		movw r26,r30
- 522 02d4 1196      		adiw r26,1
- 523               	.LVL60:
- 524               	.LSM88:
- 525 02d6 8091 F100 		lds r24,241
- 526 02da 8183      		std Z+1,r24
- 527 02dc FD01      		movw r30,r26
- 528 02de 3196      		adiw r30,1
- 529               	.LVL61:
- 530               	.LSM89:
- 531 02e0 8091 F100 		lds r24,241
- 532 02e4 1196      		adiw r26,1
- 533 02e6 8C93      		st X,r24
- 534               	.LSM90:
- 535 02e8 8091 F100 		lds r24,241
- 536 02ec 8183      		std Z+1,r24
- 537               	.LSM91:
- 538 02ee 8091 F100 		lds r24,241
- 539 02f2 8283      		std Z+2,r24
- 540               	.LSM92:
- 541 02f4 8BE6      		ldi r24,lo8(107)
- 542 02f6 8093 E800 		sts 232,r24
- 543               	.LSM93:
- 544 02fa 2FBF      		out __SREG__,r18
- 545 02fc 80E4      		ldi r24,lo8(64)
- 546 02fe 0895      		ret
- 547               	.LVL62:
- 548               	.L8:
- 549               	.LSM94:
- 550 0300 8FEF      		ldi r24,lo8(-1)
- 551               	.L11:
- 552               	.LSM95:
- 553 0302 0895      		ret
- 554               	.LFE4:
- 556               		.section	.text.usb_rawhid_send,"ax",@progbits
- 557               	.global	usb_rawhid_send
- 559               	usb_rawhid_send:
- 560               	.LFB5:
- 561               	.LSM96:
- 562               	.LVL63:
- 563               	/* prologue: function */
- 564               	/* frame size = 0 */
- 565 0000 DC01      		movw r26,r24
- 566               	.LSM97:
- 567 0002 8091 0000 		lds r24,usb_configuration
- 568               	.LVL64:
- 569 0006 8823      		tst r24
- 570 0008 01F4      		brne .+2
- 571 000a 00C0      		rjmp .L15
- 572               	.LSM98:
- 573 000c 2FB7      		in r18,__SREG__
- 574               	.LVL65:
- 575               	.LSM99:
- 576               	/* #APP */
- 577               	 ;  496 "usb_rawhid.c" 1
- 578 000e F894      		cli
- 579               	 ;  0 "" 2
- 580               	.LSM100:
- 581               	/* #NOAPP */
- 582 0010 6093 0000 		sts tx_timeout_count,r22
- 583               	.LSM101:
- 584 0014 81E0      		ldi r24,lo8(1)
- 585 0016 8093 E900 		sts 233,r24
- 586               	.LSM102:
- 587 001a 91E0      		ldi r25,lo8(1)
- 588               	.L19:
- 589               	.LSM103:
- 590 001c 8091 E800 		lds r24,232
- 591 0020 85FD      		sbrc r24,5
- 592 0022 00C0      		rjmp .L16
- 593               	.LSM104:
- 594 0024 2FBF      		out __SREG__,r18
- 595               	.LSM105:
- 596 0026 8091 0000 		lds r24,tx_timeout_count
- 597 002a 8823      		tst r24
- 598 002c 01F4      		brne .+2
- 599 002e 00C0      		rjmp .L18
- 600               	.LSM106:
- 601 0030 8091 0000 		lds r24,usb_configuration
- 602 0034 8823      		tst r24
- 603 0036 01F4      		brne .+2
- 604 0038 00C0      		rjmp .L15
- 605               	.LSM107:
- 606 003a 2FB7      		in r18,__SREG__
- 607               	.LSM108:
- 608               	/* #APP */
- 609               	 ;  506 "usb_rawhid.c" 1
- 610 003c F894      		cli
- 611               	 ;  0 "" 2
- 612               	.LSM109:
- 613               	/* #NOAPP */
- 614 003e 9093 E900 		sts 233,r25
- 615 0042 00C0      		rjmp .L19
- 616               	.L16:
- 617               	.LSM110:
- 618 0044 FD01      		movw r30,r26
- 619 0046 8191      		ld r24,Z+
- 620 0048 8093 F100 		sts 241,r24
- 621               	.LSM111:
- 622 004c 1196      		adiw r26,1
- 623 004e 8C91      		ld r24,X
- 624 0050 8093 F100 		sts 241,r24
- 625 0054 DF01      		movw r26,r30
- 626 0056 1196      		adiw r26,1
- 627               	.LSM112:
- 628 0058 8181      		ldd r24,Z+1
- 629 005a 8093 F100 		sts 241,r24
- 630 005e FD01      		movw r30,r26
- 631 0060 3196      		adiw r30,1
- 632               	.LVL66:
- 633               	.LSM113:
- 634 0062 1196      		adiw r26,1
- 635 0064 8C91      		ld r24,X
- 636 0066 8093 F100 		sts 241,r24
- 637 006a DF01      		movw r26,r30
- 638 006c 1196      		adiw r26,1
- 639               	.LVL67:
- 640               	.LSM114:
- 641 006e 8181      		ldd r24,Z+1
- 642 0070 8093 F100 		sts 241,r24
- 643 0074 FD01      		movw r30,r26
- 644 0076 3196      		adiw r30,1
- 645               	.LVL68:
- 646               	.LSM115:
- 647 0078 1196      		adiw r26,1
- 648 007a 8C91      		ld r24,X
- 649 007c 8093 F100 		sts 241,r24
- 650 0080 DF01      		movw r26,r30
- 651 0082 1196      		adiw r26,1
- 652               	.LVL69:
- 653               	.LSM116:
- 654 0084 8181      		ldd r24,Z+1
- 655 0086 8093 F100 		sts 241,r24
- 656 008a FD01      		movw r30,r26
- 657 008c 3196      		adiw r30,1
- 658               	.LVL70:
- 659               	.LSM117:
- 660 008e 1196      		adiw r26,1
- 661 0090 8C91      		ld r24,X
- 662 0092 8093 F100 		sts 241,r24
- 663 0096 DF01      		movw r26,r30
- 664 0098 1196      		adiw r26,1
- 665               	.LVL71:
- 666               	.LSM118:
- 667 009a 8181      		ldd r24,Z+1
- 668 009c 8093 F100 		sts 241,r24
- 669 00a0 FD01      		movw r30,r26
- 670 00a2 3196      		adiw r30,1
- 671               	.LVL72:
- 672               	.LSM119:
- 673 00a4 1196      		adiw r26,1
- 674 00a6 8C91      		ld r24,X
- 675 00a8 8093 F100 		sts 241,r24
- 676 00ac DF01      		movw r26,r30
- 677 00ae 1196      		adiw r26,1
- 678               	.LVL73:
- 679               	.LSM120:
- 680 00b0 8181      		ldd r24,Z+1
- 681 00b2 8093 F100 		sts 241,r24
- 682 00b6 FD01      		movw r30,r26
- 683 00b8 3196      		adiw r30,1
- 684               	.LVL74:
- 685               	.LSM121:
- 686 00ba 1196      		adiw r26,1
- 687 00bc 8C91      		ld r24,X
- 688 00be 8093 F100 		sts 241,r24
- 689 00c2 DF01      		movw r26,r30
- 690 00c4 1196      		adiw r26,1
- 691               	.LVL75:
- 692               	.LSM122:
- 693 00c6 8181      		ldd r24,Z+1
- 694 00c8 8093 F100 		sts 241,r24
- 695 00cc FD01      		movw r30,r26
- 696 00ce 3196      		adiw r30,1
- 697               	.LVL76:
- 698               	.LSM123:
- 699 00d0 1196      		adiw r26,1
- 700 00d2 8C91      		ld r24,X
- 701 00d4 8093 F100 		sts 241,r24
- 702 00d8 DF01      		movw r26,r30
- 703 00da 1196      		adiw r26,1
- 704               	.LVL77:
- 705               	.LSM124:
- 706 00dc 8181      		ldd r24,Z+1
- 707 00de 8093 F100 		sts 241,r24
- 708 00e2 FD01      		movw r30,r26
- 709 00e4 3196      		adiw r30,1
- 710               	.LVL78:
- 711               	.LSM125:
- 712 00e6 1196      		adiw r26,1
- 713 00e8 8C91      		ld r24,X
- 714 00ea 8093 F100 		sts 241,r24
- 715 00ee DF01      		movw r26,r30
- 716 00f0 1196      		adiw r26,1
- 717               	.LVL79:
- 718               	.LSM126:
- 719 00f2 8181      		ldd r24,Z+1
- 720 00f4 8093 F100 		sts 241,r24
- 721 00f8 FD01      		movw r30,r26
- 722 00fa 3196      		adiw r30,1
- 723               	.LVL80:
- 724               	.LSM127:
- 725 00fc 1196      		adiw r26,1
- 726 00fe 8C91      		ld r24,X
- 727 0100 8093 F100 		sts 241,r24
- 728 0104 DF01      		movw r26,r30
- 729 0106 1196      		adiw r26,1
- 730               	.LVL81:
- 731               	.LSM128:
- 732 0108 8181      		ldd r24,Z+1
- 733 010a 8093 F100 		sts 241,r24
- 734 010e FD01      		movw r30,r26
- 735 0110 3196      		adiw r30,1
- 736               	.LVL82:
- 737               	.LSM129:
- 738 0112 1196      		adiw r26,1
- 739 0114 8C91      		ld r24,X
- 740 0116 8093 F100 		sts 241,r24
- 741 011a DF01      		movw r26,r30
- 742 011c 1196      		adiw r26,1
- 743               	.LVL83:
- 744               	.LSM130:
- 745 011e 8181      		ldd r24,Z+1
- 746 0120 8093 F100 		sts 241,r24
- 747 0124 FD01      		movw r30,r26
- 748 0126 3196      		adiw r30,1
- 749               	.LVL84:
- 750               	.LSM131:
- 751 0128 1196      		adiw r26,1
- 752 012a 8C91      		ld r24,X
- 753 012c 8093 F100 		sts 241,r24
- 754 0130 DF01      		movw r26,r30
- 755 0132 1196      		adiw r26,1
- 756               	.LVL85:
- 757               	.LSM132:
- 758 0134 8181      		ldd r24,Z+1
- 759 0136 8093 F100 		sts 241,r24
- 760 013a FD01      		movw r30,r26
- 761 013c 3196      		adiw r30,1
- 762               	.LVL86:
- 763               	.LSM133:
- 764 013e 1196      		adiw r26,1
- 765 0140 8C91      		ld r24,X
- 766 0142 8093 F100 		sts 241,r24
- 767 0146 DF01      		movw r26,r30
- 768 0148 1196      		adiw r26,1
- 769               	.LVL87:
- 770               	.LSM134:
- 771 014a 8181      		ldd r24,Z+1
- 772 014c 8093 F100 		sts 241,r24
- 773 0150 FD01      		movw r30,r26
- 774 0152 3196      		adiw r30,1
- 775               	.LVL88:
- 776               	.LSM135:
- 777 0154 1196      		adiw r26,1
- 778 0156 8C91      		ld r24,X
- 779 0158 8093 F100 		sts 241,r24
- 780 015c DF01      		movw r26,r30
- 781 015e 1196      		adiw r26,1
- 782               	.LVL89:
- 783               	.LSM136:
- 784 0160 8181      		ldd r24,Z+1
- 785 0162 8093 F100 		sts 241,r24
- 786 0166 FD01      		movw r30,r26
- 787 0168 3196      		adiw r30,1
- 788               	.LVL90:
- 789               	.LSM137:
- 790 016a 1196      		adiw r26,1
- 791 016c 8C91      		ld r24,X
- 792 016e 8093 F100 		sts 241,r24
- 793 0172 DF01      		movw r26,r30
- 794 0174 1196      		adiw r26,1
- 795               	.LVL91:
- 796               	.LSM138:
- 797 0176 8181      		ldd r24,Z+1
- 798 0178 8093 F100 		sts 241,r24
- 799 017c FD01      		movw r30,r26
- 800 017e 3196      		adiw r30,1
- 801               	.LVL92:
- 802               	.LSM139:
- 803 0180 1196      		adiw r26,1
- 804 0182 8C91      		ld r24,X
- 805 0184 8093 F100 		sts 241,r24
- 806 0188 DF01      		movw r26,r30
- 807 018a 1196      		adiw r26,1
- 808               	.LVL93:
- 809               	.LSM140:
- 810 018c 8181      		ldd r24,Z+1
- 811 018e 8093 F100 		sts 241,r24
- 812 0192 FD01      		movw r30,r26
- 813 0194 3196      		adiw r30,1
- 814               	.LVL94:
- 815               	.LSM141:
- 816 0196 1196      		adiw r26,1
- 817 0198 8C91      		ld r24,X
- 818 019a 8093 F100 		sts 241,r24
- 819 019e DF01      		movw r26,r30
- 820 01a0 1196      		adiw r26,1
- 821               	.LVL95:
- 822               	.LSM142:
- 823 01a2 8181      		ldd r24,Z+1
- 824 01a4 8093 F100 		sts 241,r24
- 825 01a8 FD01      		movw r30,r26
- 826 01aa 3196      		adiw r30,1
- 827               	.LVL96:
- 828               	.LSM143:
- 829 01ac 1196      		adiw r26,1
- 830 01ae 8C91      		ld r24,X
- 831 01b0 8093 F100 		sts 241,r24
- 832 01b4 DF01      		movw r26,r30
- 833 01b6 1196      		adiw r26,1
- 834               	.LVL97:
- 835               	.LSM144:
- 836 01b8 8181      		ldd r24,Z+1
- 837 01ba 8093 F100 		sts 241,r24
- 838 01be FD01      		movw r30,r26
- 839 01c0 3196      		adiw r30,1
- 840               	.LVL98:
- 841               	.LSM145:
- 842 01c2 1196      		adiw r26,1
- 843 01c4 8C91      		ld r24,X
- 844 01c6 8093 F100 		sts 241,r24
- 845 01ca DF01      		movw r26,r30
- 846 01cc 1196      		adiw r26,1
- 847               	.LVL99:
- 848               	.LSM146:
- 849 01ce 8181      		ldd r24,Z+1
- 850 01d0 8093 F100 		sts 241,r24
- 851 01d4 FD01      		movw r30,r26
- 852 01d6 3196      		adiw r30,1
- 853               	.LVL100:
- 854               	.LSM147:
- 855 01d8 1196      		adiw r26,1
- 856 01da 8C91      		ld r24,X
- 857 01dc 8093 F100 		sts 241,r24
- 858 01e0 DF01      		movw r26,r30
- 859 01e2 1196      		adiw r26,1
- 860               	.LVL101:
- 861               	.LSM148:
- 862 01e4 8181      		ldd r24,Z+1
- 863 01e6 8093 F100 		sts 241,r24
- 864 01ea FD01      		movw r30,r26
- 865 01ec 3196      		adiw r30,1
- 866               	.LVL102:
- 867               	.LSM149:
- 868 01ee 1196      		adiw r26,1
- 869 01f0 8C91      		ld r24,X
- 870 01f2 8093 F100 		sts 241,r24
- 871 01f6 DF01      		movw r26,r30
- 872 01f8 1196      		adiw r26,1
- 873               	.LVL103:
- 874               	.LSM150:
- 875 01fa 8181      		ldd r24,Z+1
- 876 01fc 8093 F100 		sts 241,r24
- 877 0200 FD01      		movw r30,r26
- 878 0202 3196      		adiw r30,1
- 879               	.LVL104:
- 880               	.LSM151:
- 881 0204 1196      		adiw r26,1
- 882 0206 8C91      		ld r24,X
- 883 0208 8093 F100 		sts 241,r24
- 884 020c DF01      		movw r26,r30
- 885 020e 1196      		adiw r26,1
- 886               	.LVL105:
- 887               	.LSM152:
- 888 0210 8181      		ldd r24,Z+1
- 889 0212 8093 F100 		sts 241,r24
- 890 0216 FD01      		movw r30,r26
- 891 0218 3196      		adiw r30,1
- 892               	.LVL106:
- 893               	.LSM153:
- 894 021a 1196      		adiw r26,1
- 895 021c 8C91      		ld r24,X
- 896 021e 8093 F100 		sts 241,r24
- 897 0222 DF01      		movw r26,r30
- 898 0224 1196      		adiw r26,1
- 899               	.LVL107:
- 900               	.LSM154:
- 901 0226 8181      		ldd r24,Z+1
- 902 0228 8093 F100 		sts 241,r24
- 903 022c FD01      		movw r30,r26
- 904 022e 3196      		adiw r30,1
- 905               	.LVL108:
- 906               	.LSM155:
- 907 0230 1196      		adiw r26,1
- 908 0232 8C91      		ld r24,X
- 909 0234 8093 F100 		sts 241,r24
- 910 0238 DF01      		movw r26,r30
- 911 023a 1196      		adiw r26,1
- 912               	.LVL109:
- 913               	.LSM156:
- 914 023c 8181      		ldd r24,Z+1
- 915 023e 8093 F100 		sts 241,r24
- 916 0242 FD01      		movw r30,r26
- 917 0244 3196      		adiw r30,1
- 918               	.LVL110:
- 919               	.LSM157:
- 920 0246 1196      		adiw r26,1
- 921 0248 8C91      		ld r24,X
- 922 024a 8093 F100 		sts 241,r24
- 923 024e DF01      		movw r26,r30
- 924 0250 1196      		adiw r26,1
- 925               	.LVL111:
- 926               	.LSM158:
- 927 0252 8181      		ldd r24,Z+1
- 928 0254 8093 F100 		sts 241,r24
- 929 0258 FD01      		movw r30,r26
- 930 025a 3196      		adiw r30,1
- 931               	.LVL112:
- 932               	.LSM159:
- 933 025c 1196      		adiw r26,1
- 934 025e 8C91      		ld r24,X
- 935 0260 8093 F100 		sts 241,r24
- 936 0264 DF01      		movw r26,r30
- 937 0266 1196      		adiw r26,1
- 938               	.LVL113:
- 939               	.LSM160:
- 940 0268 8181      		ldd r24,Z+1
- 941 026a 8093 F100 		sts 241,r24
- 942 026e FD01      		movw r30,r26
- 943 0270 3196      		adiw r30,1
- 944               	.LVL114:
- 945               	.LSM161:
- 946 0272 1196      		adiw r26,1
- 947 0274 8C91      		ld r24,X
- 948 0276 8093 F100 		sts 241,r24
- 949 027a DF01      		movw r26,r30
- 950 027c 1196      		adiw r26,1
- 951               	.LVL115:
- 952               	.LSM162:
- 953 027e 8181      		ldd r24,Z+1
- 954 0280 8093 F100 		sts 241,r24
- 955 0284 FD01      		movw r30,r26
- 956 0286 3196      		adiw r30,1
- 957               	.LVL116:
- 958               	.LSM163:
- 959 0288 1196      		adiw r26,1
- 960 028a 8C91      		ld r24,X
- 961 028c 8093 F100 		sts 241,r24
- 962 0290 DF01      		movw r26,r30
- 963 0292 1196      		adiw r26,1
- 964               	.LVL117:
- 965               	.LSM164:
- 966 0294 8181      		ldd r24,Z+1
- 967 0296 8093 F100 		sts 241,r24
- 968 029a FD01      		movw r30,r26
- 969 029c 3196      		adiw r30,1
- 970               	.LVL118:
- 971               	.LSM165:
- 972 029e 1196      		adiw r26,1
- 973 02a0 8C91      		ld r24,X
- 974 02a2 8093 F100 		sts 241,r24
- 975 02a6 DF01      		movw r26,r30
- 976 02a8 1196      		adiw r26,1
- 977               	.LVL119:
- 978               	.LSM166:
- 979 02aa 8181      		ldd r24,Z+1
- 980 02ac 8093 F100 		sts 241,r24
- 981 02b0 FD01      		movw r30,r26
- 982 02b2 3196      		adiw r30,1
- 983               	.LVL120:
- 984               	.LSM167:
- 985 02b4 1196      		adiw r26,1
- 986 02b6 8C91      		ld r24,X
- 987 02b8 8093 F100 		sts 241,r24
- 988 02bc DF01      		movw r26,r30
- 989 02be 1196      		adiw r26,1
- 990               	.LVL121:
- 991               	.LSM168:
- 992 02c0 8181      		ldd r24,Z+1
- 993 02c2 8093 F100 		sts 241,r24
- 994 02c6 FD01      		movw r30,r26
- 995 02c8 3196      		adiw r30,1
- 996               	.LVL122:
- 997               	.LSM169:
- 998 02ca 1196      		adiw r26,1
- 999 02cc 8C91      		ld r24,X
- 1000 02ce 8093 F100 		sts 241,r24
- 1001 02d2 DF01      		movw r26,r30
- 1002 02d4 1196      		adiw r26,1
- 1003               	.LVL123:
- 1004               	.LSM170:
- 1005 02d6 8181      		ldd r24,Z+1
- 1006 02d8 8093 F100 		sts 241,r24
- 1007 02dc FD01      		movw r30,r26
- 1008 02de 3196      		adiw r30,1
- 1009               	.LVL124:
- 1010               	.LSM171:
- 1011 02e0 1196      		adiw r26,1
- 1012 02e2 8C91      		ld r24,X
- 1013 02e4 8093 F100 		sts 241,r24
- 1014               	.LSM172:
- 1015 02e8 8181      		ldd r24,Z+1
- 1016 02ea 8093 F100 		sts 241,r24
- 1017               	.LSM173:
- 1018 02ee 8281      		ldd r24,Z+2
- 1019 02f0 8093 F100 		sts 241,r24
- 1020               	.LSM174:
- 1021 02f4 8AE3      		ldi r24,lo8(58)
- 1022 02f6 8093 E800 		sts 232,r24
- 1023               	.LSM175:
- 1024 02fa 2FBF      		out __SREG__,r18
- 1025 02fc 80E4      		ldi r24,lo8(64)
- 1026 02fe 0895      		ret
- 1027               	.LVL125:
- 1028               	.L15:
- 1029               	.LSM176:
- 1030 0300 8FEF      		ldi r24,lo8(-1)
- 1031               	.L18:
- 1032               	.LSM177:
- 1033 0302 0895      		ret
- 1034               	.LFE5:
- 1036               		.section	.text.__vector_10,"ax",@progbits
- 1037               	.global	__vector_10
- 1039               	__vector_10:
- 1040               	.LFB6:
- 1041               	.LSM178:
- 1042 0000 1F92      		push __zero_reg__
- 1043 0002 0F92      		push r0
- 1044 0004 0FB6      		in r0,__SREG__
- 1045 0006 0F92      		push r0
- 1046 0008 1124      		clr __zero_reg__
- 1047 000a 8F93      		push r24
- 1048 000c 9F93      		push r25
- 1049               	/* prologue: Signal */
- 1050               	/* frame size = 0 */
- 1051               	.LSM179:
- 1052 000e 8091 E100 		lds r24,225
- 1053               	.LVL126:
- 1054               	.LSM180:
- 1055 0012 1092 E100 		sts 225,__zero_reg__
- 1056               	.LSM181:
- 1057 0016 982F      		mov r25,r24
- 1058 0018 93FF      		sbrs r25,3
- 1059 001a 00C0      		rjmp .L22
- 1060               	.LSM182:
- 1061 001c 1092 E900 		sts 233,__zero_reg__
- 1062               	.LSM183:
- 1063 0020 81E0      		ldi r24,lo8(1)
- 1064               	.LVL127:
- 1065 0022 8093 EB00 		sts 235,r24
- 1066               	.LSM184:
- 1067 0026 1092 EC00 		sts 236,__zero_reg__
- 1068               	.LSM185:
- 1069 002a 82E2      		ldi r24,lo8(34)
- 1070 002c 8093 ED00 		sts 237,r24
- 1071               	.LSM186:
- 1072 0030 88E0      		ldi r24,lo8(8)
- 1073 0032 8093 F000 		sts 240,r24
- 1074               	.LSM187:
- 1075 0036 1092 0000 		sts usb_configuration,__zero_reg__
- 1076               	.LVL128:
- 1077               	.L22:
- 1078               	.LSM188:
- 1079 003a 92FF      		sbrs r25,2
- 1080 003c 00C0      		rjmp .L25
- 1081 003e 8091 0000 		lds r24,usb_configuration
- 1082               	.LVL129:
- 1083 0042 8823      		tst r24
- 1084 0044 01F0      		breq .L25
- 1085               	.LSM189:
- 1086 0046 8091 0000 		lds r24,rx_timeout_count
- 1087               	.LVL130:
- 1088               	.LSM190:
- 1089 004a 8823      		tst r24
- 1090 004c 01F0      		breq .L24
- 1091 004e 8150      		subi r24,lo8(-(-1))
- 1092 0050 8093 0000 		sts rx_timeout_count,r24
- 1093               	.L24:
- 1094               	.LSM191:
- 1095 0054 8091 0000 		lds r24,tx_timeout_count
- 1096               	.LVL131:
- 1097               	.LSM192:
- 1098 0058 8823      		tst r24
- 1099 005a 01F0      		breq .L25
- 1100 005c 8150      		subi r24,lo8(-(-1))
- 1101 005e 8093 0000 		sts tx_timeout_count,r24
- 1102               	.LVL132:
- 1103               	.L25:
- 1104               	/* epilogue start */
- 1105               	.LSM193:
- 1106 0062 9F91      		pop r25
- 1107 0064 8F91      		pop r24
- 1108               	.LVL133:
- 1109 0066 0F90      		pop r0
- 1110 0068 0FBE      		out __SREG__,r0
- 1111 006a 0F90      		pop r0
- 1112 006c 1F90      		pop __zero_reg__
- 1113 006e 1895      		reti
- 1114               	.LFE6:
- 1116               		.section	.text.__vector_11,"ax",@progbits
- 1117               	.global	__vector_11
- 1119               	__vector_11:
- 1120               	.LFB11:
- 1121               	.LSM194:
- 1122 0000 1F92      		push __zero_reg__
- 1123 0002 0F92      		push r0
- 1124 0004 0FB6      		in r0,__SREG__
- 1125 0006 0F92      		push r0
- 1126 0008 1124      		clr __zero_reg__
- 1127 000a 0F93      		push r16
- 1128 000c 1F93      		push r17
- 1129 000e 2F93      		push r18
- 1130 0010 3F93      		push r19
- 1131 0012 4F93      		push r20
- 1132 0014 5F93      		push r21
- 1133 0016 6F93      		push r22
- 1134 0018 7F93      		push r23
- 1135 001a 8F93      		push r24
- 1136 001c 9F93      		push r25
- 1137 001e AF93      		push r26
- 1138 0020 BF93      		push r27
- 1139 0022 EF93      		push r30
- 1140 0024 FF93      		push r31
- 1141               	/* prologue: Signal */
- 1142               	/* frame size = 0 */
- 1143               	.LSM195:
- 1144 0026 1092 E900 		sts 233,__zero_reg__
- 1145               	.LSM196:
- 1146 002a 8091 E800 		lds r24,232
- 1147               	.LVL134:
- 1148               	.LSM197:
- 1149 002e 83FF      		sbrs r24,3
- 1150 0030 00C0      		rjmp .L27
- 1151               	.LSM198:
- 1152 0032 4091 F100 		lds r20,241
- 1153               	.LVL135:
- 1154               	.LSM199:
- 1155 0036 3091 F100 		lds r19,241
- 1156               	.LVL136:
- 1157               	.LSM200:
- 1158 003a 8091 F100 		lds r24,241
- 1159               	.LVL137:
- 1160 003e A82F      		mov r26,r24
- 1161               	.LVL138:
- 1162 0040 B0E0      		ldi r27,lo8(0)
- 1163               	.LVL139:
- 1164               	.LSM201:
- 1165 0042 2091 F100 		lds r18,241
- 1166 0046 922F      		mov r25,r18
- 1167 0048 80E0      		ldi r24,lo8(0)
- 1168 004a A82B      		or r26,r24
- 1169 004c B92B      		or r27,r25
- 1170               	.LVL140:
- 1171               	.LSM202:
- 1172 004e 8091 F100 		lds r24,241
- 1173 0052 682F      		mov r22,r24
- 1174               	.LVL141:
- 1175 0054 70E0      		ldi r23,lo8(0)
- 1176               	.LVL142:
- 1177               	.LSM203:
- 1178 0056 2091 F100 		lds r18,241
- 1179 005a 922F      		mov r25,r18
- 1180 005c 80E0      		ldi r24,lo8(0)
- 1181 005e 682B      		or r22,r24
- 1182 0060 792B      		or r23,r25
- 1183               	.LVL143:
- 1184               	.LSM204:
- 1185 0062 1091 F100 		lds r17,241
- 1186               	.LSM205:
- 1187 0066 0091 F100 		lds r16,241
- 1188               	.LSM206:
- 1189 006a 82EF      		ldi r24,lo8(-14)
- 1190 006c 8093 E800 		sts 232,r24
- 1191               	.LSM207:
- 1192 0070 3630      		cpi r19,lo8(6)
- 1193 0072 01F0      		breq .+2
- 1194 0074 00C0      		rjmp .L28
- 1195 0076 20E0      		ldi r18,lo8(descriptor_list+7)
- 1196 0078 30E0      		ldi r19,hi8(descriptor_list+7)
- 1197 007a A901      		movw r20,r18
- 1198               	.LVL144:
- 1199 007c 4550      		subi r20,lo8(-(-5))
- 1200 007e 5040      		sbci r21,hi8(-(-5))
- 1201               	.LVL145:
- 1202               	.L29:
- 1203               	.LSM208:
- 1204 0080 F901      		movw r30,r18
- 1205               	.LVL146:
- 1206 0082 3797      		sbiw r30,7
- 1207               	.LBB38:
- 1208               	.LSM209:
- 1209               	/* #APP */
- 1210               	 ;  808 "usb_rawhid.c" 1
- 1211 0084 8591      		lpm r24, Z+
- 1212 0086 9491      		lpm r25, Z
- 1213               		
- 1214               	 ;  0 "" 2
- 1215               	.LVL147:
- 1216               	/* #NOAPP */
- 1217               	.LBE38:
- 1218               	.LSM210:
- 1219 0088 8A17      		cp r24,r26
- 1220 008a 9B07      		cpc r25,r27
- 1221 008c 01F4      		brne .L31
- 1222               	.LBB39:
- 1223               	.LSM211:
- 1224 008e FA01      		movw r30,r20
- 1225               	.LVL148:
- 1226               	/* #APP */
- 1227               	 ;  814 "usb_rawhid.c" 1
- 1228 0090 8591      		lpm r24, Z+
- 1229 0092 9491      		lpm r25, Z
- 1230               		
- 1231               	 ;  0 "" 2
- 1232               	.LVL149:
- 1233               	/* #NOAPP */
- 1234               	.LBE39:
- 1235               	.LSM212:
- 1236 0094 8617      		cp r24,r22
- 1237 0096 9707      		cpc r25,r23
- 1238 0098 01F4      		brne .L31
- 1239               	.LSM213:
- 1240 009a 9A01      		movw r18,r20
- 1241               	.LVL150:
- 1242 009c 2E5F      		subi r18,lo8(-(2))
- 1243 009e 3F4F      		sbci r19,hi8(-(2))
- 1244               	.LSM214:
- 1245 00a0 F901      		movw r30,r18
- 1246               	.LVL151:
- 1247               	/* #APP */
- 1248               	 ;  820 "usb_rawhid.c" 1
- 1249 00a2 6591      		lpm r22, Z+
- 1250 00a4 7491      		lpm r23, Z
- 1251               		
- 1252               	 ;  0 "" 2
- 1253               	.LVL152:
- 1254               	/* #NOAPP */
- 1255               	.LBB40:
- 1256               	.LSM215:
- 1257 00a6 2E5F      		subi r18,lo8(-(2))
- 1258 00a8 3F4F      		sbci r19,hi8(-(2))
- 1259               	.LVL153:
- 1260 00aa F901      		movw r30,r18
- 1261               	/* #APP */
- 1262               	 ;  822 "usb_rawhid.c" 1
- 1263 00ac 4491      		lpm r20, Z
- 1264               		
- 1265               	 ;  0 "" 2
- 1266               	.LVL154:
- 1267               	/* #NOAPP */
- 1268               	.LBE40:
- 1269               	.LSM216:
- 1270 00ae 212F      		mov r18,r17
- 1271               	.LVL155:
- 1272 00b0 30E0      		ldi r19,lo8(0)
- 1273               	.LVL156:
- 1274               	.LSM217:
- 1275 00b2 902F      		mov r25,r16
- 1276 00b4 80E0      		ldi r24,lo8(0)
- 1277               	.LVL157:
- 1278 00b6 282B      		or r18,r24
- 1279 00b8 392B      		or r19,r25
- 1280 00ba 2F3F      		cpi r18,255
- 1281 00bc 3105      		cpc r19,__zero_reg__
- 1282 00be 01F0      		breq .L32
- 1283 00c0 00F0      		brlo .L32
- 1284 00c2 2FEF      		ldi r18,lo8(255)
- 1285 00c4 30E0      		ldi r19,hi8(255)
- 1286               	.L32:
- 1287 00c6 2417      		cp r18,r20
- 1288               	.LVL158:
- 1289 00c8 00F4      		brsh .L66
- 1290 00ca 422F      		mov r20,r18
- 1291               	.LVL159:
- 1292 00cc 00C0      		rjmp .L66
- 1293               	.LVL160:
- 1294               	.L31:
- 1295 00ce 295F      		subi r18,lo8(-(7))
- 1296 00d0 3F4F      		sbci r19,hi8(-(7))
- 1297 00d2 495F      		subi r20,lo8(-(7))
- 1298 00d4 5F4F      		sbci r21,hi8(-(7))
- 1299               	.LSM218:
- 1300 00d6 F0E0      		ldi r31,hi8(descriptor_list+56)
- 1301 00d8 2030      		cpi r18,lo8(descriptor_list+56)
- 1302 00da 3F07      		cpc r19,r31
- 1303 00dc 01F4      		brne .L29
- 1304 00de 00C0      		rjmp .L27
- 1305               	.LVL161:
- 1306               	.L66:
- 1307               	.LBB41:
- 1308               	.LBB42:
- 1309               	.LSM219:
- 1310 00e0 5EEF      		ldi r21,lo8(-2)
- 1311               	.LVL162:
- 1312               	.L78:
- 1313               	.LBE42:
- 1314               	.LBE41:
- 1315               	.LSM220:
- 1316 00e2 8091 E800 		lds r24,232
- 1317               	.LVL163:
- 1318               	.LSM221:
- 1319 00e6 282F      		mov r18,r24
- 1320 00e8 30E0      		ldi r19,lo8(0)
- 1321               	.LVL164:
- 1322 00ea C901      		movw r24,r18
- 1323               	.LVL165:
- 1324 00ec 8570      		andi r24,lo8(5)
- 1325 00ee 9070      		andi r25,hi8(5)
- 1326 00f0 892B      		or r24,r25
- 1327 00f2 01F0      		breq .L78
- 1328               	.LSM222:
- 1329 00f4 22FD      		sbrc r18,2
- 1330 00f6 00C0      		rjmp .L61
- 1331               	.LSM223:
- 1332 00f8 342F      		mov r19,r20
- 1333               	.LVL166:
- 1334 00fa 4132      		cpi r20,lo8(33)
- 1335 00fc 00F0      		brlo .L36
- 1336 00fe 30E2      		ldi r19,lo8(32)
- 1337               	.L36:
- 1338 0100 CB01      		movw r24,r22
- 1339 0102 232F      		mov r18,r19
- 1340               	.LVL167:
- 1341 0104 00C0      		rjmp .L37
- 1342               	.LVL168:
- 1343               	.L38:
- 1344               	.LSM224:
- 1345 0106 FC01      		movw r30,r24
- 1346               	.LVL169:
- 1347               	.LBB44:
- 1348               	.LSM225:
- 1349 0108 0196      		adiw r24,1
- 1350               	/* #APP */
- 1351               	 ;  836 "usb_rawhid.c" 1
- 1352 010a E491      		lpm r30, Z
- 1353               		
- 1354               	 ;  0 "" 2
- 1355               	.LVL170:
- 1356               	/* #NOAPP */
- 1357               	.LBE44:
- 1358 010c E093 F100 		sts 241,r30
- 1359               	.LSM226:
- 1360 0110 2150      		subi r18,lo8(-(-1))
- 1361               	.LVL171:
- 1362               	.L37:
- 1363 0112 2223      		tst r18
- 1364 0114 01F4      		brne .L38
- 1365 0116 630F      		add r22,r19
- 1366 0118 711D      		adc r23,__zero_reg__
- 1367               	.LVL172:
- 1368               	.LSM227:
- 1369 011a 431B      		sub r20,r19
- 1370               	.LVL173:
- 1371               	.LBB45:
- 1372               	.LBB43:
- 1373               	.LSM228:
- 1374 011c 5093 E800 		sts 232,r21
- 1375               	.LBE43:
- 1376               	.LBE45:
- 1377               	.LSM229:
- 1378 0120 4423      		tst r20
- 1379 0122 01F4      		brne .L78
- 1380 0124 3032      		cpi r19,lo8(32)
- 1381 0126 01F0      		breq .L78
- 1382 0128 00C0      		rjmp .L61
- 1383               	.LVL174:
- 1384               	.L28:
- 1385               	.LSM230:
- 1386 012a 3530      		cpi r19,lo8(5)
- 1387 012c 01F4      		brne .L39
- 1388               	.LBB46:
- 1389               	.LBB47:
- 1390               	.LSM231:
- 1391 012e 8EEF      		ldi r24,lo8(-2)
- 1392 0130 8093 E800 		sts 232,r24
- 1393               	.L40:
- 1394               	.LBE47:
- 1395               	.LBE46:
- 1396               	.LBB48:
- 1397               	.LBB49:
- 1398               	.LSM232:
- 1399 0134 8091 E800 		lds r24,232
- 1400 0138 80FF      		sbrs r24,0
- 1401 013a 00C0      		rjmp .L40
- 1402               	.LBE49:
- 1403               	.LBE48:
- 1404               	.LSM233:
- 1405 013c 8A2F      		mov r24,r26
- 1406               	.LVL175:
- 1407 013e 8068      		ori r24,lo8(-128)
- 1408 0140 8093 E300 		sts 227,r24
- 1409 0144 00C0      		rjmp .L61
- 1410               	.LVL176:
- 1411               	.L39:
- 1412               	.LSM234:
- 1413 0146 3930      		cpi r19,lo8(9)
- 1414 0148 01F4      		brne .L41
- 1415 014a 4423      		tst r20
- 1416 014c 01F0      		breq .+2
- 1417 014e 00C0      		rjmp .L51
- 1418               	.LSM235:
- 1419 0150 A093 0000 		sts usb_configuration,r26
- 1420               	.LBB50:
- 1421               	.LBB51:
- 1422               	.LSM236:
- 1423 0154 8EEF      		ldi r24,lo8(-2)
- 1424 0156 8093 E800 		sts 232,r24
- 1425 015a 80E0      		ldi r24,lo8(endpoint_config_table)
- 1426 015c 90E0      		ldi r25,hi8(endpoint_config_table)
- 1427               	.LVL177:
- 1428 015e 21E0      		ldi r18,lo8(1)
- 1429               	.LVL178:
- 1430               	.L44:
- 1431               	.LBE51:
- 1432               	.LBE50:
- 1433               	.LSM237:
- 1434 0160 2093 E900 		sts 233,r18
- 1435               	.LBB52:
- 1436               	.LSM238:
- 1437 0164 FC01      		movw r30,r24
- 1438               	.LVL179:
- 1439 0166 0196      		adiw r24,1
- 1440               	/* #APP */
- 1441               	 ;  855 "usb_rawhid.c" 1
- 1442 0168 E491      		lpm r30, Z
- 1443               		
- 1444               	 ;  0 "" 2
- 1445               	.LVL180:
- 1446               	/* #NOAPP */
- 1447               	.LBE52:
- 1448               	.LSM239:
- 1449 016a E093 EB00 		sts 235,r30
- 1450               	.LSM240:
- 1451 016e EE23      		tst r30
- 1452 0170 01F0      		breq .L43
- 1453               	.LBB53:
- 1454               	.LSM241:
- 1455 0172 AC01      		movw r20,r24
- 1456               	.LVL181:
- 1457 0174 4F5F      		subi r20,lo8(-(1))
- 1458 0176 5F4F      		sbci r21,hi8(-(1))
- 1459               	.LVL182:
- 1460 0178 FC01      		movw r30,r24
- 1461               	.LVL183:
- 1462               	/* #APP */
- 1463               	 ;  858 "usb_rawhid.c" 1
- 1464 017a 8491      		lpm r24, Z
- 1465               		
- 1466               	 ;  0 "" 2
- 1467               	.LVL184:
- 1468               	/* #NOAPP */
- 1469               	.LBE53:
- 1470 017c 8093 EC00 		sts 236,r24
- 1471               	.LBB54:
- 1472               	.LSM242:
- 1473 0180 CA01      		movw r24,r20
- 1474               	.LVL185:
- 1475 0182 0196      		adiw r24,1
- 1476               	.LVL186:
- 1477 0184 FA01      		movw r30,r20
- 1478               	/* #APP */
- 1479               	 ;  859 "usb_rawhid.c" 1
- 1480 0186 3491      		lpm r19, Z
- 1481               		
- 1482               	 ;  0 "" 2
- 1483               	.LVL187:
- 1484               	/* #NOAPP */
- 1485               	.LBE54:
- 1486 0188 3093 ED00 		sts 237,r19
- 1487               	.LVL188:
- 1488               	.L43:
- 1489               	.LSM243:
- 1490 018c 2F5F      		subi r18,lo8(-(1))
- 1491 018e 2530      		cpi r18,lo8(5)
- 1492 0190 01F4      		brne .L44
- 1493               	.LSM244:
- 1494 0192 8EE1      		ldi r24,lo8(30)
- 1495               	.LVL189:
- 1496 0194 00C0      		rjmp .L81
- 1497               	.LVL190:
- 1498               	.L41:
- 1499               	.LSM245:
- 1500 0196 3830      		cpi r19,lo8(8)
- 1501 0198 01F4      		brne .L45
- 1502 019a 4038      		cpi r20,lo8(-128)
- 1503 019c 01F0      		breq .+2
- 1504 019e 00C0      		rjmp .L51
- 1505               	.L68:
- 1506               	.LBB55:
- 1507               	.LBB56:
- 1508               	.LSM246:
- 1509 01a0 8091 E800 		lds r24,232
- 1510 01a4 80FF      		sbrs r24,0
- 1511 01a6 00C0      		rjmp .L68
- 1512               	.LBE56:
- 1513               	.LBE55:
- 1514               	.LSM247:
- 1515 01a8 8091 0000 		lds r24,usb_configuration
- 1516 01ac 8093 F100 		sts 241,r24
- 1517 01b0 00C0      		rjmp .L82
- 1518               	.L45:
- 1519               	.LSM248:
- 1520 01b2 3323      		tst r19
- 1521 01b4 01F4      		brne .L42
- 1522               	.L69:
- 1523               	.LBB57:
- 1524               	.LBB58:
- 1525               	.LSM249:
- 1526 01b6 8091 E800 		lds r24,232
- 1527 01ba 80FF      		sbrs r24,0
- 1528 01bc 00C0      		rjmp .L69
- 1529               	.LBE58:
- 1530               	.LBE57:
- 1531               	.LSM250:
- 1532 01be 4238      		cpi r20,lo8(-126)
- 1533 01c0 01F0      		breq .L48
- 1534 01c2 80E0      		ldi r24,lo8(0)
- 1535               	.LVL191:
- 1536 01c4 00C0      		rjmp .L49
- 1537               	.LVL192:
- 1538               	.L48:
- 1539               	.LSM251:
- 1540 01c6 6093 E900 		sts 233,r22
- 1541               	.LSM252:
- 1542 01ca 8091 EB00 		lds r24,235
- 1543 01ce 90E0      		ldi r25,lo8(0)
- 1544 01d0 25E0      		ldi r18,5
- 1545 01d2 9695      	1:	lsr r25
- 1546 01d4 8795      		ror r24
- 1547 01d6 2A95      		dec r18
- 1548 01d8 01F4      		brne 1b
- 1549 01da 8170      		andi r24,lo8(1)
- 1550               	.LVL193:
- 1551               	.LSM253:
- 1552 01dc 1092 E900 		sts 233,__zero_reg__
- 1553               	.L49:
- 1554               	.LSM254:
- 1555 01e0 8093 F100 		sts 241,r24
- 1556               	.LSM255:
- 1557 01e4 1092 F100 		sts 241,__zero_reg__
- 1558 01e8 00C0      		rjmp .L82
- 1559               	.LVL194:
- 1560               	.L42:
- 1561               	.LSM256:
- 1562 01ea 3130      		cpi r19,lo8(1)
- 1563 01ec 01F0      		breq .L50
- 1564 01ee 3330      		cpi r19,lo8(3)
- 1565 01f0 01F4      		brne .L51
- 1566               	.L50:
- 1567 01f2 4230      		cpi r20,lo8(2)
- 1568 01f4 01F4      		brne .L51
- 1569 01f6 AB2B      		or r26,r27
- 1570 01f8 01F4      		brne .L51
- 1571               	.LSM257:
- 1572 01fa 262F      		mov r18,r22
- 1573               	.LVL195:
- 1574 01fc 2F77      		andi r18,lo8(127)
- 1575               	.LSM258:
- 1576 01fe 822F      		mov r24,r18
- 1577 0200 8150      		subi r24,lo8(-(-1))
- 1578 0202 8430      		cpi r24,lo8(4)
- 1579 0204 00F4      		brsh .L51
- 1580               	.LBB59:
- 1581               	.LBB60:
- 1582               	.LSM259:
- 1583 0206 8EEF      		ldi r24,lo8(-2)
- 1584 0208 8093 E800 		sts 232,r24
- 1585               	.LBE60:
- 1586               	.LBE59:
- 1587               	.LSM260:
- 1588 020c 2093 E900 		sts 233,r18
- 1589               	.LSM261:
- 1590 0210 3330      		cpi r19,lo8(3)
- 1591 0212 01F4      		brne .+2
- 1592 0214 00C0      		rjmp .L27
- 1593               	.L52:
- 1594               	.LSM262:
- 1595 0216 89E1      		ldi r24,lo8(25)
- 1596 0218 8093 EB00 		sts 235,r24
- 1597               	.LSM263:
- 1598 021c 81E0      		ldi r24,lo8(1)
- 1599 021e 90E0      		ldi r25,hi8(1)
- 1600 0220 00C0      		rjmp 2f
- 1601 0222 880F      	1:	lsl r24
- 1602 0224 991F      		rol r25
- 1603 0226 2A95      	2:	dec r18
- 1604 0228 02F4      		brpl 1b
- 1605               	.LVL196:
- 1606               	.L81:
- 1607 022a 8093 EA00 		sts 234,r24
- 1608               	.LSM264:
- 1609 022e 1092 EA00 		sts 234,__zero_reg__
- 1610 0232 00C0      		rjmp .L61
- 1611               	.LVL197:
- 1612               	.L51:
- 1613               	.LSM265:
- 1614 0234 672B      		or r22,r23
- 1615 0236 01F0      		breq .+2
- 1616 0238 00C0      		rjmp .L27
- 1617               	.LSM266:
- 1618 023a 413A      		cpi r20,lo8(-95)
- 1619 023c 01F4      		brne .L53
- 1620 023e 3130      		cpi r19,lo8(1)
- 1621 0240 01F4      		brne .L27
- 1622 0242 40E4      		ldi r20,lo8(64)
- 1623               	.LVL198:
- 1624               	.LBB61:
- 1625               	.LBB62:
- 1626               	.LSM267:
- 1627 0244 5EEF      		ldi r21,lo8(-2)
- 1628               	.LVL199:
- 1629               	.L79:
- 1630               	.LBE62:
- 1631               	.LBE61:
- 1632               	.LSM268:
- 1633 0246 8091 E800 		lds r24,232
- 1634               	.LVL200:
- 1635               	.LSM269:
- 1636 024a 282F      		mov r18,r24
- 1637 024c 30E0      		ldi r19,lo8(0)
- 1638               	.LVL201:
- 1639 024e C901      		movw r24,r18
- 1640               	.LVL202:
- 1641 0250 8570      		andi r24,lo8(5)
- 1642 0252 9070      		andi r25,hi8(5)
- 1643 0254 892B      		or r24,r25
- 1644 0256 01F0      		breq .L79
- 1645               	.LSM270:
- 1646 0258 22FD      		sbrc r18,2
- 1647 025a 00C0      		rjmp .L61
- 1648               	.LSM271:
- 1649 025c 942F      		mov r25,r20
- 1650 025e 4132      		cpi r20,lo8(33)
- 1651 0260 00F0      		brlo .L55
- 1652 0262 90E2      		ldi r25,lo8(32)
- 1653               	.L55:
- 1654 0264 892F      		mov r24,r25
- 1655               	.LVL203:
- 1656 0266 00C0      		rjmp .L56
- 1657               	.L57:
- 1658               	.LSM272:
- 1659 0268 1092 F100 		sts 241,__zero_reg__
- 1660               	.LSM273:
- 1661 026c 8150      		subi r24,lo8(-(-1))
- 1662               	.L56:
- 1663 026e 8823      		tst r24
- 1664 0270 01F4      		brne .L57
- 1665               	.LSM274:
- 1666 0272 491B      		sub r20,r25
- 1667               	.LBB64:
- 1668               	.LBB63:
- 1669               	.LSM275:
- 1670 0274 5093 E800 		sts 232,r21
- 1671               	.LBE63:
- 1672               	.LBE64:
- 1673               	.LSM276:
- 1674 0278 4423      		tst r20
- 1675 027a 01F4      		brne .L79
- 1676 027c 9032      		cpi r25,lo8(32)
- 1677 027e 01F0      		breq .L79
- 1678 0280 00C0      		rjmp .L61
- 1679               	.LVL204:
- 1680               	.L53:
- 1681               	.LSM277:
- 1682 0282 4132      		cpi r20,lo8(33)
- 1683 0284 01F4      		brne .L27
- 1684 0286 3930      		cpi r19,lo8(9)
- 1685 0288 01F4      		brne .L27
- 1686 028a 90E4      		ldi r25,lo8(64)
- 1687               	.LVL205:
- 1688               	.LBB65:
- 1689               	.LBB66:
- 1690               	.LSM278:
- 1691 028c 2BEF      		ldi r18,lo8(-5)
- 1692               	.LVL206:
- 1693               	.L80:
- 1694               	.LBE66:
- 1695               	.LBE65:
- 1696               	.LBB68:
- 1697               	.LBB69:
- 1698               	.LSM279:
- 1699 028e 8091 E800 		lds r24,232
- 1700               	.LVL207:
- 1701 0292 82FF      		sbrs r24,2
- 1702 0294 00C0      		rjmp .L80
- 1703               	.LBE69:
- 1704               	.LBE68:
- 1705               	.LBB70:
- 1706               	.LBB67:
- 1707               	.LSM280:
- 1708 0296 2093 E800 		sts 232,r18
- 1709               	.LBE67:
- 1710               	.LBE70:
- 1711               	.LSM281:
- 1712 029a 892F      		mov r24,r25
- 1713               	.LVL208:
- 1714 029c 9132      		cpi r25,lo8(33)
- 1715 029e 00F0      		brlo .L59
- 1716 02a0 80E2      		ldi r24,lo8(32)
- 1717               	.L59:
- 1718               	.LSM282:
- 1719 02a2 981B      		sub r25,r24
- 1720               	.LSM283:
- 1721 02a4 01F4      		brne .L80
- 1722               	.L67:
- 1723               	.LBB71:
- 1724               	.LBB72:
- 1725               	.LSM284:
- 1726 02a6 8091 E800 		lds r24,232
- 1727               	.LVL209:
- 1728 02aa 80FF      		sbrs r24,0
- 1729 02ac 00C0      		rjmp .L67
- 1730               	.LVL210:
- 1731               	.L82:
- 1732               	.LBE72:
- 1733               	.LBE71:
- 1734               	.LBB73:
- 1735               	.LBB74:
- 1736               	.LSM285:
- 1737 02ae 8EEF      		ldi r24,lo8(-2)
- 1738               	.LVL211:
- 1739 02b0 8093 E800 		sts 232,r24
- 1740 02b4 00C0      		rjmp .L61
- 1741               	.LVL212:
- 1742               	.L27:
- 1743               	.LBE74:
- 1744               	.LBE73:
- 1745               	.LSM286:
- 1746 02b6 81E2      		ldi r24,lo8(33)
- 1747               	.LVL213:
- 1748 02b8 8093 EB00 		sts 235,r24
- 1749               	.LVL214:
- 1750               	.L61:
- 1751               	/* epilogue start */
- 1752               	.LSM287:
- 1753 02bc FF91      		pop r31
- 1754 02be EF91      		pop r30
- 1755               	.LVL215:
- 1756 02c0 BF91      		pop r27
- 1757               	.LVL216:
- 1758 02c2 AF91      		pop r26
- 1759               	.LVL217:
- 1760 02c4 9F91      		pop r25
- 1761               	.LVL218:
- 1762 02c6 8F91      		pop r24
- 1763 02c8 7F91      		pop r23
- 1764               	.LVL219:
- 1765 02ca 6F91      		pop r22
- 1766               	.LVL220:
- 1767 02cc 5F91      		pop r21
- 1768 02ce 4F91      		pop r20
- 1769               	.LVL221:
- 1770 02d0 3F91      		pop r19
- 1771               	.LVL222:
- 1772 02d2 2F91      		pop r18
- 1773               	.LVL223:
- 1774 02d4 1F91      		pop r17
- 1775 02d6 0F91      		pop r16
- 1776 02d8 0F90      		pop r0
- 1777 02da 0FBE      		out __SREG__,r0
- 1778 02dc 0F90      		pop r0
- 1779 02de 1F90      		pop __zero_reg__
- 1780 02e0 1895      		reti
- 1781               	.LFE11:
- 1783               		.section	.progmem.data,"a",@progbits
- 1786               	descriptor_list:
- 1787 0000 0001      		.word	256
- 1788 0002 0000      		.word	0
- 1789 0004 0000      		.word	device_descriptor
- 1790 0006 12        		.byte	18
- 1791 0007 0002      		.word	512
- 1792 0009 0000      		.word	0
- 1793 000b 0000      		.word	config1_descriptor
- 1794 000d 29        		.byte	41
- 1795 000e 0022      		.word	8704
- 1796 0010 0000      		.word	0
- 1797 0012 0000      		.word	rawhid_hid_report_desc
- 1798 0014 1C        		.byte	28
- 1799 0015 0021      		.word	8448
- 1800 0017 0000      		.word	0
- 1801 0019 0000      		.word	config1_descriptor+18
- 1802 001b 09        		.byte	9
- 1803 001c 0003      		.word	768
- 1804 001e 0000      		.word	0
- 1805 0020 0000      		.word	string0
- 1806 0022 04        		.byte	4
- 1807 0023 0103      		.word	769
- 1808 0025 0904      		.word	1033
- 1809 0027 0000      		.word	string1
- 1810 0029 10        		.byte	16
- 1811 002a 0203      		.word	770
- 1812 002c 0904      		.word	1033
- 1813 002e 0000      		.word	string2
- 1814 0030 2E        		.byte	46
- 1815               		.lcomm usb_configuration,1
- 1818               	endpoint_config_table:
- 1819 0031 01        		.byte	1
- 1820 0032 C1        		.byte	-63
- 1821 0033 36        		.byte	54
- 1822 0034 01        		.byte	1
- 1823 0035 C0        		.byte	-64
- 1824 0036 36        		.byte	54
- 1825 0037 00        		.byte	0
- 1826 0038 00        		.byte	0
- 1827               		.lcomm rx_timeout_count,1
- 1828               		.lcomm tx_timeout_count,1
- 1831               	device_descriptor:
- 1832 0039 12        		.byte	18
- 1833 003a 01        		.byte	1
- 1834 003b 00        		.byte	0
- 1835 003c 02        		.byte	2
- 1836 003d 00        		.byte	0
- 1837 003e 00        		.byte	0
- 1838 003f 00        		.byte	0
- 1839 0040 20        		.byte	32
- 1840 0041 C0        		.byte	-64
- 1841 0042 16        		.byte	22
- 1842 0043 80        		.byte	-128
- 1843 0044 04        		.byte	4
- 1844 0045 00        		.byte	0
- 1845 0046 01        		.byte	1
- 1846 0047 01        		.byte	1
- 1847 0048 02        		.byte	2
- 1848 0049 00        		.byte	0
- 1849 004a 01        		.byte	1
- 1852               	config1_descriptor:
- 1853 004b 09        		.byte	9
- 1854 004c 02        		.byte	2
- 1855 004d 29        		.byte	41
- 1856 004e 00        		.byte	0
- 1857 004f 01        		.byte	1
- 1858 0050 01        		.byte	1
- 1859 0051 00        		.byte	0
- 1860 0052 C0        		.byte	-64
- 1861 0053 32        		.byte	50
- 1862 0054 09        		.byte	9
- 1863 0055 04        		.byte	4
- 1864 0056 00        		.byte	0
- 1865 0057 00        		.byte	0
- 1866 0058 02        		.byte	2
- 1867 0059 03        		.byte	3
- 1868 005a 00        		.byte	0
- 1869 005b 00        		.byte	0
- 1870 005c 00        		.byte	0
- 1871 005d 09        		.byte	9
- 1872 005e 21        		.byte	33
- 1873 005f 11        		.byte	17
- 1874 0060 01        		.byte	1
- 1875 0061 00        		.byte	0
- 1876 0062 01        		.byte	1
- 1877 0063 22        		.byte	34
- 1878 0064 1C        		.byte	28
- 1879 0065 00        		.byte	0
- 1880 0066 07        		.byte	7
- 1881 0067 05        		.byte	5
- 1882 0068 81        		.byte	-127
- 1883 0069 03        		.byte	3
- 1884 006a 40        		.byte	64
- 1885 006b 00        		.byte	0
- 1886 006c 02        		.byte	2
- 1887 006d 07        		.byte	7
- 1888 006e 05        		.byte	5
- 1889 006f 02        		.byte	2
- 1890 0070 03        		.byte	3
- 1891 0071 40        		.byte	64
- 1892 0072 00        		.byte	0
- 1893 0073 08        		.byte	8
- 1896               	rawhid_hid_report_desc:
- 1897 0074 06        		.byte	6
- 1898 0075 AB        		.byte	-85
- 1899 0076 FF        		.byte	-1
- 1900 0077 0A        		.byte	10
- 1901 0078 00        		.byte	0
- 1902 0079 02        		.byte	2
- 1903 007a A1        		.byte	-95
- 1904 007b 01        		.byte	1
- 1905 007c 75        		.byte	117
- 1906 007d 08        		.byte	8
- 1907 007e 15        		.byte	21
- 1908 007f 00        		.byte	0
- 1909 0080 26        		.byte	38
- 1910 0081 FF        		.byte	-1
- 1911 0082 00        		.byte	0
- 1912 0083 95        		.byte	-107
- 1913 0084 40        		.byte	64
- 1914 0085 09        		.byte	9
- 1915 0086 01        		.byte	1
- 1916 0087 81        		.byte	-127
- 1917 0088 02        		.byte	2
- 1918 0089 95        		.byte	-107
- 1919 008a 40        		.byte	64
- 1920 008b 09        		.byte	9
- 1921 008c 02        		.byte	2
- 1922 008d 91        		.byte	-111
- 1923 008e 02        		.byte	2
- 1924 008f C0        		.byte	-64
- 1927               	string0:
- 1928 0090 04        		.byte	4
- 1929 0091 03        		.byte	3
- 1930 0092 0904      		.word	1033
- 1933               	string1:
- 1934 0094 10        		.byte	16
- 1935 0095 03        		.byte	3
- 1936 0096 4D00      		.string	"M"
- 1937 0098 6600      		.string	"f"
- 1938 009a 6700      		.string	"g"
- 1939 009c 4E00      		.string	"N"
- 1940 009e 6100      		.string	"a"
- 1941 00a0 6D00      		.string	"m"
- 1942 00a2 6500      		.string	"e"
- 1943 00a4 00        		.string	""
- 1944 00a5 00        		.string	""
- 1947               	string2:
- 1948 00a6 2E        		.byte	46
- 1949 00a7 03        		.byte	3
- 1950 00a8 5400      		.string	"T"
- 1951 00aa 6500      		.string	"e"
- 1952 00ac 6500      		.string	"e"
- 1953 00ae 6E00      		.string	"n"
- 1954 00b0 7300      		.string	"s"
- 1955 00b2 7900      		.string	"y"
- 1956 00b4 2000      		.string	" "
- 1957 00b6 5200      		.string	"R"
- 1958 00b8 6100      		.string	"a"
- 1959 00ba 7700      		.string	"w"
- 1960 00bc 2000      		.string	" "
- 1961 00be 4800      		.string	"H"
- 1962 00c0 4900      		.string	"I"
- 1963 00c2 4400      		.string	"D"
- 1964 00c4 2000      		.string	" "
- 1965 00c6 4500      		.string	"E"
- 1966 00c8 7800      		.string	"x"
- 1967 00ca 6100      		.string	"a"
- 1968 00cc 6D00      		.string	"m"
- 1969 00ce 7000      		.string	"p"
- 1970 00d0 6C00      		.string	"l"
- 1971 00d2 6500      		.string	"e"
- 1972 00d4 00        		.string	""
- 1973 00d5 00        		.string	""
- 2038               	.Letext0:
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.section	.text.usb_wait_in_ready,"ax",@progbits
+  11               	usb_wait_in_ready:
+  12               	.LFB6:
+  13               		.file 1 "usb_rawhid.c"
+   1:usb_rawhid.c  **** /* Teensy RawHID example
+   2:usb_rawhid.c  ****  * http://www.pjrc.com/teensy/rawhid.html
+   3:usb_rawhid.c  ****  * Copyright (c) 2009 PJRC.COM, LLC
+   4:usb_rawhid.c  ****  * 
+   5:usb_rawhid.c  ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   6:usb_rawhid.c  ****  * of this software and associated documentation files (the "Software"), to deal
+   7:usb_rawhid.c  ****  * in the Software without restriction, including without limitation the rights
+   8:usb_rawhid.c  ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   9:usb_rawhid.c  ****  * copies of the Software, and to permit persons to whom the Software is
+  10:usb_rawhid.c  ****  * furnished to do so, subject to the following conditions:
+  11:usb_rawhid.c  ****  * 
+  12:usb_rawhid.c  ****  * The above description, website URL and copyright notice and this permission
+  13:usb_rawhid.c  ****  * notice shall be included in all copies or substantial portions of the Software.
+  14:usb_rawhid.c  ****  * 
+  15:usb_rawhid.c  ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  16:usb_rawhid.c  ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  17:usb_rawhid.c  ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  18:usb_rawhid.c  ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  19:usb_rawhid.c  ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  20:usb_rawhid.c  ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  21:usb_rawhid.c  ****  * THE SOFTWARE.
+  22:usb_rawhid.c  ****  */
+  23:usb_rawhid.c  **** 
+  24:usb_rawhid.c  **** // Version 1.0: Initial Release
+  25:usb_rawhid.c  **** // Version 1.1: fixed bug in analog
+  26:usb_rawhid.c  **** 
+  27:usb_rawhid.c  **** #define USB_PRIVATE_INCLUDE
+  28:usb_rawhid.c  **** #include "usb_rawhid.h"
+  29:usb_rawhid.c  **** 
+  30:usb_rawhid.c  **** /**************************************************************************
+  31:usb_rawhid.c  ****  *
+  32:usb_rawhid.c  ****  *  Configurable Options
+  33:usb_rawhid.c  ****  *
+  34:usb_rawhid.c  ****  **************************************************************************/
+  35:usb_rawhid.c  **** 
+  36:usb_rawhid.c  **** // You can change these to give your code its own name.
+  37:usb_rawhid.c  **** #define STR_MANUFACTURER	L"MfgName"
+  38:usb_rawhid.c  **** #define STR_PRODUCT		L"Teensy Raw HID Example"
+  39:usb_rawhid.c  **** 
+  40:usb_rawhid.c  **** // These 4 numbers identify your device.  Set these to
+  41:usb_rawhid.c  **** // something that is (hopefully) not used by any others!
+  42:usb_rawhid.c  **** #define VENDOR_ID		0x16C0
+  43:usb_rawhid.c  **** #define PRODUCT_ID		0x0480
+  44:usb_rawhid.c  **** #define RAWHID_USAGE_PAGE	0xFFAB	// recommended: 0xFF00 to 0xFFFF
+  45:usb_rawhid.c  **** #define RAWHID_USAGE		0x0200	// recommended: 0x0100 to 0xFFFF
+  46:usb_rawhid.c  **** 
+  47:usb_rawhid.c  **** // These determine the bandwidth that will be allocated
+  48:usb_rawhid.c  **** // for your communication.  You do not need to use it
+  49:usb_rawhid.c  **** // all, but allocating more than necessary means reserved
+  50:usb_rawhid.c  **** // bandwidth is no longer available to other USB devices.
+  51:usb_rawhid.c  **** #define RAWHID_TX_SIZE		64	// transmit packet size
+  52:usb_rawhid.c  **** #define RAWHID_TX_INTERVAL	2	// max # of ms between transmit packets
+  53:usb_rawhid.c  **** #define RAWHID_RX_SIZE		64	// receive packet size
+  54:usb_rawhid.c  **** #define RAWHID_RX_INTERVAL	8	// max # of ms between receive packets
+  55:usb_rawhid.c  **** 
+  56:usb_rawhid.c  **** 
+  57:usb_rawhid.c  **** /**************************************************************************
+  58:usb_rawhid.c  ****  *
+  59:usb_rawhid.c  ****  *  Endpoint Buffer Configuration
+  60:usb_rawhid.c  ****  *
+  61:usb_rawhid.c  ****  **************************************************************************/
+  62:usb_rawhid.c  **** 
+  63:usb_rawhid.c  **** #define ENDPOINT0_SIZE		32
+  64:usb_rawhid.c  **** #define RAWHID_INTERFACE	0
+  65:usb_rawhid.c  **** #define RAWHID_TX_ENDPOINT	1
+  66:usb_rawhid.c  **** #define RAWHID_RX_ENDPOINT	2
+  67:usb_rawhid.c  **** 
+  68:usb_rawhid.c  **** #if defined(__AVR_AT90USB162__)
+  69:usb_rawhid.c  **** #define RAWHID_TX_BUFFER	EP_SINGLE_BUFFER
+  70:usb_rawhid.c  **** #define RAWHID_RX_BUFFER	EP_SINGLE_BUFFER
+  71:usb_rawhid.c  **** #else
+  72:usb_rawhid.c  **** #define RAWHID_TX_BUFFER	EP_DOUBLE_BUFFER
+  73:usb_rawhid.c  **** #define RAWHID_RX_BUFFER	EP_DOUBLE_BUFFER
+  74:usb_rawhid.c  **** #endif
+  75:usb_rawhid.c  **** 
+  76:usb_rawhid.c  **** static const uint8_t PROGMEM endpoint_config_table[] = {
+  77:usb_rawhid.c  **** 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(RAWHID_TX_SIZE) | RAWHID_TX_BUFFER,
+  78:usb_rawhid.c  **** 	1, EP_TYPE_INTERRUPT_OUT,  EP_SIZE(RAWHID_RX_SIZE) | RAWHID_RX_BUFFER,
+  79:usb_rawhid.c  **** 	0,
+  80:usb_rawhid.c  **** 	0
+  81:usb_rawhid.c  **** };
+  82:usb_rawhid.c  **** 
+  83:usb_rawhid.c  **** 
+  84:usb_rawhid.c  **** /**************************************************************************
+  85:usb_rawhid.c  ****  *
+  86:usb_rawhid.c  ****  *  Descriptor Data
+  87:usb_rawhid.c  ****  *
+  88:usb_rawhid.c  ****  **************************************************************************/
+  89:usb_rawhid.c  **** 
+  90:usb_rawhid.c  **** // Descriptors are the data that your computer reads when it auto-detects
+  91:usb_rawhid.c  **** // this USB device (called "enumeration" in USB lingo).  The most commonly
+  92:usb_rawhid.c  **** // changed items are editable at the top of this file.  Changing things
+  93:usb_rawhid.c  **** // in here should only be done by those who've read chapter 9 of the USB
+  94:usb_rawhid.c  **** // spec and relevant portions of any USB class specifications!
+  95:usb_rawhid.c  **** 
+  96:usb_rawhid.c  **** 
+  97:usb_rawhid.c  **** const uint8_t PROGMEM device_descriptor[] = {
+  98:usb_rawhid.c  **** 	18,					// bLength
+  99:usb_rawhid.c  **** 	1,					// bDescriptorType
+ 100:usb_rawhid.c  **** 	0x00, 0x02,				// bcdUSB
+ 101:usb_rawhid.c  **** 	0,					// bDeviceClass
+ 102:usb_rawhid.c  **** 	0,					// bDeviceSubClass
+ 103:usb_rawhid.c  **** 	0,					// bDeviceProtocol
+ 104:usb_rawhid.c  **** 	ENDPOINT0_SIZE,				// bMaxPacketSize0
+ 105:usb_rawhid.c  **** 	LSB(VENDOR_ID), MSB(VENDOR_ID),		// idVendor
+ 106:usb_rawhid.c  **** 	LSB(PRODUCT_ID), MSB(PRODUCT_ID),	// idProduct
+ 107:usb_rawhid.c  **** 	0x00, 0x01,				// bcdDevice
+ 108:usb_rawhid.c  **** 	1,					// iManufacturer
+ 109:usb_rawhid.c  **** 	2,					// iProduct
+ 110:usb_rawhid.c  **** 	0,					// iSerialNumber
+ 111:usb_rawhid.c  **** 	1					// bNumConfigurations
+ 112:usb_rawhid.c  **** };
+ 113:usb_rawhid.c  **** 
+ 114:usb_rawhid.c  **** const uint8_t PROGMEM rawhid_hid_report_desc[] = {
+ 115:usb_rawhid.c  **** 	0x06, LSB(RAWHID_USAGE_PAGE), MSB(RAWHID_USAGE_PAGE),
+ 116:usb_rawhid.c  **** 	0x0A, LSB(RAWHID_USAGE), MSB(RAWHID_USAGE),
+ 117:usb_rawhid.c  **** 	0xA1, 0x01,				// Collection 0x01
+ 118:usb_rawhid.c  **** 	0x75, 0x08,				// report size = 8 bits
+ 119:usb_rawhid.c  **** 	0x15, 0x00,				// logical minimum = 0
+ 120:usb_rawhid.c  **** 	0x26, 0xFF, 0x00,			// logical maximum = 255
+ 121:usb_rawhid.c  **** 	0x95, RAWHID_TX_SIZE,			// report count
+ 122:usb_rawhid.c  **** 	0x09, 0x01,				// usage
+ 123:usb_rawhid.c  **** 	0x81, 0x02,				// Input (array)
+ 124:usb_rawhid.c  **** 	0x95, RAWHID_RX_SIZE,			// report count
+ 125:usb_rawhid.c  **** 	0x09, 0x02,				// usage
+ 126:usb_rawhid.c  **** 	0x91, 0x02,				// Output (array)
+ 127:usb_rawhid.c  **** 	0xC0					// end collection
+ 128:usb_rawhid.c  **** };
+ 129:usb_rawhid.c  **** 
+ 130:usb_rawhid.c  **** 
+ 131:usb_rawhid.c  **** #define CONFIG1_DESC_SIZE        (9+9+9+7+7)
+ 132:usb_rawhid.c  **** #define RAWHID_HID_DESC_OFFSET   (9+9)
+ 133:usb_rawhid.c  **** const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
+ 134:usb_rawhid.c  **** 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
+ 135:usb_rawhid.c  **** 	9, 					// bLength;
+ 136:usb_rawhid.c  **** 	2,					// bDescriptorType;
+ 137:usb_rawhid.c  **** 	LSB(CONFIG1_DESC_SIZE),			// wTotalLength
+ 138:usb_rawhid.c  **** 	MSB(CONFIG1_DESC_SIZE),
+ 139:usb_rawhid.c  **** 	1,					// bNumInterfaces
+ 140:usb_rawhid.c  **** 	1,					// bConfigurationValue
+ 141:usb_rawhid.c  **** 	0,					// iConfiguration
+ 142:usb_rawhid.c  **** 	0xC0,					// bmAttributes
+ 143:usb_rawhid.c  **** 	50,					// bMaxPower
+ 144:usb_rawhid.c  **** 
+ 145:usb_rawhid.c  **** 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+ 146:usb_rawhid.c  **** 	9,					// bLength
+ 147:usb_rawhid.c  **** 	4,					// bDescriptorType
+ 148:usb_rawhid.c  **** 	RAWHID_INTERFACE,			// bInterfaceNumber
+ 149:usb_rawhid.c  **** 	0,					// bAlternateSetting
+ 150:usb_rawhid.c  **** 	2,					// bNumEndpoints
+ 151:usb_rawhid.c  **** 	0x03,					// bInterfaceClass (0x03 = HID)
+ 152:usb_rawhid.c  **** 	0x00,					// bInterfaceSubClass (0x01 = Boot)
+ 153:usb_rawhid.c  **** 	0x00,					// bInterfaceProtocol (0x01 = Keyboard)
+ 154:usb_rawhid.c  **** 	0,					// iInterface
+ 155:usb_rawhid.c  **** 	// HID interface descriptor, HID 1.11 spec, section 6.2.1
+ 156:usb_rawhid.c  **** 	9,					// bLength
+ 157:usb_rawhid.c  **** 	0x21,					// bDescriptorType
+ 158:usb_rawhid.c  **** 	0x11, 0x01,				// bcdHID
+ 159:usb_rawhid.c  **** 	0,					// bCountryCode
+ 160:usb_rawhid.c  **** 	1,					// bNumDescriptors
+ 161:usb_rawhid.c  **** 	0x22,					// bDescriptorType
+ 162:usb_rawhid.c  **** 	sizeof(rawhid_hid_report_desc),		// wDescriptorLength
+ 163:usb_rawhid.c  **** 	0,
+ 164:usb_rawhid.c  **** 	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+ 165:usb_rawhid.c  **** 	7,					// bLength
+ 166:usb_rawhid.c  **** 	5,					// bDescriptorType
+ 167:usb_rawhid.c  **** 	RAWHID_TX_ENDPOINT | 0x80,		// bEndpointAddress
+ 168:usb_rawhid.c  **** 	0x03,					// bmAttributes (0x03=intr)
+ 169:usb_rawhid.c  **** 	RAWHID_TX_SIZE, 0,			// wMaxPacketSize
+ 170:usb_rawhid.c  **** 	RAWHID_TX_INTERVAL,			// bInterval
+ 171:usb_rawhid.c  **** 	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+ 172:usb_rawhid.c  **** 	7,					// bLength
+ 173:usb_rawhid.c  **** 	5,					// bDescriptorType
+ 174:usb_rawhid.c  **** 	RAWHID_RX_ENDPOINT,			// bEndpointAddress
+ 175:usb_rawhid.c  **** 	0x03,					// bmAttributes (0x03=intr)
+ 176:usb_rawhid.c  **** 	RAWHID_RX_SIZE, 0,			// wMaxPacketSize
+ 177:usb_rawhid.c  **** 	RAWHID_RX_INTERVAL			// bInterval
+ 178:usb_rawhid.c  **** };
+ 179:usb_rawhid.c  **** 
+ 180:usb_rawhid.c  **** // If you're desperate for a little extra code memory, these strings
+ 181:usb_rawhid.c  **** // can be completely removed if iManufacturer, iProduct, iSerialNumber
+ 182:usb_rawhid.c  **** // in the device desciptor are changed to zeros.
+ 183:usb_rawhid.c  **** struct usb_string_descriptor_struct {
+ 184:usb_rawhid.c  **** 	uint8_t bLength;
+ 185:usb_rawhid.c  **** 	uint8_t bDescriptorType;
+ 186:usb_rawhid.c  **** 	int16_t wString[];
+ 187:usb_rawhid.c  **** };
+ 188:usb_rawhid.c  **** const struct usb_string_descriptor_struct PROGMEM string0 = {
+ 189:usb_rawhid.c  **** 	4,
+ 190:usb_rawhid.c  **** 	3,
+ 191:usb_rawhid.c  **** 	{0x0409}
+ 192:usb_rawhid.c  **** };
+ 193:usb_rawhid.c  **** const struct usb_string_descriptor_struct PROGMEM string1 = {
+ 194:usb_rawhid.c  **** 	sizeof(STR_MANUFACTURER),
+ 195:usb_rawhid.c  **** 	3,
+ 196:usb_rawhid.c  **** 	STR_MANUFACTURER
+ 197:usb_rawhid.c  **** };
+ 198:usb_rawhid.c  **** const struct usb_string_descriptor_struct PROGMEM string2 = {
+ 199:usb_rawhid.c  **** 	sizeof(STR_PRODUCT),
+ 200:usb_rawhid.c  **** 	3,
+ 201:usb_rawhid.c  **** 	STR_PRODUCT
+ 202:usb_rawhid.c  **** };
+ 203:usb_rawhid.c  **** 
+ 204:usb_rawhid.c  **** // This table defines which descriptor data is sent for each specific
+ 205:usb_rawhid.c  **** // request from the host (in wValue and wIndex).
+ 206:usb_rawhid.c  **** const struct descriptor_list_struct {
+ 207:usb_rawhid.c  **** 	uint16_t	wValue;
+ 208:usb_rawhid.c  **** 	uint16_t	wIndex;
+ 209:usb_rawhid.c  **** 	const uint8_t	*addr;
+ 210:usb_rawhid.c  **** 	uint8_t		length;
+ 211:usb_rawhid.c  **** } PROGMEM descriptor_list[] = {
+ 212:usb_rawhid.c  **** 	{0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
+ 213:usb_rawhid.c  **** 	{0x0200, 0x0000, config1_descriptor, sizeof(config1_descriptor)},
+ 214:usb_rawhid.c  **** 	{0x2200, RAWHID_INTERFACE, rawhid_hid_report_desc, sizeof(rawhid_hid_report_desc)},
+ 215:usb_rawhid.c  **** 	{0x2100, RAWHID_INTERFACE, config1_descriptor+RAWHID_HID_DESC_OFFSET, 9},
+ 216:usb_rawhid.c  **** 	{0x0300, 0x0000, (const uint8_t *)&string0, 4},
+ 217:usb_rawhid.c  **** 	{0x0301, 0x0409, (const uint8_t *)&string1, sizeof(STR_MANUFACTURER)},
+ 218:usb_rawhid.c  **** 	{0x0302, 0x0409, (const uint8_t *)&string2, sizeof(STR_PRODUCT)}
+ 219:usb_rawhid.c  **** };
+ 220:usb_rawhid.c  **** #define NUM_DESC_LIST (sizeof(descriptor_list)/sizeof(struct descriptor_list_struct))
+ 221:usb_rawhid.c  **** 
+ 222:usb_rawhid.c  **** 
+ 223:usb_rawhid.c  **** /**************************************************************************
+ 224:usb_rawhid.c  ****  *
+ 225:usb_rawhid.c  ****  *  Variables - these are the only non-stack RAM usage
+ 226:usb_rawhid.c  ****  *
+ 227:usb_rawhid.c  ****  **************************************************************************/
+ 228:usb_rawhid.c  **** 
+ 229:usb_rawhid.c  **** // zero when we are not configured, non-zero when enumerated
+ 230:usb_rawhid.c  **** static volatile uint8_t usb_configuration=0;
+ 231:usb_rawhid.c  **** 
+ 232:usb_rawhid.c  **** // these are a more reliable timeout than polling the
+ 233:usb_rawhid.c  **** // frame counter (UDFNUML)
+ 234:usb_rawhid.c  **** static volatile uint8_t rx_timeout_count=0;
+ 235:usb_rawhid.c  **** static volatile uint8_t tx_timeout_count=0;
+ 236:usb_rawhid.c  **** 
+ 237:usb_rawhid.c  **** 
+ 238:usb_rawhid.c  **** 
+ 239:usb_rawhid.c  **** /**************************************************************************
+ 240:usb_rawhid.c  ****  *
+ 241:usb_rawhid.c  ****  *  Public Functions - these are the API intended for the user
+ 242:usb_rawhid.c  ****  *
+ 243:usb_rawhid.c  ****  **************************************************************************/
+ 244:usb_rawhid.c  **** 
+ 245:usb_rawhid.c  **** 
+ 246:usb_rawhid.c  **** // initialize USB
+ 247:usb_rawhid.c  **** void usb_init(void)
+ 248:usb_rawhid.c  **** {
+ 249:usb_rawhid.c  **** 	HW_CONFIG();
+ 250:usb_rawhid.c  **** 	USB_FREEZE();				// enable USB
+ 251:usb_rawhid.c  **** 	PLL_CONFIG();				// config PLL
+ 252:usb_rawhid.c  ****         while (!(PLLCSR & (1<<PLOCK))) ;	// wait for PLL lock
+ 253:usb_rawhid.c  ****         USB_CONFIG();				// start USB clock
+ 254:usb_rawhid.c  ****         UDCON = 0;				// enable attach resistor
+ 255:usb_rawhid.c  **** 	usb_configuration = 0;
+ 256:usb_rawhid.c  ****         UDIEN = (1<<EORSTE)|(1<<SOFE);
+ 257:usb_rawhid.c  **** 	sei();
+ 258:usb_rawhid.c  **** }
+ 259:usb_rawhid.c  **** 
+ 260:usb_rawhid.c  **** // return 0 if the USB is not configured, or the configuration
+ 261:usb_rawhid.c  **** // number selected by the HOST
+ 262:usb_rawhid.c  **** uint8_t usb_configured(void)
+ 263:usb_rawhid.c  **** {
+ 264:usb_rawhid.c  **** 	return usb_configuration;
+ 265:usb_rawhid.c  **** }
+ 266:usb_rawhid.c  **** 
+ 267:usb_rawhid.c  **** 
+ 268:usb_rawhid.c  **** // receive a packet, with timeout
+ 269:usb_rawhid.c  **** int8_t usb_rawhid_recv(uint8_t *buffer, uint8_t timeout)
+ 270:usb_rawhid.c  **** {
+ 271:usb_rawhid.c  **** 	uint8_t intr_state;
+ 272:usb_rawhid.c  **** 
+ 273:usb_rawhid.c  **** 	// if we're not online (enumerated and configured), error
+ 274:usb_rawhid.c  **** 	if (!usb_configuration) return -1;
+ 275:usb_rawhid.c  **** 	intr_state = SREG;
+ 276:usb_rawhid.c  **** 	cli();
+ 277:usb_rawhid.c  **** 	rx_timeout_count = timeout;
+ 278:usb_rawhid.c  **** 	UENUM = RAWHID_RX_ENDPOINT;
+ 279:usb_rawhid.c  **** 	// wait for data to be available in the FIFO
+ 280:usb_rawhid.c  **** 	while (1) {
+ 281:usb_rawhid.c  **** 		if (UEINTX & (1<<RWAL)) break;
+ 282:usb_rawhid.c  **** 		SREG = intr_state;
+ 283:usb_rawhid.c  **** 		if (rx_timeout_count == 0) return 0;
+ 284:usb_rawhid.c  **** 		if (!usb_configuration) return -1;
+ 285:usb_rawhid.c  **** 		intr_state = SREG;
+ 286:usb_rawhid.c  **** 		cli();
+ 287:usb_rawhid.c  **** 		UENUM = RAWHID_RX_ENDPOINT;
+ 288:usb_rawhid.c  **** 	}
+ 289:usb_rawhid.c  **** 	// read bytes from the FIFO
+ 290:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 64)
+ 291:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 292:usb_rawhid.c  **** 	#endif
+ 293:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 63)
+ 294:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 295:usb_rawhid.c  **** 	#endif
+ 296:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 62)
+ 297:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 298:usb_rawhid.c  **** 	#endif
+ 299:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 61)
+ 300:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 301:usb_rawhid.c  **** 	#endif
+ 302:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 60)
+ 303:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 304:usb_rawhid.c  **** 	#endif
+ 305:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 59)
+ 306:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 307:usb_rawhid.c  **** 	#endif
+ 308:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 58)
+ 309:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 310:usb_rawhid.c  **** 	#endif
+ 311:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 57)
+ 312:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 313:usb_rawhid.c  **** 	#endif
+ 314:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 56)
+ 315:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 316:usb_rawhid.c  **** 	#endif
+ 317:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 55)
+ 318:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 319:usb_rawhid.c  **** 	#endif
+ 320:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 54)
+ 321:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 322:usb_rawhid.c  **** 	#endif
+ 323:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 53)
+ 324:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 325:usb_rawhid.c  **** 	#endif
+ 326:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 52)
+ 327:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 328:usb_rawhid.c  **** 	#endif
+ 329:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 51)
+ 330:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 331:usb_rawhid.c  **** 	#endif
+ 332:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 50)
+ 333:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 334:usb_rawhid.c  **** 	#endif
+ 335:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 49)
+ 336:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 337:usb_rawhid.c  **** 	#endif
+ 338:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 48)
+ 339:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 340:usb_rawhid.c  **** 	#endif
+ 341:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 47)
+ 342:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 343:usb_rawhid.c  **** 	#endif
+ 344:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 46)
+ 345:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 346:usb_rawhid.c  **** 	#endif
+ 347:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 45)
+ 348:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 349:usb_rawhid.c  **** 	#endif
+ 350:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 44)
+ 351:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 352:usb_rawhid.c  **** 	#endif
+ 353:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 43)
+ 354:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 355:usb_rawhid.c  **** 	#endif
+ 356:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 42)
+ 357:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 358:usb_rawhid.c  **** 	#endif
+ 359:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 41)
+ 360:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 361:usb_rawhid.c  **** 	#endif
+ 362:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 40)
+ 363:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 364:usb_rawhid.c  **** 	#endif
+ 365:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 39)
+ 366:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 367:usb_rawhid.c  **** 	#endif
+ 368:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 38)
+ 369:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 370:usb_rawhid.c  **** 	#endif
+ 371:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 37)
+ 372:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 373:usb_rawhid.c  **** 	#endif
+ 374:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 36)
+ 375:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 376:usb_rawhid.c  **** 	#endif
+ 377:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 35)
+ 378:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 379:usb_rawhid.c  **** 	#endif
+ 380:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 34)
+ 381:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 382:usb_rawhid.c  **** 	#endif
+ 383:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 33)
+ 384:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 385:usb_rawhid.c  **** 	#endif
+ 386:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 32)
+ 387:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 388:usb_rawhid.c  **** 	#endif
+ 389:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 31)
+ 390:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 391:usb_rawhid.c  **** 	#endif
+ 392:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 30)
+ 393:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 394:usb_rawhid.c  **** 	#endif
+ 395:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 29)
+ 396:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 397:usb_rawhid.c  **** 	#endif
+ 398:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 28)
+ 399:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 400:usb_rawhid.c  **** 	#endif
+ 401:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 27)
+ 402:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 403:usb_rawhid.c  **** 	#endif
+ 404:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 26)
+ 405:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 406:usb_rawhid.c  **** 	#endif
+ 407:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 25)
+ 408:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 409:usb_rawhid.c  **** 	#endif
+ 410:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 24)
+ 411:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 412:usb_rawhid.c  **** 	#endif
+ 413:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 23)
+ 414:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 415:usb_rawhid.c  **** 	#endif
+ 416:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 22)
+ 417:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 418:usb_rawhid.c  **** 	#endif
+ 419:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 21)
+ 420:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 421:usb_rawhid.c  **** 	#endif
+ 422:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 20)
+ 423:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 424:usb_rawhid.c  **** 	#endif
+ 425:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 19)
+ 426:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 427:usb_rawhid.c  **** 	#endif
+ 428:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 18)
+ 429:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 430:usb_rawhid.c  **** 	#endif
+ 431:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 17)
+ 432:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 433:usb_rawhid.c  **** 	#endif
+ 434:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 16)
+ 435:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 436:usb_rawhid.c  **** 	#endif
+ 437:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 15)
+ 438:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 439:usb_rawhid.c  **** 	#endif
+ 440:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 14)
+ 441:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 442:usb_rawhid.c  **** 	#endif
+ 443:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 13)
+ 444:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 445:usb_rawhid.c  **** 	#endif
+ 446:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 12)
+ 447:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 448:usb_rawhid.c  **** 	#endif
+ 449:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 11)
+ 450:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 451:usb_rawhid.c  **** 	#endif
+ 452:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 10)
+ 453:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 454:usb_rawhid.c  **** 	#endif
+ 455:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 9)
+ 456:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 457:usb_rawhid.c  **** 	#endif
+ 458:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 8)
+ 459:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 460:usb_rawhid.c  **** 	#endif
+ 461:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 7)
+ 462:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 463:usb_rawhid.c  **** 	#endif
+ 464:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 6)
+ 465:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 466:usb_rawhid.c  **** 	#endif
+ 467:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 5)
+ 468:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 469:usb_rawhid.c  **** 	#endif
+ 470:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 4)
+ 471:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 472:usb_rawhid.c  **** 	#endif
+ 473:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 3)
+ 474:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 475:usb_rawhid.c  **** 	#endif
+ 476:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 2)
+ 477:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 478:usb_rawhid.c  **** 	#endif
+ 479:usb_rawhid.c  **** 	#if (RAWHID_RX_SIZE >= 1)
+ 480:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 481:usb_rawhid.c  **** 	#endif
+ 482:usb_rawhid.c  **** 	// release the buffer
+ 483:usb_rawhid.c  **** 	UEINTX = 0x6B;
+ 484:usb_rawhid.c  **** 	SREG = intr_state;
+ 485:usb_rawhid.c  **** 	return RAWHID_RX_SIZE;
+ 486:usb_rawhid.c  **** }
+ 487:usb_rawhid.c  **** 
+ 488:usb_rawhid.c  **** // send a packet, with timeout
+ 489:usb_rawhid.c  **** int8_t usb_rawhid_send(const uint8_t *buffer, uint8_t timeout)
+ 490:usb_rawhid.c  **** {
+ 491:usb_rawhid.c  **** 	uint8_t intr_state;
+ 492:usb_rawhid.c  **** 
+ 493:usb_rawhid.c  **** 	// if we're not online (enumerated and configured), error
+ 494:usb_rawhid.c  **** 	if (!usb_configuration) return -1;
+ 495:usb_rawhid.c  **** 	intr_state = SREG;
+ 496:usb_rawhid.c  **** 	cli();
+ 497:usb_rawhid.c  **** 	tx_timeout_count = timeout;
+ 498:usb_rawhid.c  **** 	UENUM = RAWHID_TX_ENDPOINT;
+ 499:usb_rawhid.c  **** 	// wait for the FIFO to be ready to accept data
+ 500:usb_rawhid.c  **** 	while (1) {
+ 501:usb_rawhid.c  **** 		if (UEINTX & (1<<RWAL)) break;
+ 502:usb_rawhid.c  **** 		SREG = intr_state;
+ 503:usb_rawhid.c  **** 		if (tx_timeout_count == 0) return 0;
+ 504:usb_rawhid.c  **** 		if (!usb_configuration) return -1;
+ 505:usb_rawhid.c  **** 		intr_state = SREG;
+ 506:usb_rawhid.c  **** 		cli();
+ 507:usb_rawhid.c  **** 		UENUM = RAWHID_TX_ENDPOINT;
+ 508:usb_rawhid.c  **** 	}
+ 509:usb_rawhid.c  **** 	// write bytes from the FIFO
+ 510:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 64)
+ 511:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 512:usb_rawhid.c  **** 	#endif
+ 513:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 63)
+ 514:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 515:usb_rawhid.c  **** 	#endif
+ 516:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 62)
+ 517:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 518:usb_rawhid.c  **** 	#endif
+ 519:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 61)
+ 520:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 521:usb_rawhid.c  **** 	#endif
+ 522:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 60)
+ 523:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 524:usb_rawhid.c  **** 	#endif
+ 525:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 59)
+ 526:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 527:usb_rawhid.c  **** 	#endif
+ 528:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 58)
+ 529:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 530:usb_rawhid.c  **** 	#endif
+ 531:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 57)
+ 532:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 533:usb_rawhid.c  **** 	#endif
+ 534:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 56)
+ 535:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 536:usb_rawhid.c  **** 	#endif
+ 537:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 55)
+ 538:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 539:usb_rawhid.c  **** 	#endif
+ 540:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 54)
+ 541:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 542:usb_rawhid.c  **** 	#endif
+ 543:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 53)
+ 544:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 545:usb_rawhid.c  **** 	#endif
+ 546:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 52)
+ 547:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 548:usb_rawhid.c  **** 	#endif
+ 549:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 51)
+ 550:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 551:usb_rawhid.c  **** 	#endif
+ 552:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 50)
+ 553:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 554:usb_rawhid.c  **** 	#endif
+ 555:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 49)
+ 556:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 557:usb_rawhid.c  **** 	#endif
+ 558:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 48)
+ 559:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 560:usb_rawhid.c  **** 	#endif
+ 561:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 47)
+ 562:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 563:usb_rawhid.c  **** 	#endif
+ 564:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 46)
+ 565:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 566:usb_rawhid.c  **** 	#endif
+ 567:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 45)
+ 568:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 569:usb_rawhid.c  **** 	#endif
+ 570:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 44)
+ 571:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 572:usb_rawhid.c  **** 	#endif
+ 573:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 43)
+ 574:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 575:usb_rawhid.c  **** 	#endif
+ 576:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 42)
+ 577:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 578:usb_rawhid.c  **** 	#endif
+ 579:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 41)
+ 580:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 581:usb_rawhid.c  **** 	#endif
+ 582:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 40)
+ 583:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 584:usb_rawhid.c  **** 	#endif
+ 585:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 39)
+ 586:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 587:usb_rawhid.c  **** 	#endif
+ 588:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 38)
+ 589:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 590:usb_rawhid.c  **** 	#endif
+ 591:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 37)
+ 592:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 593:usb_rawhid.c  **** 	#endif
+ 594:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 36)
+ 595:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 596:usb_rawhid.c  **** 	#endif
+ 597:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 35)
+ 598:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 599:usb_rawhid.c  **** 	#endif
+ 600:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 34)
+ 601:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 602:usb_rawhid.c  **** 	#endif
+ 603:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 33)
+ 604:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 605:usb_rawhid.c  **** 	#endif
+ 606:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 32)
+ 607:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 608:usb_rawhid.c  **** 	#endif
+ 609:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 31)
+ 610:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 611:usb_rawhid.c  **** 	#endif
+ 612:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 30)
+ 613:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 614:usb_rawhid.c  **** 	#endif
+ 615:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 29)
+ 616:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 617:usb_rawhid.c  **** 	#endif
+ 618:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 28)
+ 619:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 620:usb_rawhid.c  **** 	#endif
+ 621:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 27)
+ 622:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 623:usb_rawhid.c  **** 	#endif
+ 624:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 26)
+ 625:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 626:usb_rawhid.c  **** 	#endif
+ 627:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 25)
+ 628:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 629:usb_rawhid.c  **** 	#endif
+ 630:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 24)
+ 631:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 632:usb_rawhid.c  **** 	#endif
+ 633:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 23)
+ 634:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 635:usb_rawhid.c  **** 	#endif
+ 636:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 22)
+ 637:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 638:usb_rawhid.c  **** 	#endif
+ 639:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 21)
+ 640:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 641:usb_rawhid.c  **** 	#endif
+ 642:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 20)
+ 643:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 644:usb_rawhid.c  **** 	#endif
+ 645:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 19)
+ 646:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 647:usb_rawhid.c  **** 	#endif
+ 648:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 18)
+ 649:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 650:usb_rawhid.c  **** 	#endif
+ 651:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 17)
+ 652:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 653:usb_rawhid.c  **** 	#endif
+ 654:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 16)
+ 655:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 656:usb_rawhid.c  **** 	#endif
+ 657:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 15)
+ 658:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 659:usb_rawhid.c  **** 	#endif
+ 660:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 14)
+ 661:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 662:usb_rawhid.c  **** 	#endif
+ 663:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 13)
+ 664:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 665:usb_rawhid.c  **** 	#endif
+ 666:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 12)
+ 667:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 668:usb_rawhid.c  **** 	#endif
+ 669:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 11)
+ 670:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 671:usb_rawhid.c  **** 	#endif
+ 672:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 10)
+ 673:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 674:usb_rawhid.c  **** 	#endif
+ 675:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 9)
+ 676:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 677:usb_rawhid.c  **** 	#endif
+ 678:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 8)
+ 679:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 680:usb_rawhid.c  **** 	#endif
+ 681:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 7)
+ 682:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 683:usb_rawhid.c  **** 	#endif
+ 684:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 6)
+ 685:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 686:usb_rawhid.c  **** 	#endif
+ 687:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 5)
+ 688:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 689:usb_rawhid.c  **** 	#endif
+ 690:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 4)
+ 691:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 692:usb_rawhid.c  **** 	#endif
+ 693:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 3)
+ 694:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 695:usb_rawhid.c  **** 	#endif
+ 696:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 2)
+ 697:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 698:usb_rawhid.c  **** 	#endif
+ 699:usb_rawhid.c  **** 	#if (RAWHID_TX_SIZE >= 1)
+ 700:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 701:usb_rawhid.c  **** 	#endif
+ 702:usb_rawhid.c  **** 	// transmit it now
+ 703:usb_rawhid.c  **** 	UEINTX = 0x3A;
+ 704:usb_rawhid.c  **** 	SREG = intr_state;
+ 705:usb_rawhid.c  **** 	return RAWHID_TX_SIZE;
+ 706:usb_rawhid.c  **** }
+ 707:usb_rawhid.c  **** 
+ 708:usb_rawhid.c  **** 
+ 709:usb_rawhid.c  **** 
+ 710:usb_rawhid.c  **** 
+ 711:usb_rawhid.c  **** /**************************************************************************
+ 712:usb_rawhid.c  ****  *
+ 713:usb_rawhid.c  ****  *  Private Functions - not intended for general user consumption....
+ 714:usb_rawhid.c  ****  *
+ 715:usb_rawhid.c  ****  **************************************************************************/
+ 716:usb_rawhid.c  **** 
+ 717:usb_rawhid.c  **** 
+ 718:usb_rawhid.c  **** #if (GCC_VERSION >= 40300) && (GCC_VERSION < 40302)
+ 719:usb_rawhid.c  **** #error "Buggy GCC 4.3.0 compiler, please upgrade!"
+ 720:usb_rawhid.c  **** #endif
+ 721:usb_rawhid.c  **** 
+ 722:usb_rawhid.c  **** 
+ 723:usb_rawhid.c  **** // USB Device Interrupt - handle all device-level events
+ 724:usb_rawhid.c  **** // the transmit buffer flushing is triggered by the start of frame
+ 725:usb_rawhid.c  **** //
+ 726:usb_rawhid.c  **** ISR(USB_GEN_vect)
+ 727:usb_rawhid.c  **** {
+ 728:usb_rawhid.c  **** 	uint8_t intbits, t;
+ 729:usb_rawhid.c  **** 
+ 730:usb_rawhid.c  ****         intbits = UDINT;
+ 731:usb_rawhid.c  ****         UDINT = 0;
+ 732:usb_rawhid.c  ****         if (intbits & (1<<EORSTI)) {
+ 733:usb_rawhid.c  **** 		UENUM = 0;
+ 734:usb_rawhid.c  **** 		UECONX = 1;
+ 735:usb_rawhid.c  **** 		UECFG0X = EP_TYPE_CONTROL;
+ 736:usb_rawhid.c  **** 		UECFG1X = EP_SIZE(ENDPOINT0_SIZE) | EP_SINGLE_BUFFER;
+ 737:usb_rawhid.c  **** 		UEIENX = (1<<RXSTPE);
+ 738:usb_rawhid.c  **** 		usb_configuration = 0;
+ 739:usb_rawhid.c  ****         }
+ 740:usb_rawhid.c  **** 	if ((intbits & (1<<SOFI)) && usb_configuration) {
+ 741:usb_rawhid.c  **** 		t = rx_timeout_count;
+ 742:usb_rawhid.c  **** 		if (t) rx_timeout_count = --t;
+ 743:usb_rawhid.c  **** 		t = tx_timeout_count;
+ 744:usb_rawhid.c  **** 		if (t) tx_timeout_count = --t;
+ 745:usb_rawhid.c  **** 	}
+ 746:usb_rawhid.c  **** }
+ 747:usb_rawhid.c  **** 
+ 748:usb_rawhid.c  **** 
+ 749:usb_rawhid.c  **** 
+ 750:usb_rawhid.c  **** // Misc functions to wait for ready and send/receive packets
+ 751:usb_rawhid.c  **** static inline void usb_wait_in_ready(void)
+ 752:usb_rawhid.c  **** {
+  14               		.loc 1 752 0
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 0 */
+  18               	.L__stack_usage = 0
+  19               	.L2:
+ 753:usb_rawhid.c  **** 	while (!(UEINTX & (1<<TXINI))) ;
+  20               		.loc 1 753 0 discriminator 1
+  21 0000 8091 E800 		lds r24,232
+  22 0004 80FF      		sbrs r24,0
+  23 0006 00C0      		rjmp .L2
+  24               	/* epilogue start */
+ 754:usb_rawhid.c  **** }
+  25               		.loc 1 754 0
+  26 0008 0895      		ret
+  27               	.LFE6:
+  29               		.section	.text.usb_init,"ax",@progbits
+  30               	.global	usb_init
+  32               	usb_init:
+  33               	.LFB1:
+ 248:usb_rawhid.c  **** {
+  34               		.loc 1 248 0
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	/* stack size = 0 */
+  38               	.L__stack_usage = 0
+ 249:usb_rawhid.c  **** 	HW_CONFIG();
+  39               		.loc 1 249 0
+  40 0000 81E0      		ldi r24,lo8(1)
+  41 0002 8093 D700 		sts 215,r24
+ 250:usb_rawhid.c  **** 	USB_FREEZE();				// enable USB
+  42               		.loc 1 250 0
+  43 0006 80EA      		ldi r24,lo8(-96)
+  44 0008 8093 D800 		sts 216,r24
+ 251:usb_rawhid.c  **** 	PLL_CONFIG();				// config PLL
+  45               		.loc 1 251 0
+  46 000c 82E1      		ldi r24,lo8(18)
+  47 000e 89BD      		out 0x29,r24
+  48               	.L8:
+ 252:usb_rawhid.c  ****         while (!(PLLCSR & (1<<PLOCK))) ;	// wait for PLL lock
+  49               		.loc 1 252 0 discriminator 1
+  50 0010 09B4      		in __tmp_reg__,0x29
+  51 0012 00FE      		sbrs __tmp_reg__,0
+  52 0014 00C0      		rjmp .L8
+ 253:usb_rawhid.c  ****         USB_CONFIG();				// start USB clock
+  53               		.loc 1 253 0
+  54 0016 80E9      		ldi r24,lo8(-112)
+  55 0018 8093 D800 		sts 216,r24
+ 254:usb_rawhid.c  ****         UDCON = 0;				// enable attach resistor
+  56               		.loc 1 254 0
+  57 001c 1092 E000 		sts 224,__zero_reg__
+ 255:usb_rawhid.c  **** 	usb_configuration = 0;
+  58               		.loc 1 255 0
+  59 0020 1092 0000 		sts usb_configuration,__zero_reg__
+ 256:usb_rawhid.c  ****         UDIEN = (1<<EORSTE)|(1<<SOFE);
+  60               		.loc 1 256 0
+  61 0024 8CE0      		ldi r24,lo8(12)
+  62 0026 8093 E200 		sts 226,r24
+ 257:usb_rawhid.c  **** 	sei();
+  63               		.loc 1 257 0
+  64               	/* #APP */
+  65               	 ;  257 "usb_rawhid.c" 1
+  66 002a 7894      		sei
+  67               	 ;  0 "" 2
+  68               	/* #NOAPP */
+  69 002c 0895      		ret
+  70               	.LFE1:
+  72               		.section	.text.usb_configured,"ax",@progbits
+  73               	.global	usb_configured
+  75               	usb_configured:
+  76               	.LFB2:
+ 263:usb_rawhid.c  **** {
+  77               		.loc 1 263 0
+  78               	/* prologue: function */
+  79               	/* frame size = 0 */
+  80               	/* stack size = 0 */
+  81               	.L__stack_usage = 0
+ 264:usb_rawhid.c  **** 	return usb_configuration;
+  82               		.loc 1 264 0
+  83 0000 8091 0000 		lds r24,usb_configuration
+ 265:usb_rawhid.c  **** }
+  84               		.loc 1 265 0
+  85 0004 0895      		ret
+  86               	.LFE2:
+  88               		.section	.text.usb_rawhid_recv,"ax",@progbits
+  89               	.global	usb_rawhid_recv
+  91               	usb_rawhid_recv:
+  92               	.LFB3:
+ 270:usb_rawhid.c  **** {
+  93               		.loc 1 270 0
+  94               	.LVL0:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	/* stack size = 0 */
+  98               	.L__stack_usage = 0
+  99 0000 FC01      		movw r30,r24
+ 274:usb_rawhid.c  **** 	if (!usb_configuration) return -1;
+ 100               		.loc 1 274 0
+ 101 0002 8091 0000 		lds r24,usb_configuration
+ 102               	.LVL1:
+ 103 0006 8111      		cpse r24,__zero_reg__
+ 104 0008 00C0      		rjmp .L15
+ 105               	.L18:
+ 106 000a 8FEF      		ldi r24,lo8(-1)
+ 107 000c 0895      		ret
+ 108               	.L15:
+ 275:usb_rawhid.c  **** 	intr_state = SREG;
+ 109               		.loc 1 275 0
+ 110 000e 8FB7      		in r24,__SREG__
+ 111               	.LVL2:
+ 276:usb_rawhid.c  **** 	cli();
+ 112               		.loc 1 276 0
+ 113               	/* #APP */
+ 114               	 ;  276 "usb_rawhid.c" 1
+ 115 0010 F894      		cli
+ 116               	 ;  0 "" 2
+ 277:usb_rawhid.c  **** 	rx_timeout_count = timeout;
+ 117               		.loc 1 277 0
+ 118               	/* #NOAPP */
+ 119 0012 6093 0000 		sts rx_timeout_count,r22
+ 278:usb_rawhid.c  **** 	UENUM = RAWHID_RX_ENDPOINT;
+ 120               		.loc 1 278 0
+ 121 0016 92E0      		ldi r25,lo8(2)
+ 122               	.L24:
+ 123 0018 9093 E900 		sts 233,r25
+ 281:usb_rawhid.c  **** 		if (UEINTX & (1<<RWAL)) break;
+ 124               		.loc 1 281 0
+ 125 001c 2091 E800 		lds r18,232
+ 126 0020 25FD      		sbrc r18,5
+ 127 0022 00C0      		rjmp .L17
+ 282:usb_rawhid.c  **** 		SREG = intr_state;
+ 128               		.loc 1 282 0
+ 129 0024 8FBF      		out __SREG__,r24
+ 283:usb_rawhid.c  **** 		if (rx_timeout_count == 0) return 0;
+ 130               		.loc 1 283 0
+ 131 0026 8091 0000 		lds r24,rx_timeout_count
+ 132               	.LVL3:
+ 133 002a 8823      		tst r24
+ 134 002c 01F4      		brne .+2
+ 135 002e 00C0      		rjmp .L20
+ 284:usb_rawhid.c  **** 		if (!usb_configuration) return -1;
+ 136               		.loc 1 284 0
+ 137 0030 8091 0000 		lds r24,usb_configuration
+ 138 0034 8823      		tst r24
+ 139 0036 01F0      		breq .L18
+ 285:usb_rawhid.c  **** 		intr_state = SREG;
+ 140               		.loc 1 285 0
+ 141 0038 8FB7      		in r24,__SREG__
+ 142               	.LVL4:
+ 286:usb_rawhid.c  **** 		cli();
+ 143               		.loc 1 286 0
+ 144               	/* #APP */
+ 145               	 ;  286 "usb_rawhid.c" 1
+ 146 003a F894      		cli
+ 147               	 ;  0 "" 2
+ 148               	/* #NOAPP */
+ 149 003c 00C0      		rjmp .L24
+ 150               	.L17:
+ 291:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 151               		.loc 1 291 0
+ 152 003e 9091 F100 		lds r25,241
+ 153 0042 9083      		st Z,r25
+ 154               	.LVL5:
+ 294:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 155               		.loc 1 294 0
+ 156 0044 9091 F100 		lds r25,241
+ 157 0048 9183      		std Z+1,r25
+ 158               	.LVL6:
+ 297:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 159               		.loc 1 297 0
+ 160 004a 9091 F100 		lds r25,241
+ 161 004e 9283      		std Z+2,r25
+ 162               	.LVL7:
+ 300:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 163               		.loc 1 300 0
+ 164 0050 9091 F100 		lds r25,241
+ 165 0054 9383      		std Z+3,r25
+ 166               	.LVL8:
+ 303:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 167               		.loc 1 303 0
+ 168 0056 9091 F100 		lds r25,241
+ 169 005a 9483      		std Z+4,r25
+ 170               	.LVL9:
+ 306:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 171               		.loc 1 306 0
+ 172 005c 9091 F100 		lds r25,241
+ 173 0060 9583      		std Z+5,r25
+ 174               	.LVL10:
+ 309:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 175               		.loc 1 309 0
+ 176 0062 9091 F100 		lds r25,241
+ 177 0066 9683      		std Z+6,r25
+ 178               	.LVL11:
+ 312:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 179               		.loc 1 312 0
+ 180 0068 9091 F100 		lds r25,241
+ 181 006c 9783      		std Z+7,r25
+ 182               	.LVL12:
+ 315:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 183               		.loc 1 315 0
+ 184 006e 9091 F100 		lds r25,241
+ 185 0072 9087      		std Z+8,r25
+ 186               	.LVL13:
+ 318:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 187               		.loc 1 318 0
+ 188 0074 9091 F100 		lds r25,241
+ 189 0078 9187      		std Z+9,r25
+ 190               	.LVL14:
+ 321:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 191               		.loc 1 321 0
+ 192 007a 9091 F100 		lds r25,241
+ 193 007e 9287      		std Z+10,r25
+ 194               	.LVL15:
+ 324:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 195               		.loc 1 324 0
+ 196 0080 9091 F100 		lds r25,241
+ 197 0084 9387      		std Z+11,r25
+ 198               	.LVL16:
+ 327:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 199               		.loc 1 327 0
+ 200 0086 9091 F100 		lds r25,241
+ 201 008a 9487      		std Z+12,r25
+ 202               	.LVL17:
+ 330:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 203               		.loc 1 330 0
+ 204 008c 9091 F100 		lds r25,241
+ 205 0090 9587      		std Z+13,r25
+ 206               	.LVL18:
+ 333:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 207               		.loc 1 333 0
+ 208 0092 9091 F100 		lds r25,241
+ 209 0096 9687      		std Z+14,r25
+ 210               	.LVL19:
+ 336:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 211               		.loc 1 336 0
+ 212 0098 9091 F100 		lds r25,241
+ 213 009c 9787      		std Z+15,r25
+ 214               	.LVL20:
+ 339:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 215               		.loc 1 339 0
+ 216 009e 9091 F100 		lds r25,241
+ 217 00a2 908B      		std Z+16,r25
+ 218               	.LVL21:
+ 342:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 219               		.loc 1 342 0
+ 220 00a4 9091 F100 		lds r25,241
+ 221 00a8 918B      		std Z+17,r25
+ 222               	.LVL22:
+ 345:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 223               		.loc 1 345 0
+ 224 00aa 9091 F100 		lds r25,241
+ 225 00ae 928B      		std Z+18,r25
+ 226               	.LVL23:
+ 348:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 227               		.loc 1 348 0
+ 228 00b0 9091 F100 		lds r25,241
+ 229 00b4 938B      		std Z+19,r25
+ 230               	.LVL24:
+ 351:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 231               		.loc 1 351 0
+ 232 00b6 9091 F100 		lds r25,241
+ 233 00ba 948B      		std Z+20,r25
+ 234               	.LVL25:
+ 354:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 235               		.loc 1 354 0
+ 236 00bc 9091 F100 		lds r25,241
+ 237 00c0 958B      		std Z+21,r25
+ 238               	.LVL26:
+ 357:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 239               		.loc 1 357 0
+ 240 00c2 9091 F100 		lds r25,241
+ 241 00c6 968B      		std Z+22,r25
+ 242               	.LVL27:
+ 360:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 243               		.loc 1 360 0
+ 244 00c8 9091 F100 		lds r25,241
+ 245 00cc 978B      		std Z+23,r25
+ 246               	.LVL28:
+ 363:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 247               		.loc 1 363 0
+ 248 00ce 9091 F100 		lds r25,241
+ 249 00d2 908F      		std Z+24,r25
+ 250               	.LVL29:
+ 366:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 251               		.loc 1 366 0
+ 252 00d4 9091 F100 		lds r25,241
+ 253 00d8 918F      		std Z+25,r25
+ 254               	.LVL30:
+ 369:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 255               		.loc 1 369 0
+ 256 00da 9091 F100 		lds r25,241
+ 257 00de 928F      		std Z+26,r25
+ 258               	.LVL31:
+ 372:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 259               		.loc 1 372 0
+ 260 00e0 9091 F100 		lds r25,241
+ 261 00e4 938F      		std Z+27,r25
+ 262               	.LVL32:
+ 375:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 263               		.loc 1 375 0
+ 264 00e6 9091 F100 		lds r25,241
+ 265 00ea 948F      		std Z+28,r25
+ 266               	.LVL33:
+ 378:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 267               		.loc 1 378 0
+ 268 00ec 9091 F100 		lds r25,241
+ 269 00f0 958F      		std Z+29,r25
+ 270               	.LVL34:
+ 381:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 271               		.loc 1 381 0
+ 272 00f2 9091 F100 		lds r25,241
+ 273 00f6 968F      		std Z+30,r25
+ 274               	.LVL35:
+ 384:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 275               		.loc 1 384 0
+ 276 00f8 9091 F100 		lds r25,241
+ 277 00fc 978F      		std Z+31,r25
+ 278               	.LVL36:
+ 387:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 279               		.loc 1 387 0
+ 280 00fe 9091 F100 		lds r25,241
+ 281 0102 90A3      		std Z+32,r25
+ 282               	.LVL37:
+ 390:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 283               		.loc 1 390 0
+ 284 0104 9091 F100 		lds r25,241
+ 285 0108 91A3      		std Z+33,r25
+ 286               	.LVL38:
+ 393:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 287               		.loc 1 393 0
+ 288 010a 9091 F100 		lds r25,241
+ 289 010e 92A3      		std Z+34,r25
+ 290               	.LVL39:
+ 396:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 291               		.loc 1 396 0
+ 292 0110 9091 F100 		lds r25,241
+ 293 0114 93A3      		std Z+35,r25
+ 294               	.LVL40:
+ 399:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 295               		.loc 1 399 0
+ 296 0116 9091 F100 		lds r25,241
+ 297 011a 94A3      		std Z+36,r25
+ 298               	.LVL41:
+ 402:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 299               		.loc 1 402 0
+ 300 011c 9091 F100 		lds r25,241
+ 301 0120 95A3      		std Z+37,r25
+ 302               	.LVL42:
+ 405:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 303               		.loc 1 405 0
+ 304 0122 9091 F100 		lds r25,241
+ 305 0126 96A3      		std Z+38,r25
+ 306               	.LVL43:
+ 408:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 307               		.loc 1 408 0
+ 308 0128 9091 F100 		lds r25,241
+ 309 012c 97A3      		std Z+39,r25
+ 310               	.LVL44:
+ 411:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 311               		.loc 1 411 0
+ 312 012e 9091 F100 		lds r25,241
+ 313 0132 90A7      		std Z+40,r25
+ 314               	.LVL45:
+ 414:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 315               		.loc 1 414 0
+ 316 0134 9091 F100 		lds r25,241
+ 317 0138 91A7      		std Z+41,r25
+ 318               	.LVL46:
+ 417:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 319               		.loc 1 417 0
+ 320 013a 9091 F100 		lds r25,241
+ 321 013e 92A7      		std Z+42,r25
+ 322               	.LVL47:
+ 420:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 323               		.loc 1 420 0
+ 324 0140 9091 F100 		lds r25,241
+ 325 0144 93A7      		std Z+43,r25
+ 326               	.LVL48:
+ 423:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 327               		.loc 1 423 0
+ 328 0146 9091 F100 		lds r25,241
+ 329 014a 94A7      		std Z+44,r25
+ 330               	.LVL49:
+ 426:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 331               		.loc 1 426 0
+ 332 014c 9091 F100 		lds r25,241
+ 333 0150 95A7      		std Z+45,r25
+ 334               	.LVL50:
+ 429:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 335               		.loc 1 429 0
+ 336 0152 9091 F100 		lds r25,241
+ 337 0156 96A7      		std Z+46,r25
+ 338               	.LVL51:
+ 432:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 339               		.loc 1 432 0
+ 340 0158 9091 F100 		lds r25,241
+ 341 015c 97A7      		std Z+47,r25
+ 342               	.LVL52:
+ 435:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 343               		.loc 1 435 0
+ 344 015e 9091 F100 		lds r25,241
+ 345 0162 90AB      		std Z+48,r25
+ 346               	.LVL53:
+ 438:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 347               		.loc 1 438 0
+ 348 0164 9091 F100 		lds r25,241
+ 349 0168 91AB      		std Z+49,r25
+ 350               	.LVL54:
+ 441:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 351               		.loc 1 441 0
+ 352 016a 9091 F100 		lds r25,241
+ 353 016e 92AB      		std Z+50,r25
+ 354               	.LVL55:
+ 444:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 355               		.loc 1 444 0
+ 356 0170 9091 F100 		lds r25,241
+ 357 0174 93AB      		std Z+51,r25
+ 358               	.LVL56:
+ 447:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 359               		.loc 1 447 0
+ 360 0176 9091 F100 		lds r25,241
+ 361 017a 94AB      		std Z+52,r25
+ 362               	.LVL57:
+ 450:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 363               		.loc 1 450 0
+ 364 017c 9091 F100 		lds r25,241
+ 365 0180 95AB      		std Z+53,r25
+ 366               	.LVL58:
+ 453:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 367               		.loc 1 453 0
+ 368 0182 9091 F100 		lds r25,241
+ 369 0186 96AB      		std Z+54,r25
+ 370               	.LVL59:
+ 456:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 371               		.loc 1 456 0
+ 372 0188 9091 F100 		lds r25,241
+ 373 018c 97AB      		std Z+55,r25
+ 374               	.LVL60:
+ 459:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 375               		.loc 1 459 0
+ 376 018e 9091 F100 		lds r25,241
+ 377 0192 90AF      		std Z+56,r25
+ 378               	.LVL61:
+ 462:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 379               		.loc 1 462 0
+ 380 0194 9091 F100 		lds r25,241
+ 381 0198 91AF      		std Z+57,r25
+ 382               	.LVL62:
+ 465:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 383               		.loc 1 465 0
+ 384 019a 9091 F100 		lds r25,241
+ 385 019e 92AF      		std Z+58,r25
+ 386               	.LVL63:
+ 468:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 387               		.loc 1 468 0
+ 388 01a0 9091 F100 		lds r25,241
+ 389 01a4 93AF      		std Z+59,r25
+ 390               	.LVL64:
+ 471:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 391               		.loc 1 471 0
+ 392 01a6 9091 F100 		lds r25,241
+ 393 01aa 94AF      		std Z+60,r25
+ 394               	.LVL65:
+ 474:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 395               		.loc 1 474 0
+ 396 01ac 9091 F100 		lds r25,241
+ 397 01b0 95AF      		std Z+61,r25
+ 398               	.LVL66:
+ 477:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 399               		.loc 1 477 0
+ 400 01b2 9091 F100 		lds r25,241
+ 401 01b6 96AF      		std Z+62,r25
+ 402               	.LVL67:
+ 480:usb_rawhid.c  **** 	*buffer++ = UEDATX;
+ 403               		.loc 1 480 0
+ 404 01b8 9091 F100 		lds r25,241
+ 405 01bc 97AF      		std Z+63,r25
+ 406               	.LVL68:
+ 483:usb_rawhid.c  **** 	UEINTX = 0x6B;
+ 407               		.loc 1 483 0
+ 408 01be 9BE6      		ldi r25,lo8(107)
+ 409 01c0 9093 E800 		sts 232,r25
+ 484:usb_rawhid.c  **** 	SREG = intr_state;
+ 410               		.loc 1 484 0
+ 411 01c4 8FBF      		out __SREG__,r24
+ 485:usb_rawhid.c  **** 	return RAWHID_RX_SIZE;
+ 412               		.loc 1 485 0
+ 413 01c6 80E4      		ldi r24,lo8(64)
+ 414               	.LVL69:
+ 415 01c8 0895      		ret
+ 416               	.LVL70:
+ 417               	.L20:
+ 283:usb_rawhid.c  **** 		if (rx_timeout_count == 0) return 0;
+ 418               		.loc 1 283 0
+ 419 01ca 80E0      		ldi r24,0
+ 486:usb_rawhid.c  **** }
+ 420               		.loc 1 486 0
+ 421 01cc 0895      		ret
+ 422               	.LFE3:
+ 424               		.section	.text.usb_rawhid_send,"ax",@progbits
+ 425               	.global	usb_rawhid_send
+ 427               	usb_rawhid_send:
+ 428               	.LFB4:
+ 490:usb_rawhid.c  **** {
+ 429               		.loc 1 490 0
+ 430               	.LVL71:
+ 431               	/* prologue: function */
+ 432               	/* frame size = 0 */
+ 433               	/* stack size = 0 */
+ 434               	.L__stack_usage = 0
+ 435 0000 FC01      		movw r30,r24
+ 494:usb_rawhid.c  **** 	if (!usb_configuration) return -1;
+ 436               		.loc 1 494 0
+ 437 0002 8091 0000 		lds r24,usb_configuration
+ 438               	.LVL72:
+ 439 0006 8111      		cpse r24,__zero_reg__
+ 440 0008 00C0      		rjmp .L26
+ 441               	.L29:
+ 442 000a 8FEF      		ldi r24,lo8(-1)
+ 443 000c 0895      		ret
+ 444               	.L26:
+ 495:usb_rawhid.c  **** 	intr_state = SREG;
+ 445               		.loc 1 495 0
+ 446 000e 8FB7      		in r24,__SREG__
+ 447               	.LVL73:
+ 496:usb_rawhid.c  **** 	cli();
+ 448               		.loc 1 496 0
+ 449               	/* #APP */
+ 450               	 ;  496 "usb_rawhid.c" 1
+ 451 0010 F894      		cli
+ 452               	 ;  0 "" 2
+ 497:usb_rawhid.c  **** 	tx_timeout_count = timeout;
+ 453               		.loc 1 497 0
+ 454               	/* #NOAPP */
+ 455 0012 6093 0000 		sts tx_timeout_count,r22
+ 498:usb_rawhid.c  **** 	UENUM = RAWHID_TX_ENDPOINT;
+ 456               		.loc 1 498 0
+ 457 0016 91E0      		ldi r25,lo8(1)
+ 458               	.L35:
+ 459 0018 9093 E900 		sts 233,r25
+ 501:usb_rawhid.c  **** 		if (UEINTX & (1<<RWAL)) break;
+ 460               		.loc 1 501 0
+ 461 001c 2091 E800 		lds r18,232
+ 462 0020 25FD      		sbrc r18,5
+ 463 0022 00C0      		rjmp .L28
+ 502:usb_rawhid.c  **** 		SREG = intr_state;
+ 464               		.loc 1 502 0
+ 465 0024 8FBF      		out __SREG__,r24
+ 503:usb_rawhid.c  **** 		if (tx_timeout_count == 0) return 0;
+ 466               		.loc 1 503 0
+ 467 0026 8091 0000 		lds r24,tx_timeout_count
+ 468               	.LVL74:
+ 469 002a 8823      		tst r24
+ 470 002c 01F4      		brne .+2
+ 471 002e 00C0      		rjmp .L31
+ 504:usb_rawhid.c  **** 		if (!usb_configuration) return -1;
+ 472               		.loc 1 504 0
+ 473 0030 8091 0000 		lds r24,usb_configuration
+ 474 0034 8823      		tst r24
+ 475 0036 01F0      		breq .L29
+ 505:usb_rawhid.c  **** 		intr_state = SREG;
+ 476               		.loc 1 505 0
+ 477 0038 8FB7      		in r24,__SREG__
+ 478               	.LVL75:
+ 506:usb_rawhid.c  **** 		cli();
+ 479               		.loc 1 506 0
+ 480               	/* #APP */
+ 481               	 ;  506 "usb_rawhid.c" 1
+ 482 003a F894      		cli
+ 483               	 ;  0 "" 2
+ 484               	/* #NOAPP */
+ 485 003c 00C0      		rjmp .L35
+ 486               	.L28:
+ 511:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 487               		.loc 1 511 0
+ 488 003e 9081      		ld r25,Z
+ 489 0040 9093 F100 		sts 241,r25
+ 490               	.LVL76:
+ 514:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 491               		.loc 1 514 0
+ 492 0044 9181      		ldd r25,Z+1
+ 493 0046 9093 F100 		sts 241,r25
+ 494               	.LVL77:
+ 517:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 495               		.loc 1 517 0
+ 496 004a 9281      		ldd r25,Z+2
+ 497 004c 9093 F100 		sts 241,r25
+ 498               	.LVL78:
+ 520:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 499               		.loc 1 520 0
+ 500 0050 9381      		ldd r25,Z+3
+ 501 0052 9093 F100 		sts 241,r25
+ 502               	.LVL79:
+ 523:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 503               		.loc 1 523 0
+ 504 0056 9481      		ldd r25,Z+4
+ 505 0058 9093 F100 		sts 241,r25
+ 506               	.LVL80:
+ 526:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 507               		.loc 1 526 0
+ 508 005c 9581      		ldd r25,Z+5
+ 509 005e 9093 F100 		sts 241,r25
+ 510               	.LVL81:
+ 529:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 511               		.loc 1 529 0
+ 512 0062 9681      		ldd r25,Z+6
+ 513 0064 9093 F100 		sts 241,r25
+ 514               	.LVL82:
+ 532:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 515               		.loc 1 532 0
+ 516 0068 9781      		ldd r25,Z+7
+ 517 006a 9093 F100 		sts 241,r25
+ 518               	.LVL83:
+ 535:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 519               		.loc 1 535 0
+ 520 006e 9085      		ldd r25,Z+8
+ 521 0070 9093 F100 		sts 241,r25
+ 522               	.LVL84:
+ 538:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 523               		.loc 1 538 0
+ 524 0074 9185      		ldd r25,Z+9
+ 525 0076 9093 F100 		sts 241,r25
+ 526               	.LVL85:
+ 541:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 527               		.loc 1 541 0
+ 528 007a 9285      		ldd r25,Z+10
+ 529 007c 9093 F100 		sts 241,r25
+ 530               	.LVL86:
+ 544:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 531               		.loc 1 544 0
+ 532 0080 9385      		ldd r25,Z+11
+ 533 0082 9093 F100 		sts 241,r25
+ 534               	.LVL87:
+ 547:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 535               		.loc 1 547 0
+ 536 0086 9485      		ldd r25,Z+12
+ 537 0088 9093 F100 		sts 241,r25
+ 538               	.LVL88:
+ 550:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 539               		.loc 1 550 0
+ 540 008c 9585      		ldd r25,Z+13
+ 541 008e 9093 F100 		sts 241,r25
+ 542               	.LVL89:
+ 553:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 543               		.loc 1 553 0
+ 544 0092 9685      		ldd r25,Z+14
+ 545 0094 9093 F100 		sts 241,r25
+ 546               	.LVL90:
+ 556:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 547               		.loc 1 556 0
+ 548 0098 9785      		ldd r25,Z+15
+ 549 009a 9093 F100 		sts 241,r25
+ 550               	.LVL91:
+ 559:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 551               		.loc 1 559 0
+ 552 009e 9089      		ldd r25,Z+16
+ 553 00a0 9093 F100 		sts 241,r25
+ 554               	.LVL92:
+ 562:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 555               		.loc 1 562 0
+ 556 00a4 9189      		ldd r25,Z+17
+ 557 00a6 9093 F100 		sts 241,r25
+ 558               	.LVL93:
+ 565:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 559               		.loc 1 565 0
+ 560 00aa 9289      		ldd r25,Z+18
+ 561 00ac 9093 F100 		sts 241,r25
+ 562               	.LVL94:
+ 568:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 563               		.loc 1 568 0
+ 564 00b0 9389      		ldd r25,Z+19
+ 565 00b2 9093 F100 		sts 241,r25
+ 566               	.LVL95:
+ 571:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 567               		.loc 1 571 0
+ 568 00b6 9489      		ldd r25,Z+20
+ 569 00b8 9093 F100 		sts 241,r25
+ 570               	.LVL96:
+ 574:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 571               		.loc 1 574 0
+ 572 00bc 9589      		ldd r25,Z+21
+ 573 00be 9093 F100 		sts 241,r25
+ 574               	.LVL97:
+ 577:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 575               		.loc 1 577 0
+ 576 00c2 9689      		ldd r25,Z+22
+ 577 00c4 9093 F100 		sts 241,r25
+ 578               	.LVL98:
+ 580:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 579               		.loc 1 580 0
+ 580 00c8 9789      		ldd r25,Z+23
+ 581 00ca 9093 F100 		sts 241,r25
+ 582               	.LVL99:
+ 583:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 583               		.loc 1 583 0
+ 584 00ce 908D      		ldd r25,Z+24
+ 585 00d0 9093 F100 		sts 241,r25
+ 586               	.LVL100:
+ 586:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 587               		.loc 1 586 0
+ 588 00d4 918D      		ldd r25,Z+25
+ 589 00d6 9093 F100 		sts 241,r25
+ 590               	.LVL101:
+ 589:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 591               		.loc 1 589 0
+ 592 00da 928D      		ldd r25,Z+26
+ 593 00dc 9093 F100 		sts 241,r25
+ 594               	.LVL102:
+ 592:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 595               		.loc 1 592 0
+ 596 00e0 938D      		ldd r25,Z+27
+ 597 00e2 9093 F100 		sts 241,r25
+ 598               	.LVL103:
+ 595:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 599               		.loc 1 595 0
+ 600 00e6 948D      		ldd r25,Z+28
+ 601 00e8 9093 F100 		sts 241,r25
+ 602               	.LVL104:
+ 598:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 603               		.loc 1 598 0
+ 604 00ec 958D      		ldd r25,Z+29
+ 605 00ee 9093 F100 		sts 241,r25
+ 606               	.LVL105:
+ 601:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 607               		.loc 1 601 0
+ 608 00f2 968D      		ldd r25,Z+30
+ 609 00f4 9093 F100 		sts 241,r25
+ 610               	.LVL106:
+ 604:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 611               		.loc 1 604 0
+ 612 00f8 978D      		ldd r25,Z+31
+ 613 00fa 9093 F100 		sts 241,r25
+ 614               	.LVL107:
+ 607:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 615               		.loc 1 607 0
+ 616 00fe 90A1      		ldd r25,Z+32
+ 617 0100 9093 F100 		sts 241,r25
+ 618               	.LVL108:
+ 610:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 619               		.loc 1 610 0
+ 620 0104 91A1      		ldd r25,Z+33
+ 621 0106 9093 F100 		sts 241,r25
+ 622               	.LVL109:
+ 613:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 623               		.loc 1 613 0
+ 624 010a 92A1      		ldd r25,Z+34
+ 625 010c 9093 F100 		sts 241,r25
+ 626               	.LVL110:
+ 616:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 627               		.loc 1 616 0
+ 628 0110 93A1      		ldd r25,Z+35
+ 629 0112 9093 F100 		sts 241,r25
+ 630               	.LVL111:
+ 619:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 631               		.loc 1 619 0
+ 632 0116 94A1      		ldd r25,Z+36
+ 633 0118 9093 F100 		sts 241,r25
+ 634               	.LVL112:
+ 622:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 635               		.loc 1 622 0
+ 636 011c 95A1      		ldd r25,Z+37
+ 637 011e 9093 F100 		sts 241,r25
+ 638               	.LVL113:
+ 625:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 639               		.loc 1 625 0
+ 640 0122 96A1      		ldd r25,Z+38
+ 641 0124 9093 F100 		sts 241,r25
+ 642               	.LVL114:
+ 628:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 643               		.loc 1 628 0
+ 644 0128 97A1      		ldd r25,Z+39
+ 645 012a 9093 F100 		sts 241,r25
+ 646               	.LVL115:
+ 631:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 647               		.loc 1 631 0
+ 648 012e 90A5      		ldd r25,Z+40
+ 649 0130 9093 F100 		sts 241,r25
+ 650               	.LVL116:
+ 634:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 651               		.loc 1 634 0
+ 652 0134 91A5      		ldd r25,Z+41
+ 653 0136 9093 F100 		sts 241,r25
+ 654               	.LVL117:
+ 637:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 655               		.loc 1 637 0
+ 656 013a 92A5      		ldd r25,Z+42
+ 657 013c 9093 F100 		sts 241,r25
+ 658               	.LVL118:
+ 640:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 659               		.loc 1 640 0
+ 660 0140 93A5      		ldd r25,Z+43
+ 661 0142 9093 F100 		sts 241,r25
+ 662               	.LVL119:
+ 643:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 663               		.loc 1 643 0
+ 664 0146 94A5      		ldd r25,Z+44
+ 665 0148 9093 F100 		sts 241,r25
+ 666               	.LVL120:
+ 646:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 667               		.loc 1 646 0
+ 668 014c 95A5      		ldd r25,Z+45
+ 669 014e 9093 F100 		sts 241,r25
+ 670               	.LVL121:
+ 649:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 671               		.loc 1 649 0
+ 672 0152 96A5      		ldd r25,Z+46
+ 673 0154 9093 F100 		sts 241,r25
+ 674               	.LVL122:
+ 652:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 675               		.loc 1 652 0
+ 676 0158 97A5      		ldd r25,Z+47
+ 677 015a 9093 F100 		sts 241,r25
+ 678               	.LVL123:
+ 655:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 679               		.loc 1 655 0
+ 680 015e 90A9      		ldd r25,Z+48
+ 681 0160 9093 F100 		sts 241,r25
+ 682               	.LVL124:
+ 658:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 683               		.loc 1 658 0
+ 684 0164 91A9      		ldd r25,Z+49
+ 685 0166 9093 F100 		sts 241,r25
+ 686               	.LVL125:
+ 661:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 687               		.loc 1 661 0
+ 688 016a 92A9      		ldd r25,Z+50
+ 689 016c 9093 F100 		sts 241,r25
+ 690               	.LVL126:
+ 664:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 691               		.loc 1 664 0
+ 692 0170 93A9      		ldd r25,Z+51
+ 693 0172 9093 F100 		sts 241,r25
+ 694               	.LVL127:
+ 667:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 695               		.loc 1 667 0
+ 696 0176 94A9      		ldd r25,Z+52
+ 697 0178 9093 F100 		sts 241,r25
+ 698               	.LVL128:
+ 670:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 699               		.loc 1 670 0
+ 700 017c 95A9      		ldd r25,Z+53
+ 701 017e 9093 F100 		sts 241,r25
+ 702               	.LVL129:
+ 673:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 703               		.loc 1 673 0
+ 704 0182 96A9      		ldd r25,Z+54
+ 705 0184 9093 F100 		sts 241,r25
+ 706               	.LVL130:
+ 676:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 707               		.loc 1 676 0
+ 708 0188 97A9      		ldd r25,Z+55
+ 709 018a 9093 F100 		sts 241,r25
+ 710               	.LVL131:
+ 679:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 711               		.loc 1 679 0
+ 712 018e 90AD      		ldd r25,Z+56
+ 713 0190 9093 F100 		sts 241,r25
+ 714               	.LVL132:
+ 682:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 715               		.loc 1 682 0
+ 716 0194 91AD      		ldd r25,Z+57
+ 717 0196 9093 F100 		sts 241,r25
+ 718               	.LVL133:
+ 685:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 719               		.loc 1 685 0
+ 720 019a 92AD      		ldd r25,Z+58
+ 721 019c 9093 F100 		sts 241,r25
+ 722               	.LVL134:
+ 688:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 723               		.loc 1 688 0
+ 724 01a0 93AD      		ldd r25,Z+59
+ 725 01a2 9093 F100 		sts 241,r25
+ 726               	.LVL135:
+ 691:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 727               		.loc 1 691 0
+ 728 01a6 94AD      		ldd r25,Z+60
+ 729 01a8 9093 F100 		sts 241,r25
+ 730               	.LVL136:
+ 694:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 731               		.loc 1 694 0
+ 732 01ac 95AD      		ldd r25,Z+61
+ 733 01ae 9093 F100 		sts 241,r25
+ 734               	.LVL137:
+ 697:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 735               		.loc 1 697 0
+ 736 01b2 96AD      		ldd r25,Z+62
+ 737 01b4 9093 F100 		sts 241,r25
+ 738               	.LVL138:
+ 700:usb_rawhid.c  **** 	UEDATX = *buffer++;
+ 739               		.loc 1 700 0
+ 740 01b8 97AD      		ldd r25,Z+63
+ 741 01ba 9093 F100 		sts 241,r25
+ 742               	.LVL139:
+ 703:usb_rawhid.c  **** 	UEINTX = 0x3A;
+ 743               		.loc 1 703 0
+ 744 01be 9AE3      		ldi r25,lo8(58)
+ 745 01c0 9093 E800 		sts 232,r25
+ 704:usb_rawhid.c  **** 	SREG = intr_state;
+ 746               		.loc 1 704 0
+ 747 01c4 8FBF      		out __SREG__,r24
+ 705:usb_rawhid.c  **** 	return RAWHID_TX_SIZE;
+ 748               		.loc 1 705 0
+ 749 01c6 80E4      		ldi r24,lo8(64)
+ 750               	.LVL140:
+ 751 01c8 0895      		ret
+ 752               	.LVL141:
+ 753               	.L31:
+ 503:usb_rawhid.c  **** 		if (tx_timeout_count == 0) return 0;
+ 754               		.loc 1 503 0
+ 755 01ca 80E0      		ldi r24,0
+ 706:usb_rawhid.c  **** }
+ 756               		.loc 1 706 0
+ 757 01cc 0895      		ret
+ 758               	.LFE4:
+ 760               		.section	.text.__vector_10,"ax",@progbits
+ 761               	.global	__vector_10
+ 763               	__vector_10:
+ 764               	.LFB5:
+ 727:usb_rawhid.c  **** {
+ 765               		.loc 1 727 0
+ 766 0000 1F92      		push r1
+ 767               	.LCFI0:
+ 768 0002 0F92      		push r0
+ 769               	.LCFI1:
+ 770 0004 0FB6      		in r0,__SREG__
+ 771 0006 0F92      		push r0
+ 772 0008 1124      		clr __zero_reg__
+ 773 000a 8F93      		push r24
+ 774               	.LCFI2:
+ 775 000c 9F93      		push r25
+ 776               	.LCFI3:
+ 777               	/* prologue: Signal */
+ 778               	/* frame size = 0 */
+ 779               	/* stack size = 5 */
+ 780               	.L__stack_usage = 5
+ 730:usb_rawhid.c  ****         intbits = UDINT;
+ 781               		.loc 1 730 0
+ 782 000e 8091 E100 		lds r24,225
+ 783               	.LVL142:
+ 731:usb_rawhid.c  ****         UDINT = 0;
+ 784               		.loc 1 731 0
+ 785 0012 1092 E100 		sts 225,__zero_reg__
+ 732:usb_rawhid.c  ****         if (intbits & (1<<EORSTI)) {
+ 786               		.loc 1 732 0
+ 787 0016 83FF      		sbrs r24,3
+ 788 0018 00C0      		rjmp .L37
+ 733:usb_rawhid.c  **** 		UENUM = 0;
+ 789               		.loc 1 733 0
+ 790 001a 1092 E900 		sts 233,__zero_reg__
+ 734:usb_rawhid.c  **** 		UECONX = 1;
+ 791               		.loc 1 734 0
+ 792 001e 91E0      		ldi r25,lo8(1)
+ 793 0020 9093 EB00 		sts 235,r25
+ 735:usb_rawhid.c  **** 		UECFG0X = EP_TYPE_CONTROL;
+ 794               		.loc 1 735 0
+ 795 0024 1092 EC00 		sts 236,__zero_reg__
+ 736:usb_rawhid.c  **** 		UECFG1X = EP_SIZE(ENDPOINT0_SIZE) | EP_SINGLE_BUFFER;
+ 796               		.loc 1 736 0
+ 797 0028 92E2      		ldi r25,lo8(34)
+ 798 002a 9093 ED00 		sts 237,r25
+ 737:usb_rawhid.c  **** 		UEIENX = (1<<RXSTPE);
+ 799               		.loc 1 737 0
+ 800 002e 98E0      		ldi r25,lo8(8)
+ 801 0030 9093 F000 		sts 240,r25
+ 738:usb_rawhid.c  **** 		usb_configuration = 0;
+ 802               		.loc 1 738 0
+ 803 0034 1092 0000 		sts usb_configuration,__zero_reg__
+ 804               	.L37:
+ 740:usb_rawhid.c  **** 	if ((intbits & (1<<SOFI)) && usb_configuration) {
+ 805               		.loc 1 740 0
+ 806 0038 82FF      		sbrs r24,2
+ 807 003a 00C0      		rjmp .L36
+ 740:usb_rawhid.c  **** 	if ((intbits & (1<<SOFI)) && usb_configuration) {
+ 808               		.loc 1 740 0 is_stmt 0 discriminator 1
+ 809 003c 8091 0000 		lds r24,usb_configuration
+ 810               	.LVL143:
+ 811 0040 8823      		tst r24
+ 812 0042 01F0      		breq .L36
+ 741:usb_rawhid.c  **** 		t = rx_timeout_count;
+ 813               		.loc 1 741 0 is_stmt 1
+ 814 0044 8091 0000 		lds r24,rx_timeout_count
+ 815               	.LVL144:
+ 742:usb_rawhid.c  **** 		if (t) rx_timeout_count = --t;
+ 816               		.loc 1 742 0
+ 817 0048 8823      		tst r24
+ 818 004a 01F0      		breq .L41
+ 742:usb_rawhid.c  **** 		if (t) rx_timeout_count = --t;
+ 819               		.loc 1 742 0 is_stmt 0 discriminator 1
+ 820 004c 8150      		subi r24,lo8(-(-1))
+ 821               	.LVL145:
+ 822 004e 8093 0000 		sts rx_timeout_count,r24
+ 823               	.L41:
+ 743:usb_rawhid.c  **** 		t = tx_timeout_count;
+ 824               		.loc 1 743 0 is_stmt 1
+ 825 0052 8091 0000 		lds r24,tx_timeout_count
+ 826               	.LVL146:
+ 744:usb_rawhid.c  **** 		if (t) tx_timeout_count = --t;
+ 827               		.loc 1 744 0
+ 828 0056 8823      		tst r24
+ 829 0058 01F0      		breq .L36
+ 744:usb_rawhid.c  **** 		if (t) tx_timeout_count = --t;
+ 830               		.loc 1 744 0 is_stmt 0 discriminator 1
+ 831 005a 8150      		subi r24,lo8(-(-1))
+ 832               	.LVL147:
+ 833 005c 8093 0000 		sts tx_timeout_count,r24
+ 834               	.LVL148:
+ 835               	.L36:
+ 836               	/* epilogue start */
+ 746:usb_rawhid.c  **** }
+ 837               		.loc 1 746 0 is_stmt 1
+ 838 0060 9F91      		pop r25
+ 839 0062 8F91      		pop r24
+ 840 0064 0F90      		pop r0
+ 841 0066 0FBE      		out __SREG__,r0
+ 842 0068 0F90      		pop r0
+ 843 006a 1F90      		pop r1
+ 844 006c 1895      		reti
+ 845               	.LFE5:
+ 847               		.section	.text.__vector_11,"ax",@progbits
+ 848               	.global	__vector_11
+ 850               	__vector_11:
+ 851               	.LFB10:
+ 755:usb_rawhid.c  **** static inline void usb_send_in(void)
+ 756:usb_rawhid.c  **** {
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 758:usb_rawhid.c  **** }
+ 759:usb_rawhid.c  **** static inline void usb_wait_receive_out(void)
+ 760:usb_rawhid.c  **** {
+ 761:usb_rawhid.c  **** 	while (!(UEINTX & (1<<RXOUTI))) ;
+ 762:usb_rawhid.c  **** }
+ 763:usb_rawhid.c  **** static inline void usb_ack_out(void)
+ 764:usb_rawhid.c  **** {
+ 765:usb_rawhid.c  **** 	UEINTX = ~(1<<RXOUTI);
+ 766:usb_rawhid.c  **** }
+ 767:usb_rawhid.c  **** 
+ 768:usb_rawhid.c  **** 
+ 769:usb_rawhid.c  **** 
+ 770:usb_rawhid.c  **** // USB Endpoint Interrupt - endpoint 0 is handled here.  The
+ 771:usb_rawhid.c  **** // other endpoints are manipulated by the user-callable
+ 772:usb_rawhid.c  **** // functions, and the start-of-frame interrupt.
+ 773:usb_rawhid.c  **** //
+ 774:usb_rawhid.c  **** ISR(USB_COM_vect)
+ 775:usb_rawhid.c  **** {
+ 852               		.loc 1 775 0
+ 853 0000 1F92      		push r1
+ 854               	.LCFI4:
+ 855 0002 0F92      		push r0
+ 856               	.LCFI5:
+ 857 0004 0FB6      		in r0,__SREG__
+ 858 0006 0F92      		push r0
+ 859 0008 1124      		clr __zero_reg__
+ 860 000a EF92      		push r14
+ 861               	.LCFI6:
+ 862 000c FF92      		push r15
+ 863               	.LCFI7:
+ 864 000e 0F93      		push r16
+ 865               	.LCFI8:
+ 866 0010 1F93      		push r17
+ 867               	.LCFI9:
+ 868 0012 2F93      		push r18
+ 869               	.LCFI10:
+ 870 0014 3F93      		push r19
+ 871               	.LCFI11:
+ 872 0016 4F93      		push r20
+ 873               	.LCFI12:
+ 874 0018 5F93      		push r21
+ 875               	.LCFI13:
+ 876 001a 6F93      		push r22
+ 877               	.LCFI14:
+ 878 001c 7F93      		push r23
+ 879               	.LCFI15:
+ 880 001e 8F93      		push r24
+ 881               	.LCFI16:
+ 882 0020 9F93      		push r25
+ 883               	.LCFI17:
+ 884 0022 AF93      		push r26
+ 885               	.LCFI18:
+ 886 0024 BF93      		push r27
+ 887               	.LCFI19:
+ 888 0026 EF93      		push r30
+ 889               	.LCFI20:
+ 890 0028 FF93      		push r31
+ 891               	.LCFI21:
+ 892 002a CF93      		push r28
+ 893               	.LCFI22:
+ 894 002c DF93      		push r29
+ 895               	.LCFI23:
+ 896 002e 1F92      		push __zero_reg__
+ 897               	.LCFI24:
+ 898 0030 CDB7      		in r28,__SP_L__
+ 899 0032 DEB7      		in r29,__SP_H__
+ 900               	.LCFI25:
+ 901               	/* prologue: Signal */
+ 902               	/* frame size = 1 */
+ 903               	/* stack size = 22 */
+ 904               	.L__stack_usage = 22
+ 776:usb_rawhid.c  ****         uint8_t intbits;
+ 777:usb_rawhid.c  **** 	const uint8_t *list;
+ 778:usb_rawhid.c  ****         const uint8_t *cfg;
+ 779:usb_rawhid.c  **** 	uint8_t i, n, len, en;
+ 780:usb_rawhid.c  **** 	uint8_t bmRequestType;
+ 781:usb_rawhid.c  **** 	uint8_t bRequest;
+ 782:usb_rawhid.c  **** 	uint16_t wValue;
+ 783:usb_rawhid.c  **** 	uint16_t wIndex;
+ 784:usb_rawhid.c  **** 	uint16_t wLength;
+ 785:usb_rawhid.c  **** 	uint16_t desc_val;
+ 786:usb_rawhid.c  **** 	const uint8_t *desc_addr;
+ 787:usb_rawhid.c  **** 	uint8_t	desc_length;
+ 788:usb_rawhid.c  **** 
+ 789:usb_rawhid.c  ****         UENUM = 0;
+ 905               		.loc 1 789 0
+ 906 0034 1092 E900 		sts 233,__zero_reg__
+ 790:usb_rawhid.c  **** 	intbits = UEINTX;
+ 907               		.loc 1 790 0
+ 908 0038 8091 E800 		lds r24,232
+ 909               	.LVL149:
+ 791:usb_rawhid.c  ****         if (intbits & (1<<RXSTPI)) {
+ 910               		.loc 1 791 0
+ 911 003c 83FF      		sbrs r24,3
+ 912 003e 00C0      		rjmp .L55
+ 792:usb_rawhid.c  ****                 bmRequestType = UEDATX;
+ 913               		.loc 1 792 0
+ 914 0040 9091 F100 		lds r25,241
+ 915               	.LVL150:
+ 793:usb_rawhid.c  ****                 bRequest = UEDATX;
+ 916               		.loc 1 793 0
+ 917 0044 8091 F100 		lds r24,241
+ 918               	.LVL151:
+ 794:usb_rawhid.c  ****                 wValue = UEDATX;
+ 919               		.loc 1 794 0
+ 920 0048 2091 F100 		lds r18,241
+ 921               	.LVL152:
+ 795:usb_rawhid.c  ****                 wValue |= (UEDATX << 8);
+ 922               		.loc 1 795 0
+ 923 004c 3091 F100 		lds r19,241
+ 924 0050 132F      		mov r17,r19
+ 925 0052 00E0      		ldi r16,0
+ 926 0054 022B      		or r16,r18
+ 927               	.LVL153:
+ 796:usb_rawhid.c  ****                 wIndex = UEDATX;
+ 928               		.loc 1 796 0
+ 929 0056 2091 F100 		lds r18,241
+ 930               	.LVL154:
+ 797:usb_rawhid.c  ****                 wIndex |= (UEDATX << 8);
+ 931               		.loc 1 797 0
+ 932 005a 3091 F100 		lds r19,241
+ 933 005e 532F      		mov r21,r19
+ 934 0060 40E0      		ldi r20,0
+ 935 0062 7A01      		movw r14,r20
+ 936 0064 E22A      		or r14,r18
+ 937               	.LVL155:
+ 798:usb_rawhid.c  ****                 wLength = UEDATX;
+ 938               		.loc 1 798 0
+ 939 0066 6091 F100 		lds r22,241
+ 940               	.LVL156:
+ 799:usb_rawhid.c  ****                 wLength |= (UEDATX << 8);
+ 941               		.loc 1 799 0
+ 942 006a 7091 F100 		lds r23,241
+ 943               	.LVL157:
+ 800:usb_rawhid.c  ****                 UEINTX = ~((1<<RXSTPI) | (1<<RXOUTI) | (1<<TXINI));
+ 944               		.loc 1 800 0
+ 945 006e 22EF      		ldi r18,lo8(-14)
+ 946 0070 2093 E800 		sts 232,r18
+ 801:usb_rawhid.c  ****                 if (bRequest == GET_DESCRIPTOR) {
+ 947               		.loc 1 801 0
+ 948 0074 8630      		cpi r24,lo8(6)
+ 949 0076 01F0      		breq .+2
+ 950 0078 00C0      		rjmp .L131
+ 951 007a 47E0      		ldi r20,lo8(7)
+ 952 007c 80E0      		ldi r24,lo8(descriptor_list)
+ 953 007e 90E0      		ldi r25,hi8(descriptor_list)
+ 954               	.LVL158:
+ 955               	.L56:
+ 956               	.LBB56:
+ 802:usb_rawhid.c  **** 			list = (const uint8_t *)descriptor_list;
+ 803:usb_rawhid.c  **** 			for (i=0; ; i++) {
+ 804:usb_rawhid.c  **** 				if (i >= NUM_DESC_LIST) {
+ 805:usb_rawhid.c  **** 					UECONX = (1<<STALLRQ)|(1<<EPEN);  //stall
+ 806:usb_rawhid.c  **** 					return;
+ 807:usb_rawhid.c  **** 				}
+ 808:usb_rawhid.c  **** 				desc_val = pgm_read_word(list);
+ 957               		.loc 1 808 0
+ 958 0080 FC01      		movw r30,r24
+ 959               	/* #APP */
+ 960               	 ;  808 "usb_rawhid.c" 1
+ 961 0082 2591      		lpm r18, Z+
+ 962 0084 3491      		lpm r19, Z
+ 963               		
+ 964               	 ;  0 "" 2
+ 965               	.LVL159:
+ 966               	/* #NOAPP */
+ 967               	.LBE56:
+ 809:usb_rawhid.c  **** 				if (desc_val != wValue) {
+ 968               		.loc 1 809 0
+ 969 0086 2017      		cp r18,r16
+ 970 0088 3107      		cpc r19,r17
+ 971 008a 01F0      		breq .L59
+ 972 008c 00C0      		rjmp .L132
+ 973               	.L59:
+ 974               	.LVL160:
+ 810:usb_rawhid.c  **** 					list += sizeof(struct descriptor_list_struct);
+ 811:usb_rawhid.c  **** 					continue;
+ 812:usb_rawhid.c  **** 				}
+ 813:usb_rawhid.c  **** 				list += 2;
+ 975               		.loc 1 813 0
+ 976 008e FC01      		movw r30,r24
+ 977 0090 3296      		adiw r30,2
+ 978               	.LVL161:
+ 979               	.LBB57:
+ 814:usb_rawhid.c  **** 				desc_val = pgm_read_word(list);
+ 980               		.loc 1 814 0
+ 981               	/* #APP */
+ 982               	 ;  814 "usb_rawhid.c" 1
+ 983 0092 2591      		lpm r18, Z+
+ 984 0094 3491      		lpm r19, Z
+ 985               		
+ 986               	 ;  0 "" 2
+ 987               	.LVL162:
+ 988               	/* #NOAPP */
+ 989               	.LBE57:
+ 815:usb_rawhid.c  **** 				if (desc_val != wIndex) {
+ 990               		.loc 1 815 0
+ 991 0096 2E15      		cp r18,r14
+ 992 0098 3F05      		cpc r19,r15
+ 993 009a 01F0      		breq .L61
+ 994               	.LVL163:
+ 995               	.L132:
+ 816:usb_rawhid.c  **** 					list += sizeof(struct descriptor_list_struct)-2;
+ 996               		.loc 1 816 0
+ 997 009c 0796      		adiw r24,7
+ 998               	.LVL164:
+ 817:usb_rawhid.c  **** 					continue;
+ 999               		.loc 1 817 0
+ 1000 009e 00C0      		rjmp .L60
+ 1001               	.LVL165:
+ 1002               	.L61:
+ 818:usb_rawhid.c  **** 				}
+ 819:usb_rawhid.c  **** 				list += 2;
+ 1003               		.loc 1 819 0
+ 1004 00a0 FC01      		movw r30,r24
+ 1005 00a2 3496      		adiw r30,4
+ 1006               	.LVL166:
+ 1007               	.LBB58:
+ 820:usb_rawhid.c  **** 				desc_addr = (const uint8_t *)pgm_read_word(list);
+ 1008               		.loc 1 820 0
+ 1009               	/* #APP */
+ 1010               	 ;  820 "usb_rawhid.c" 1
+ 1011 00a4 4591      		lpm r20, Z+
+ 1012 00a6 5491      		lpm r21, Z
+ 1013               		
+ 1014               	 ;  0 "" 2
+ 1015               	.LVL167:
+ 1016               	/* #NOAPP */
+ 1017               	.LBE58:
+ 1018 00a8 9A01      		movw r18,r20
+ 1019               	.LVL168:
+ 821:usb_rawhid.c  **** 				list += 2;
+ 1020               		.loc 1 821 0
+ 1021 00aa FC01      		movw r30,r24
+ 1022 00ac 3696      		adiw r30,6
+ 1023               	.LVL169:
+ 1024               	.LBB59:
+ 822:usb_rawhid.c  **** 				desc_length = pgm_read_byte(list);
+ 1025               		.loc 1 822 0
+ 1026               	/* #APP */
+ 1027               	 ;  822 "usb_rawhid.c" 1
+ 1028 00ae 8491      		lpm r24, Z
+ 1029               		
+ 1030               	 ;  0 "" 2
+ 1031               	.LVL170:
+ 1032               	/* #NOAPP */
+ 1033               	.LBE59:
+ 799:usb_rawhid.c  ****                 wLength |= (UEDATX << 8);
+ 1034               		.loc 1 799 0
+ 1035 00b0 572F      		mov r21,r23
+ 1036 00b2 40E0      		ldi r20,0
+ 1037 00b4 462B      		or r20,r22
+ 823:usb_rawhid.c  **** 				break;
+ 824:usb_rawhid.c  **** 			}
+ 825:usb_rawhid.c  **** 			len = (wLength < 256) ? wLength : 255;
+ 1038               		.loc 1 825 0
+ 1039 00b6 4F3F      		cpi r20,-1
+ 1040 00b8 5105      		cpc r21,__zero_reg__
+ 1041 00ba 01F0      		breq .L62
+ 1042 00bc 00F0      		brlo .L62
+ 1043               	.LVL171:
+ 1044 00be 4FEF      		ldi r20,lo8(-1)
+ 1045 00c0 50E0      		ldi r21,0
+ 1046               	.L62:
+ 1047               	.LVL172:
+ 1048 00c2 4817      		cp r20,r24
+ 1049 00c4 00F4      		brsh .L115
+ 1050 00c6 842F      		mov r24,r20
+ 1051               	.LVL173:
+ 1052 00c8 00C0      		rjmp .L115
+ 1053               	.LVL174:
+ 1054               	.L60:
+ 1055 00ca 4150      		subi r20,lo8(-(-1))
+ 804:usb_rawhid.c  **** 				if (i >= NUM_DESC_LIST) {
+ 1056               		.loc 1 804 0
+ 1057 00cc 01F4      		brne .L56
+ 1058 00ce 00C0      		rjmp .L55
+ 1059               	.LVL175:
+ 1060               	.L115:
+ 1061               	.LBB60:
+ 1062               	.LBB61:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1063               		.loc 1 757 0 discriminator 1
+ 1064 00d0 7EEF      		ldi r23,lo8(-2)
+ 1065               	.LVL176:
+ 1066               	.L129:
+ 1067               	.LBE61:
+ 1068               	.LBE60:
+ 826:usb_rawhid.c  **** 			if (len > desc_length) len = desc_length;
+ 827:usb_rawhid.c  **** 			do {
+ 828:usb_rawhid.c  **** 				// wait for host ready for IN packet
+ 829:usb_rawhid.c  **** 				do {
+ 830:usb_rawhid.c  **** 					i = UEINTX;
+ 1069               		.loc 1 830 0 discriminator 1
+ 1070 00d2 9091 E800 		lds r25,232
+ 1071               	.LVL177:
+ 831:usb_rawhid.c  **** 				} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
+ 1072               		.loc 1 831 0 discriminator 1
+ 1073 00d6 492F      		mov r20,r25
+ 1074 00d8 4570      		andi r20,lo8(5)
+ 1075 00da 01F0      		breq .L129
+ 832:usb_rawhid.c  **** 				if (i & (1<<RXOUTI)) return;	// abort
+ 1076               		.loc 1 832 0
+ 1077 00dc 92FD      		sbrc r25,2
+ 1078 00de 00C0      		rjmp .L54
+ 833:usb_rawhid.c  **** 				// send IN packet
+ 834:usb_rawhid.c  **** 				n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
+ 1079               		.loc 1 834 0
+ 1080 00e0 982F      		mov r25,r24
+ 1081               	.LVL178:
+ 1082 00e2 8132      		cpi r24,lo8(33)
+ 1083 00e4 00F0      		brlo .L68
+ 1084 00e6 90E2      		ldi r25,lo8(32)
+ 1085               	.L68:
+ 1086               	.LVL179:
+ 835:usb_rawhid.c  **** 				for (i = n; i; i--) {
+ 1087               		.loc 1 835 0
+ 1088 00e8 A901      		movw r20,r18
+ 1089 00ea 692F      		mov r22,r25
+ 1090 00ec 00C0      		rjmp .L69
+ 1091               	.LVL180:
+ 1092               	.L70:
+ 1093               	.LBB63:
+ 836:usb_rawhid.c  **** 					UEDATX = pgm_read_byte(desc_addr++);
+ 1094               		.loc 1 836 0 discriminator 2
+ 1095 00ee FA01      		movw r30,r20
+ 1096               	.LVL181:
+ 1097 00f0 4F5F      		subi r20,-1
+ 1098 00f2 5F4F      		sbci r21,-1
+ 1099               	.LVL182:
+ 1100               	/* #APP */
+ 1101               	 ;  836 "usb_rawhid.c" 1
+ 1102 00f4 E491      		lpm r30, Z
+ 1103               		
+ 1104               	 ;  0 "" 2
+ 1105               	.LVL183:
+ 1106               	/* #NOAPP */
+ 1107               	.LBE63:
+ 1108 00f6 E093 F100 		sts 241,r30
+ 835:usb_rawhid.c  **** 				for (i = n; i; i--) {
+ 1109               		.loc 1 835 0 discriminator 2
+ 1110 00fa 6150      		subi r22,lo8(-(-1))
+ 1111               	.LVL184:
+ 1112               	.L69:
+ 835:usb_rawhid.c  **** 				for (i = n; i; i--) {
+ 1113               		.loc 1 835 0 is_stmt 0 discriminator 1
+ 1114 00fc 6111      		cpse r22,__zero_reg__
+ 1115 00fe 00C0      		rjmp .L70
+ 1116 0100 290F      		add r18,r25
+ 1117 0102 311D      		adc r19,__zero_reg__
+ 837:usb_rawhid.c  **** 				}
+ 838:usb_rawhid.c  **** 				len -= n;
+ 1118               		.loc 1 838 0 is_stmt 1
+ 1119 0104 891B      		sub r24,r25
+ 1120               	.LVL185:
+ 1121               	.LBB64:
+ 1122               	.LBB62:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1123               		.loc 1 757 0
+ 1124 0106 7093 E800 		sts 232,r23
+ 1125               	.LBE62:
+ 1126               	.LBE64:
+ 839:usb_rawhid.c  **** 				usb_send_in();
+ 840:usb_rawhid.c  **** 			} while (len || n == ENDPOINT0_SIZE);
+ 1127               		.loc 1 840 0
+ 1128 010a 8111      		cpse r24,__zero_reg__
+ 1129 010c 00C0      		rjmp .L129
+ 1130               		.loc 1 840 0 is_stmt 0 discriminator 1
+ 1131 010e 9032      		cpi r25,lo8(32)
+ 1132 0110 01F0      		breq .L129
+ 1133 0112 00C0      		rjmp .L54
+ 1134               	.LVL186:
+ 1135               	.L131:
+ 841:usb_rawhid.c  **** 			return;
+ 842:usb_rawhid.c  ****                 }
+ 843:usb_rawhid.c  **** 		if (bRequest == SET_ADDRESS) {
+ 1136               		.loc 1 843 0 is_stmt 1
+ 1137 0114 8530      		cpi r24,lo8(5)
+ 1138 0116 01F4      		brne .L73
+ 1139               	.LBB65:
+ 1140               	.LBB66:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1141               		.loc 1 757 0
+ 1142 0118 8EEF      		ldi r24,lo8(-2)
+ 1143               	.LVL187:
+ 1144 011a 8093 E800 		sts 232,r24
+ 1145               	.LBE66:
+ 1146               	.LBE65:
+ 844:usb_rawhid.c  **** 			usb_send_in();
+ 845:usb_rawhid.c  **** 			usb_wait_in_ready();
+ 1147               		.loc 1 845 0
+ 1148 011e 0E94 0000 		call usb_wait_in_ready
+ 1149               	.LVL188:
+ 846:usb_rawhid.c  **** 			UDADDR = wValue | (1<<ADDEN);
+ 1150               		.loc 1 846 0
+ 1151 0122 0068      		ori r16,128
+ 1152               	.LVL189:
+ 1153 0124 0093 E300 		sts 227,r16
+ 847:usb_rawhid.c  **** 			return;
+ 1154               		.loc 1 847 0
+ 1155 0128 00C0      		rjmp .L54
+ 1156               	.LVL190:
+ 1157               	.L73:
+ 848:usb_rawhid.c  **** 		}
+ 849:usb_rawhid.c  **** 		if (bRequest == SET_CONFIGURATION && bmRequestType == 0) {
+ 1158               		.loc 1 849 0
+ 1159 012a 8930      		cpi r24,lo8(9)
+ 1160 012c 01F4      		brne .L74
+ 1161               		.loc 1 849 0 is_stmt 0 discriminator 1
+ 1162 012e 9111      		cpse r25,__zero_reg__
+ 1163 0130 00C0      		rjmp .L75
+ 850:usb_rawhid.c  **** 			usb_configuration = wValue;
+ 1164               		.loc 1 850 0 is_stmt 1
+ 1165 0132 0093 0000 		sts usb_configuration,r16
+ 1166               	.LBB67:
+ 1167               	.LBB68:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1168               		.loc 1 757 0
+ 1169 0136 8EEF      		ldi r24,lo8(-2)
+ 1170               	.LVL191:
+ 1171 0138 8093 E800 		sts 232,r24
+ 1172               	.LVL192:
+ 851:usb_rawhid.c  **** 			usb_send_in();
+ 852:usb_rawhid.c  **** 			cfg = endpoint_config_table;
+ 853:usb_rawhid.c  **** 			for (i=1; i<5; i++) {
+ 1173               		.loc 1 853 0
+ 1174 013c 41E0      		ldi r20,lo8(1)
+ 852:usb_rawhid.c  **** 			cfg = endpoint_config_table;
+ 1175               		.loc 1 852 0
+ 1176 013e 80E0      		ldi r24,lo8(endpoint_config_table)
+ 1177 0140 90E0      		ldi r25,hi8(endpoint_config_table)
+ 1178 0142 00C0      		rjmp .L77
+ 1179               	.LVL193:
+ 1180               	.L94:
+ 1181               	.LBE68:
+ 1182               	.LBE67:
+ 1183               		.loc 1 853 0
+ 1184 0144 C901      		movw r24,r18
+ 1185               	.LVL194:
+ 1186               	.L77:
+ 854:usb_rawhid.c  **** 				UENUM = i;
+ 1187               		.loc 1 854 0
+ 1188 0146 4093 E900 		sts 233,r20
+ 1189               	.LVL195:
+ 1190               	.LBB69:
+ 855:usb_rawhid.c  **** 				en = pgm_read_byte(cfg++);
+ 1191               		.loc 1 855 0
+ 1192 014a 9C01      		movw r18,r24
+ 1193 014c 2F5F      		subi r18,-1
+ 1194 014e 3F4F      		sbci r19,-1
+ 1195               	.LVL196:
+ 1196 0150 FC01      		movw r30,r24
+ 1197               	/* #APP */
+ 1198               	 ;  855 "usb_rawhid.c" 1
+ 1199 0152 5491      		lpm r21, Z
+ 1200               		
+ 1201               	 ;  0 "" 2
+ 1202               	.LVL197:
+ 1203               	/* #NOAPP */
+ 1204               	.LBE69:
+ 856:usb_rawhid.c  **** 				UECONX = en;
+ 1205               		.loc 1 856 0
+ 1206 0154 5093 EB00 		sts 235,r21
+ 857:usb_rawhid.c  **** 				if (en) {
+ 1207               		.loc 1 857 0
+ 1208 0158 5523      		tst r21
+ 1209 015a 01F0      		breq .L76
+ 1210               	.LVL198:
+ 1211               	.LBB70:
+ 858:usb_rawhid.c  **** 					UECFG0X = pgm_read_byte(cfg++);
+ 1212               		.loc 1 858 0
+ 1213 015c F901      		movw r30,r18
+ 1214               	/* #APP */
+ 1215               	 ;  858 "usb_rawhid.c" 1
+ 1216 015e 2491      		lpm r18, Z
+ 1217               		
+ 1218               	 ;  0 "" 2
+ 1219               	.LVL199:
+ 1220               	/* #NOAPP */
+ 1221               	.LBE70:
+ 1222 0160 2093 EC00 		sts 236,r18
+ 1223               	.LVL200:
+ 1224               	.LBB71:
+ 859:usb_rawhid.c  **** 					UECFG1X = pgm_read_byte(cfg++);
+ 1225               		.loc 1 859 0
+ 1226 0164 9C01      		movw r18,r24
+ 1227               	.LVL201:
+ 1228 0166 2D5F      		subi r18,-3
+ 1229 0168 3F4F      		sbci r19,-1
+ 1230               	.LVL202:
+ 1231               	.LBE71:
+ 1232               	.LBB72:
+ 858:usb_rawhid.c  **** 					UECFG0X = pgm_read_byte(cfg++);
+ 1233               		.loc 1 858 0
+ 1234 016a FC01      		movw r30,r24
+ 1235               	.LVL203:
+ 1236 016c 3296      		adiw r30,2
+ 1237               	.LVL204:
+ 1238               	.LBE72:
+ 1239               	.LBB73:
+ 1240               		.loc 1 859 0
+ 1241               	/* #APP */
+ 1242               	 ;  859 "usb_rawhid.c" 1
+ 1243 016e 8491      		lpm r24, Z
+ 1244               		
+ 1245               	 ;  0 "" 2
+ 1246               	.LVL205:
+ 1247               	/* #NOAPP */
+ 1248               	.LBE73:
+ 1249 0170 8093 ED00 		sts 237,r24
+ 1250               	.LVL206:
+ 1251               	.L76:
+ 853:usb_rawhid.c  **** 			for (i=1; i<5; i++) {
+ 1252               		.loc 1 853 0
+ 1253 0174 4F5F      		subi r20,lo8(-(1))
+ 1254               	.LVL207:
+ 1255 0176 4530      		cpi r20,lo8(5)
+ 1256 0178 01F4      		brne .L94
+ 860:usb_rawhid.c  **** 				}
+ 861:usb_rawhid.c  **** 			}
+ 862:usb_rawhid.c  ****         		UERST = 0x1E;
+ 1257               		.loc 1 862 0
+ 1258 017a 8EE1      		ldi r24,lo8(30)
+ 1259 017c 00C0      		rjmp .L133
+ 1260               	.LVL208:
+ 1261               	.L74:
+ 863:usb_rawhid.c  ****         		UERST = 0;
+ 864:usb_rawhid.c  **** 			return;
+ 865:usb_rawhid.c  **** 		}
+ 866:usb_rawhid.c  **** 		if (bRequest == GET_CONFIGURATION && bmRequestType == 0x80) {
+ 1262               		.loc 1 866 0
+ 1263 017e 8830      		cpi r24,lo8(8)
+ 1264 0180 01F4      		brne .L78
+ 1265               		.loc 1 866 0 is_stmt 0 discriminator 1
+ 1266 0182 9038      		cpi r25,lo8(-128)
+ 1267 0184 01F0      		breq .+2
+ 1268 0186 00C0      		rjmp .L75
+ 867:usb_rawhid.c  **** 			usb_wait_in_ready();
+ 1269               		.loc 1 867 0 is_stmt 1
+ 1270 0188 0E94 0000 		call usb_wait_in_ready
+ 1271               	.LVL209:
+ 868:usb_rawhid.c  **** 			UEDATX = usb_configuration;
+ 1272               		.loc 1 868 0
+ 1273 018c 8091 0000 		lds r24,usb_configuration
+ 1274 0190 8093 F100 		sts 241,r24
+ 1275 0194 00C0      		rjmp .L134
+ 1276               	.LVL210:
+ 1277               	.L78:
+ 869:usb_rawhid.c  **** 			usb_send_in();
+ 870:usb_rawhid.c  **** 			return;
+ 871:usb_rawhid.c  **** 		}
+ 872:usb_rawhid.c  **** 
+ 873:usb_rawhid.c  **** 		if (bRequest == GET_STATUS) {
+ 1278               		.loc 1 873 0
+ 1279 0196 8111      		cpse r24,__zero_reg__
+ 1280 0198 00C0      		rjmp .L79
+ 874:usb_rawhid.c  **** 			usb_wait_in_ready();
+ 1281               		.loc 1 874 0
+ 1282 019a 9983      		std Y+1,r25
+ 1283 019c 0E94 0000 		call usb_wait_in_ready
+ 1284               	.LVL211:
+ 875:usb_rawhid.c  **** 			i = 0;
+ 876:usb_rawhid.c  **** 			if (bmRequestType == 0x82) {
+ 1285               		.loc 1 876 0
+ 1286 01a0 9981      		ldd r25,Y+1
+ 1287 01a2 9238      		cpi r25,lo8(-126)
+ 1288 01a4 01F4      		brne .L95
+ 877:usb_rawhid.c  **** 				UENUM = wIndex;
+ 1289               		.loc 1 877 0
+ 1290 01a6 E092 E900 		sts 233,r14
+ 878:usb_rawhid.c  **** 				if (UECONX & (1<<STALLRQ)) i = 1;
+ 1291               		.loc 1 878 0
+ 1292 01aa 8091 EB00 		lds r24,235
+ 1293 01ae 85FB      		bst r24,5
+ 1294 01b0 8827      		clr r24
+ 1295 01b2 80F9      		bld r24,0
+ 1296               	.LVL212:
+ 879:usb_rawhid.c  **** 				UENUM = 0;
+ 1297               		.loc 1 879 0
+ 1298 01b4 1092 E900 		sts 233,__zero_reg__
+ 1299 01b8 00C0      		rjmp .L80
+ 1300               	.LVL213:
+ 1301               	.L95:
+ 875:usb_rawhid.c  **** 			i = 0;
+ 1302               		.loc 1 875 0
+ 1303 01ba 80E0      		ldi r24,0
+ 1304               	.LVL214:
+ 1305               	.L80:
+ 880:usb_rawhid.c  **** 			}
+ 881:usb_rawhid.c  **** 			UEDATX = i;
+ 1306               		.loc 1 881 0
+ 1307 01bc 8093 F100 		sts 241,r24
+ 882:usb_rawhid.c  **** 			UEDATX = 0;
+ 1308               		.loc 1 882 0
+ 1309 01c0 1092 F100 		sts 241,__zero_reg__
+ 1310 01c4 00C0      		rjmp .L134
+ 1311               	.LVL215:
+ 1312               	.L79:
+ 883:usb_rawhid.c  **** 			usb_send_in();
+ 884:usb_rawhid.c  **** 			return;
+ 885:usb_rawhid.c  **** 		}
+ 886:usb_rawhid.c  **** 		if ((bRequest == CLEAR_FEATURE || bRequest == SET_FEATURE)
+ 1313               		.loc 1 886 0
+ 1314 01c6 8130      		cpi r24,lo8(1)
+ 1315 01c8 01F0      		breq .L81
+ 1316               		.loc 1 886 0 is_stmt 0 discriminator 1
+ 1317 01ca 8330      		cpi r24,lo8(3)
+ 1318 01cc 01F4      		brne .L75
+ 1319               	.L81:
+ 887:usb_rawhid.c  **** 		  && bmRequestType == 0x02 && wValue == 0) {
+ 1320               		.loc 1 887 0 is_stmt 1
+ 1321 01ce 9230      		cpi r25,lo8(2)
+ 1322 01d0 01F4      		brne .L75
+ 1323               		.loc 1 887 0 is_stmt 0 discriminator 1
+ 1324 01d2 012B      		or r16,r17
+ 1325 01d4 01F0      		breq .+2
+ 1326 01d6 00C0      		rjmp .L55
+ 888:usb_rawhid.c  **** 			i = wIndex & 0x7F;
+ 1327               		.loc 1 888 0 is_stmt 1
+ 1328 01d8 E894      		clt
+ 1329 01da E7F8      		bld r14,7
+ 1330 01dc FF24      		clr r15
+ 1331               	.LVL216:
+ 889:usb_rawhid.c  **** 			if (i >= 1 && i <= MAX_ENDPOINT) {
+ 1332               		.loc 1 889 0
+ 1333 01de 9E2D      		mov r25,r14
+ 1334               	.LVL217:
+ 1335 01e0 9150      		subi r25,lo8(-(-1))
+ 1336 01e2 9430      		cpi r25,lo8(4)
+ 1337 01e4 00F0      		brlo .+2
+ 1338 01e6 00C0      		rjmp .L55
+ 1339               	.LBB74:
+ 1340               	.LBB75:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1341               		.loc 1 757 0
+ 1342 01e8 9EEF      		ldi r25,lo8(-2)
+ 1343 01ea 9093 E800 		sts 232,r25
+ 1344               	.LBE75:
+ 1345               	.LBE74:
+ 890:usb_rawhid.c  **** 				usb_send_in();
+ 891:usb_rawhid.c  **** 				UENUM = i;
+ 1346               		.loc 1 891 0
+ 1347 01ee E092 E900 		sts 233,r14
+ 892:usb_rawhid.c  **** 				if (bRequest == SET_FEATURE) {
+ 1348               		.loc 1 892 0
+ 1349 01f2 8330      		cpi r24,lo8(3)
+ 1350 01f4 01F4      		brne .L82
+ 1351 01f6 00C0      		rjmp .L55
+ 1352               	.L82:
+ 893:usb_rawhid.c  **** 					UECONX = (1<<STALLRQ)|(1<<EPEN);
+ 894:usb_rawhid.c  **** 				} else {
+ 895:usb_rawhid.c  **** 					UECONX = (1<<STALLRQC)|(1<<RSTDT)|(1<<EPEN);
+ 1353               		.loc 1 895 0
+ 1354 01f8 89E1      		ldi r24,lo8(25)
+ 1355               	.LVL218:
+ 1356 01fa 8093 EB00 		sts 235,r24
+ 896:usb_rawhid.c  **** 					UERST = (1 << i);
+ 1357               		.loc 1 896 0
+ 1358 01fe 81E0      		ldi r24,lo8(1)
+ 1359 0200 90E0      		ldi r25,0
+ 1360 0202 0E2C      		mov r0,r14
+ 1361 0204 00C0      		rjmp 2f
+ 1362               		1:
+ 1363 0206 880F      		lsl r24
+ 1364               		2:
+ 1365 0208 0A94      		dec r0
+ 1366 020a 02F4      		brpl 1b
+ 1367               	.LVL219:
+ 1368               	.L133:
+ 1369 020c 8093 EA00 		sts 234,r24
+ 897:usb_rawhid.c  **** 					UERST = 0;
+ 1370               		.loc 1 897 0
+ 1371 0210 1092 EA00 		sts 234,__zero_reg__
+ 1372 0214 00C0      		rjmp .L54
+ 1373               	.LVL220:
+ 1374               	.L75:
+ 898:usb_rawhid.c  **** 				}
+ 899:usb_rawhid.c  **** 				return;
+ 900:usb_rawhid.c  **** 			}
+ 901:usb_rawhid.c  **** 		}
+ 902:usb_rawhid.c  **** 		if (wIndex == RAWHID_INTERFACE) {
+ 1375               		.loc 1 902 0
+ 1376 0216 EF28      		or r14,r15
+ 1377 0218 01F4      		brne .L55
+ 903:usb_rawhid.c  **** 			if (bmRequestType == 0xA1 && bRequest == HID_GET_REPORT) {
+ 1378               		.loc 1 903 0
+ 1379 021a 913A      		cpi r25,lo8(-95)
+ 1380 021c 01F4      		brne .L83
+ 1381               		.loc 1 903 0 is_stmt 0 discriminator 1
+ 1382 021e 8130      		cpi r24,lo8(1)
+ 1383 0220 01F4      		brne .L55
+ 1384               		.loc 1 903 0
+ 1385 0222 80E4      		ldi r24,lo8(64)
+ 1386               	.LVL221:
+ 1387               	.LBB76:
+ 1388               	.LBB77:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1389               		.loc 1 757 0 is_stmt 1
+ 1390 0224 3EEF      		ldi r19,lo8(-2)
+ 1391               	.LVL222:
+ 1392               	.L130:
+ 1393               	.LBE77:
+ 1394               	.LBE76:
+ 904:usb_rawhid.c  **** 				len = RAWHID_TX_SIZE;
+ 905:usb_rawhid.c  **** 				do {
+ 906:usb_rawhid.c  **** 					// wait for host ready for IN packet
+ 907:usb_rawhid.c  **** 					do {
+ 908:usb_rawhid.c  **** 						i = UEINTX;
+ 1395               		.loc 1 908 0 discriminator 1
+ 1396 0226 9091 E800 		lds r25,232
+ 1397               	.LVL223:
+ 909:usb_rawhid.c  **** 					} while (!(i & ((1<<TXINI)|(1<<RXOUTI))));
+ 1398               		.loc 1 909 0 discriminator 1
+ 1399 022a 292F      		mov r18,r25
+ 1400 022c 2570      		andi r18,lo8(5)
+ 1401 022e 01F0      		breq .L130
+ 910:usb_rawhid.c  **** 					if (i & (1<<RXOUTI)) return;	// abort
+ 1402               		.loc 1 910 0
+ 1403 0230 92FD      		sbrc r25,2
+ 1404 0232 00C0      		rjmp .L54
+ 911:usb_rawhid.c  **** 					// send IN packet
+ 912:usb_rawhid.c  **** 					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
+ 1405               		.loc 1 912 0
+ 1406 0234 982F      		mov r25,r24
+ 1407               	.LVL224:
+ 1408 0236 8132      		cpi r24,lo8(33)
+ 1409 0238 00F0      		brlo .L86
+ 1410 023a 90E2      		ldi r25,lo8(32)
+ 1411               	.L86:
+ 1412               	.LVL225:
+ 913:usb_rawhid.c  **** 					for (i = n; i; i--) {
+ 1413               		.loc 1 913 0
+ 1414 023c 292F      		mov r18,r25
+ 1415 023e 00C0      		rjmp .L87
+ 1416               	.LVL226:
+ 1417               	.L88:
+ 914:usb_rawhid.c  **** 						// just send zeros
+ 915:usb_rawhid.c  **** 						UEDATX = 0;
+ 1418               		.loc 1 915 0 discriminator 2
+ 1419 0240 1092 F100 		sts 241,__zero_reg__
+ 913:usb_rawhid.c  **** 					for (i = n; i; i--) {
+ 1420               		.loc 1 913 0 discriminator 2
+ 1421 0244 2150      		subi r18,lo8(-(-1))
+ 1422               	.LVL227:
+ 1423               	.L87:
+ 913:usb_rawhid.c  **** 					for (i = n; i; i--) {
+ 1424               		.loc 1 913 0 is_stmt 0 discriminator 1
+ 1425 0246 2111      		cpse r18,__zero_reg__
+ 1426 0248 00C0      		rjmp .L88
+ 916:usb_rawhid.c  **** 					}
+ 917:usb_rawhid.c  **** 					len -= n;
+ 1427               		.loc 1 917 0 is_stmt 1
+ 1428 024a 891B      		sub r24,r25
+ 1429               	.LVL228:
+ 1430               	.LBB79:
+ 1431               	.LBB78:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1432               		.loc 1 757 0
+ 1433 024c 3093 E800 		sts 232,r19
+ 1434               	.LBE78:
+ 1435               	.LBE79:
+ 918:usb_rawhid.c  **** 					usb_send_in();
+ 919:usb_rawhid.c  **** 				} while (len || n == ENDPOINT0_SIZE);
+ 1436               		.loc 1 919 0
+ 1437 0250 8111      		cpse r24,__zero_reg__
+ 1438 0252 00C0      		rjmp .L130
+ 1439               		.loc 1 919 0 is_stmt 0 discriminator 1
+ 1440 0254 9032      		cpi r25,lo8(32)
+ 1441 0256 01F0      		breq .L130
+ 1442 0258 00C0      		rjmp .L54
+ 1443               	.LVL229:
+ 1444               	.L83:
+ 920:usb_rawhid.c  **** 				return;
+ 921:usb_rawhid.c  **** 			}
+ 922:usb_rawhid.c  **** 			if (bmRequestType == 0x21 && bRequest == HID_SET_REPORT) {
+ 1445               		.loc 1 922 0 is_stmt 1
+ 1446 025a 9132      		cpi r25,lo8(33)
+ 1447 025c 01F4      		brne .L55
+ 1448               		.loc 1 922 0 is_stmt 0 discriminator 1
+ 1449 025e 8930      		cpi r24,lo8(9)
+ 1450 0260 01F4      		brne .L55
+ 1451               		.loc 1 922 0
+ 1452 0262 80E4      		ldi r24,lo8(64)
+ 1453               	.LVL230:
+ 1454               	.LBB80:
+ 1455               	.LBB81:
+ 765:usb_rawhid.c  **** 	UEINTX = ~(1<<RXOUTI);
+ 1456               		.loc 1 765 0 is_stmt 1
+ 1457 0264 2BEF      		ldi r18,lo8(-5)
+ 1458               	.LVL231:
+ 1459               	.L92:
+ 1460               	.LBE81:
+ 1461               	.LBE80:
+ 923:usb_rawhid.c  **** 				len = RAWHID_RX_SIZE;
+ 924:usb_rawhid.c  **** 				do {
+ 925:usb_rawhid.c  **** 					n = len < ENDPOINT0_SIZE ? len : ENDPOINT0_SIZE;
+ 1462               		.loc 1 925 0 discriminator 1
+ 1463 0266 982F      		mov r25,r24
+ 1464 0268 8132      		cpi r24,lo8(33)
+ 1465 026a 00F0      		brlo .L116
+ 1466 026c 90E2      		ldi r25,lo8(32)
+ 1467               	.LVL232:
+ 1468               	.L116:
+ 1469               	.LBB83:
+ 1470               	.LBB84:
+ 761:usb_rawhid.c  **** 	while (!(UEINTX & (1<<RXOUTI))) ;
+ 1471               		.loc 1 761 0
+ 1472 026e 3091 E800 		lds r19,232
+ 1473 0272 32FF      		sbrs r19,2
+ 1474 0274 00C0      		rjmp .L116
+ 1475               	.LBE84:
+ 1476               	.LBE83:
+ 1477               	.LBB85:
+ 1478               	.LBB82:
+ 765:usb_rawhid.c  **** 	UEINTX = ~(1<<RXOUTI);
+ 1479               		.loc 1 765 0 discriminator 1
+ 1480 0276 2093 E800 		sts 232,r18
+ 1481               	.LBE82:
+ 1482               	.LBE85:
+ 926:usb_rawhid.c  **** 					usb_wait_receive_out();
+ 927:usb_rawhid.c  **** 					// ignore incoming bytes
+ 928:usb_rawhid.c  **** 					usb_ack_out();
+ 929:usb_rawhid.c  **** 					len -= n;
+ 1483               		.loc 1 929 0 discriminator 1
+ 1484 027a 891B      		sub r24,r25
+ 1485               	.LVL233:
+ 930:usb_rawhid.c  **** 				} while (len);
+ 1486               		.loc 1 930 0 discriminator 1
+ 1487 027c 01F4      		brne .L92
+ 931:usb_rawhid.c  **** 				usb_wait_in_ready();
+ 1488               		.loc 1 931 0
+ 1489 027e 0E94 0000 		call usb_wait_in_ready
+ 1490               	.LVL234:
+ 1491               	.L134:
+ 1492               	.LBB86:
+ 1493               	.LBB87:
+ 757:usb_rawhid.c  **** 	UEINTX = ~(1<<TXINI);
+ 1494               		.loc 1 757 0
+ 1495 0282 8EEF      		ldi r24,lo8(-2)
+ 1496 0284 8093 E800 		sts 232,r24
+ 1497 0288 00C0      		rjmp .L54
+ 1498               	.LVL235:
+ 1499               	.L55:
+ 1500               	.LBE87:
+ 1501               	.LBE86:
+ 932:usb_rawhid.c  **** 				usb_send_in();
+ 933:usb_rawhid.c  **** 				return;
+ 934:usb_rawhid.c  **** 			}
+ 935:usb_rawhid.c  **** 		}
+ 936:usb_rawhid.c  **** 	}
+ 937:usb_rawhid.c  **** 	UECONX = (1<<STALLRQ) | (1<<EPEN);	// stall
+ 1502               		.loc 1 937 0
+ 1503 028a 81E2      		ldi r24,lo8(33)
+ 1504 028c 8093 EB00 		sts 235,r24
+ 1505               	.L54:
+ 1506               	/* epilogue start */
+ 938:usb_rawhid.c  **** }
+ 1507               		.loc 1 938 0
+ 1508 0290 0F90      		pop __tmp_reg__
+ 1509 0292 DF91      		pop r29
+ 1510 0294 CF91      		pop r28
+ 1511 0296 FF91      		pop r31
+ 1512 0298 EF91      		pop r30
+ 1513 029a BF91      		pop r27
+ 1514 029c AF91      		pop r26
+ 1515 029e 9F91      		pop r25
+ 1516 02a0 8F91      		pop r24
+ 1517 02a2 7F91      		pop r23
+ 1518 02a4 6F91      		pop r22
+ 1519 02a6 5F91      		pop r21
+ 1520 02a8 4F91      		pop r20
+ 1521 02aa 3F91      		pop r19
+ 1522 02ac 2F91      		pop r18
+ 1523 02ae 1F91      		pop r17
+ 1524 02b0 0F91      		pop r16
+ 1525 02b2 FF90      		pop r15
+ 1526 02b4 EF90      		pop r14
+ 1527 02b6 0F90      		pop r0
+ 1528 02b8 0FBE      		out __SREG__,r0
+ 1529 02ba 0F90      		pop r0
+ 1530 02bc 1F90      		pop r1
+ 1531 02be 1895      		reti
+ 1532               	.LFE10:
+ 1534               		.local	tx_timeout_count
+ 1535               		.comm	tx_timeout_count,1,1
+ 1536               		.local	rx_timeout_count
+ 1537               		.comm	rx_timeout_count,1,1
+ 1538               		.local	usb_configuration
+ 1539               		.comm	usb_configuration,1,1
+ 1540               	.global	descriptor_list
+ 1541               		.section	.progmem.data,"a",@progbits
+ 1544               	descriptor_list:
+ 1545 0000 0001      		.word	256
+ 1546 0002 0000      		.word	0
+ 1547 0004 0000      		.word	device_descriptor
+ 1548 0006 12        		.byte	18
+ 1549 0007 0002      		.word	512
+ 1550 0009 0000      		.word	0
+ 1551 000b 0000      		.word	config1_descriptor
+ 1552 000d 29        		.byte	41
+ 1553 000e 0022      		.word	8704
+ 1554 0010 0000      		.word	0
+ 1555 0012 0000      		.word	rawhid_hid_report_desc
+ 1556 0014 1C        		.byte	28
+ 1557 0015 0021      		.word	8448
+ 1558 0017 0000      		.word	0
+ 1559 0019 0000      		.word	config1_descriptor+18
+ 1560 001b 09        		.byte	9
+ 1561 001c 0003      		.word	768
+ 1562 001e 0000      		.word	0
+ 1563 0020 0000      		.word	string0
+ 1564 0022 04        		.byte	4
+ 1565 0023 0103      		.word	769
+ 1566 0025 0904      		.word	1033
+ 1567 0027 0000      		.word	string1
+ 1568 0029 10        		.byte	16
+ 1569 002a 0203      		.word	770
+ 1570 002c 0904      		.word	1033
+ 1571 002e 0000      		.word	string2
+ 1572 0030 2E        		.byte	46
+ 1573               	.global	string2
+ 1576               	string2:
+ 1577 0031 2E        		.byte	46
+ 1578 0032 03        		.byte	3
+ 1579 0033 5400      		.string	"T"
+ 1580 0035 6500      		.string	"e"
+ 1581 0037 6500      		.string	"e"
+ 1582 0039 6E00      		.string	"n"
+ 1583 003b 7300      		.string	"s"
+ 1584 003d 7900      		.string	"y"
+ 1585 003f 2000      		.string	" "
+ 1586 0041 5200      		.string	"R"
+ 1587 0043 6100      		.string	"a"
+ 1588 0045 7700      		.string	"w"
+ 1589 0047 2000      		.string	" "
+ 1590 0049 4800      		.string	"H"
+ 1591 004b 4900      		.string	"I"
+ 1592 004d 4400      		.string	"D"
+ 1593 004f 2000      		.string	" "
+ 1594 0051 4500      		.string	"E"
+ 1595 0053 7800      		.string	"x"
+ 1596 0055 6100      		.string	"a"
+ 1597 0057 6D00      		.string	"m"
+ 1598 0059 7000      		.string	"p"
+ 1599 005b 6C00      		.string	"l"
+ 1600 005d 6500      		.string	"e"
+ 1601 005f 00        		.string	""
+ 1602 0060 00        		.string	""
+ 1603               	.global	string1
+ 1606               	string1:
+ 1607 0061 10        		.byte	16
+ 1608 0062 03        		.byte	3
+ 1609 0063 4D00      		.string	"M"
+ 1610 0065 6600      		.string	"f"
+ 1611 0067 6700      		.string	"g"
+ 1612 0069 4E00      		.string	"N"
+ 1613 006b 6100      		.string	"a"
+ 1614 006d 6D00      		.string	"m"
+ 1615 006f 6500      		.string	"e"
+ 1616 0071 00        		.string	""
+ 1617 0072 00        		.string	""
+ 1618               	.global	string0
+ 1621               	string0:
+ 1622 0073 04        		.byte	4
+ 1623 0074 03        		.byte	3
+ 1624 0075 0904      		.word	1033
+ 1625               	.global	config1_descriptor
+ 1628               	config1_descriptor:
+ 1629 0077 09        		.byte	9
+ 1630 0078 02        		.byte	2
+ 1631 0079 29        		.byte	41
+ 1632 007a 00        		.byte	0
+ 1633 007b 01        		.byte	1
+ 1634 007c 01        		.byte	1
+ 1635 007d 00        		.byte	0
+ 1636 007e C0        		.byte	-64
+ 1637 007f 32        		.byte	50
+ 1638 0080 09        		.byte	9
+ 1639 0081 04        		.byte	4
+ 1640 0082 00        		.byte	0
+ 1641 0083 00        		.byte	0
+ 1642 0084 02        		.byte	2
+ 1643 0085 03        		.byte	3
+ 1644 0086 00        		.byte	0
+ 1645 0087 00        		.byte	0
+ 1646 0088 00        		.byte	0
+ 1647 0089 09        		.byte	9
+ 1648 008a 21        		.byte	33
+ 1649 008b 11        		.byte	17
+ 1650 008c 01        		.byte	1
+ 1651 008d 00        		.byte	0
+ 1652 008e 01        		.byte	1
+ 1653 008f 22        		.byte	34
+ 1654 0090 1C        		.byte	28
+ 1655 0091 00        		.byte	0
+ 1656 0092 07        		.byte	7
+ 1657 0093 05        		.byte	5
+ 1658 0094 81        		.byte	-127
+ 1659 0095 03        		.byte	3
+ 1660 0096 40        		.byte	64
+ 1661 0097 00        		.byte	0
+ 1662 0098 02        		.byte	2
+ 1663 0099 07        		.byte	7
+ 1664 009a 05        		.byte	5
+ 1665 009b 02        		.byte	2
+ 1666 009c 03        		.byte	3
+ 1667 009d 40        		.byte	64
+ 1668 009e 00        		.byte	0
+ 1669 009f 08        		.byte	8
+ 1670               	.global	rawhid_hid_report_desc
+ 1673               	rawhid_hid_report_desc:
+ 1674 00a0 06        		.byte	6
+ 1675 00a1 AB        		.byte	-85
+ 1676 00a2 FF        		.byte	-1
+ 1677 00a3 0A        		.byte	10
+ 1678 00a4 00        		.byte	0
+ 1679 00a5 02        		.byte	2
+ 1680 00a6 A1        		.byte	-95
+ 1681 00a7 01        		.byte	1
+ 1682 00a8 75        		.byte	117
+ 1683 00a9 08        		.byte	8
+ 1684 00aa 15        		.byte	21
+ 1685 00ab 00        		.byte	0
+ 1686 00ac 26        		.byte	38
+ 1687 00ad FF        		.byte	-1
+ 1688 00ae 00        		.byte	0
+ 1689 00af 95        		.byte	-107
+ 1690 00b0 40        		.byte	64
+ 1691 00b1 09        		.byte	9
+ 1692 00b2 01        		.byte	1
+ 1693 00b3 81        		.byte	-127
+ 1694 00b4 02        		.byte	2
+ 1695 00b5 95        		.byte	-107
+ 1696 00b6 40        		.byte	64
+ 1697 00b7 09        		.byte	9
+ 1698 00b8 02        		.byte	2
+ 1699 00b9 91        		.byte	-111
+ 1700 00ba 02        		.byte	2
+ 1701 00bb C0        		.byte	-64
+ 1702               	.global	device_descriptor
+ 1705               	device_descriptor:
+ 1706 00bc 12        		.byte	18
+ 1707 00bd 01        		.byte	1
+ 1708 00be 00        		.byte	0
+ 1709 00bf 02        		.byte	2
+ 1710 00c0 00        		.byte	0
+ 1711 00c1 00        		.byte	0
+ 1712 00c2 00        		.byte	0
+ 1713 00c3 20        		.byte	32
+ 1714 00c4 C0        		.byte	-64
+ 1715 00c5 16        		.byte	22
+ 1716 00c6 80        		.byte	-128
+ 1717 00c7 04        		.byte	4
+ 1718 00c8 00        		.byte	0
+ 1719 00c9 01        		.byte	1
+ 1720 00ca 01        		.byte	1
+ 1721 00cb 02        		.byte	2
+ 1722 00cc 00        		.byte	0
+ 1723 00cd 01        		.byte	1
+ 1726               	endpoint_config_table:
+ 1727 00ce 01        		.byte	1
+ 1728 00cf C1        		.byte	-63
+ 1729 00d0 36        		.byte	54
+ 1730 00d1 01        		.byte	1
+ 1731 00d2 C0        		.byte	-64
+ 1732 00d3 36        		.byte	54
+ 1733 00d4 00        		.byte	0
+ 1734 00d5 00        		.byte	0
+ 1961               	.Letext0:
+ 1962               		.file 2 "/usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usb_rawhid.c
-     /tmp/ccBl2XIT.s:2      *ABS*:000000000000003f __SREG__
-     /tmp/ccBl2XIT.s:3      *ABS*:000000000000003e __SP_H__
-     /tmp/ccBl2XIT.s:4      *ABS*:000000000000003d __SP_L__
-     /tmp/ccBl2XIT.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccBl2XIT.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccBl2XIT.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccBl2XIT.s:21     .text.usb_init:0000000000000000 usb_init
-                             .bss:0000000000000000 usb_configuration
-     /tmp/ccBl2XIT.s:64     .text.usb_configured:0000000000000000 usb_configured
-     /tmp/ccBl2XIT.s:79     .text.usb_rawhid_recv:0000000000000000 usb_rawhid_recv
-     /tmp/ccBl2XIT.s:1815   .bss:0000000000000001 rx_timeout_count
-     /tmp/ccBl2XIT.s:559    .text.usb_rawhid_send:0000000000000000 usb_rawhid_send
-     /tmp/ccBl2XIT.s:1827   .bss:0000000000000002 tx_timeout_count
-     /tmp/ccBl2XIT.s:1039   .text.__vector_10:0000000000000000 __vector_10
-     /tmp/ccBl2XIT.s:1119   .text.__vector_11:0000000000000000 __vector_11
-     /tmp/ccBl2XIT.s:1786   .progmem.data:0000000000000000 descriptor_list
-     /tmp/ccBl2XIT.s:1818   .progmem.data:0000000000000031 endpoint_config_table
-     /tmp/ccBl2XIT.s:1831   .progmem.data:0000000000000039 device_descriptor
-     /tmp/ccBl2XIT.s:1852   .progmem.data:000000000000004b config1_descriptor
-     /tmp/ccBl2XIT.s:1896   .progmem.data:0000000000000074 rawhid_hid_report_desc
-     /tmp/ccBl2XIT.s:1927   .progmem.data:0000000000000090 string0
-     /tmp/ccBl2XIT.s:1933   .progmem.data:0000000000000094 string1
-     /tmp/ccBl2XIT.s:1947   .progmem.data:00000000000000a6 string2
+     /tmp/ccUXsytG.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccUXsytG.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccUXsytG.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccUXsytG.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccUXsytG.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccUXsytG.s:11     .text.usb_wait_in_ready:0000000000000000 usb_wait_in_ready
+     /tmp/ccUXsytG.s:32     .text.usb_init:0000000000000000 usb_init
+     /tmp/ccUXsytG.s:1537   .bss:0000000000000002 usb_configuration
+     /tmp/ccUXsytG.s:75     .text.usb_configured:0000000000000000 usb_configured
+     /tmp/ccUXsytG.s:91     .text.usb_rawhid_recv:0000000000000000 usb_rawhid_recv
+     /tmp/ccUXsytG.s:1535   .bss:0000000000000001 rx_timeout_count
+     /tmp/ccUXsytG.s:427    .text.usb_rawhid_send:0000000000000000 usb_rawhid_send
+                             .bss:0000000000000000 tx_timeout_count
+     /tmp/ccUXsytG.s:763    .text.__vector_10:0000000000000000 __vector_10
+     /tmp/ccUXsytG.s:850    .text.__vector_11:0000000000000000 __vector_11
+     /tmp/ccUXsytG.s:1544   .progmem.data:0000000000000000 descriptor_list
+     /tmp/ccUXsytG.s:1726   .progmem.data:00000000000000ce endpoint_config_table
+     /tmp/ccUXsytG.s:1705   .progmem.data:00000000000000bc device_descriptor
+     /tmp/ccUXsytG.s:1628   .progmem.data:0000000000000077 config1_descriptor
+     /tmp/ccUXsytG.s:1673   .progmem.data:00000000000000a0 rawhid_hid_report_desc
+     /tmp/ccUXsytG.s:1621   .progmem.data:0000000000000073 string0
+     /tmp/ccUXsytG.s:1606   .progmem.data:0000000000000061 string1
+     /tmp/ccUXsytG.s:1576   .progmem.data:0000000000000031 string2
 
 UNDEFINED SYMBOLS
-__do_copy_data
 __do_clear_bss

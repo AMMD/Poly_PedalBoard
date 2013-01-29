@@ -94,7 +94,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 // spec and relevant portions of any USB class specifications!
 
 
-static uint8_t PROGMEM device_descriptor[] = {
+const uint8_t PROGMEM device_descriptor[] = {
 	18,					// bLength
 	1,					// bDescriptorType
 	0x00, 0x02,				// bcdUSB
@@ -111,7 +111,7 @@ static uint8_t PROGMEM device_descriptor[] = {
 	1					// bNumConfigurations
 };
 
-static uint8_t PROGMEM rawhid_hid_report_desc[] = {
+const uint8_t PROGMEM rawhid_hid_report_desc[] = {
 	0x06, LSB(RAWHID_USAGE_PAGE), MSB(RAWHID_USAGE_PAGE),
 	0x0A, LSB(RAWHID_USAGE), MSB(RAWHID_USAGE),
 	0xA1, 0x01,				// Collection 0x01
@@ -130,7 +130,7 @@ static uint8_t PROGMEM rawhid_hid_report_desc[] = {
 
 #define CONFIG1_DESC_SIZE        (9+9+9+7+7)
 #define RAWHID_HID_DESC_OFFSET   (9+9)
-static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
+const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
 	2,					// bDescriptorType;
@@ -185,17 +185,17 @@ struct usb_string_descriptor_struct {
 	uint8_t bDescriptorType;
 	int16_t wString[];
 };
-static struct usb_string_descriptor_struct PROGMEM string0 = {
+const struct usb_string_descriptor_struct PROGMEM string0 = {
 	4,
 	3,
 	{0x0409}
 };
-static struct usb_string_descriptor_struct PROGMEM string1 = {
+const struct usb_string_descriptor_struct PROGMEM string1 = {
 	sizeof(STR_MANUFACTURER),
 	3,
 	STR_MANUFACTURER
 };
-static struct usb_string_descriptor_struct PROGMEM string2 = {
+const struct usb_string_descriptor_struct PROGMEM string2 = {
 	sizeof(STR_PRODUCT),
 	3,
 	STR_PRODUCT
@@ -203,7 +203,7 @@ static struct usb_string_descriptor_struct PROGMEM string2 = {
 
 // This table defines which descriptor data is sent for each specific
 // request from the host (in wValue and wIndex).
-static struct descriptor_list_struct {
+const struct descriptor_list_struct {
 	uint16_t	wValue;
 	uint16_t	wIndex;
 	const uint8_t	*addr;
