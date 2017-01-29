@@ -1,0 +1,390 @@
+   1               		.file	"poly_pedalsboard.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.__vector_23,"ax",@progbits
+  19               	.global	__vector_23
+  21               	__vector_23:
+  22               	.LFB7:
+  23               	.LSM0:
+  24 0000 1F92      		push __zero_reg__
+  25 0002 0F92      		push r0
+  26 0004 0FB6      		in r0,__SREG__
+  27 0006 0F92      		push r0
+  28 0008 1124      		clr __zero_reg__
+  29 000a 8F93      		push r24
+  30               	/* prologue: Signal */
+  31               	/* frame size = 0 */
+  32               	.LSM1:
+  33 000c 1092 0000 		sts count.1461,__zero_reg__
+  34               	.LSM2:
+  35 0010 81E0      		ldi r24,lo8(1)
+  36 0012 8093 0000 		sts do_output,r24
+  37               	/* epilogue start */
+  38               	.LSM3:
+  39 0016 8F91      		pop r24
+  40 0018 0F90      		pop r0
+  41 001a 0FBE      		out __SREG__,r0
+  42 001c 0F90      		pop r0
+  43 001e 1F90      		pop __zero_reg__
+  44 0020 1895      		reti
+  45               	.LFE7:
+  47               		.section	.text.main,"ax",@progbits
+  48               	.global	main
+  50               	main:
+  51               	.LFB6:
+  52               	.LSM4:
+  53 0000 FF92      		push r15
+  54 0002 0F93      		push r16
+  55 0004 1F93      		push r17
+  56 0006 CF93      		push r28
+  57 0008 DF93      		push r29
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60               	.LSM5:
+  61 000a 80E8      		ldi r24,lo8(-128)
+  62 000c 8093 6100 		sts 97,r24
+  63 0010 1092 6100 		sts 97,__zero_reg__
+  64               	.LSM6:
+  65 0014 0E94 0000 		call usb_init
+  66               	.L4:
+  67               	.LSM7:
+  68 0018 0E94 0000 		call usb_configured
+  69 001c 8823      		tst r24
+  70 001e 01F0      		breq .L4
+  71 0020 80E1      		ldi r24,lo8(10000)
+  72 0022 97E2      		ldi r25,hi8(10000)
+  73               	.LVL0:
+  74               	.LBB12:
+  75               	.LBB13:
+  76               	.LBB14:
+  77               	.LBB15:
+  78               	.LSM8:
+  79 0024 20E9      		ldi r18,lo8(400)
+  80 0026 31E0      		ldi r19,hi8(400)
+  81               	.L5:
+  82 0028 F901      		movw r30,r18
+  83               	.LVL1:
+  84               	/* #APP */
+  85               	 ;  105 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/delay_basic.h" 1
+  86 002a 3197      		1: sbiw r30,1
+  87 002c 01F4      		brne 1b
+  88               	 ;  0 "" 2
+  89               	/* #NOAPP */
+  90               	.LBE15:
+  91               	.LBE14:
+  92               	.LSM9:
+  93 002e 0197      		sbiw r24,1
+  94               	.LSM10:
+  95 0030 01F4      		brne .L5
+  96               	.LBE13:
+  97               	.LBE12:
+  98               	.LSM11:
+  99 0032 14BC      		out 68-32,__zero_reg__
+ 100               	.LSM12:
+ 101 0034 85E0      		ldi r24,lo8(5)
+ 102               	.LVL2:
+ 103 0036 85BD      		out 69-32,r24
+ 104               	.LSM13:
+ 105 0038 81E0      		ldi r24,lo8(1)
+ 106 003a 8093 6E00 		sts 110,r24
+ 107               	.LSM14:
+ 108 003e 1AB8      		out 42-32,__zero_reg__
+ 109               	.LSM15:
+ 110 0040 17B8      		out 39-32,__zero_reg__
+ 111               	.LSM16:
+ 112 0042 14B8      		out 36-32,__zero_reg__
+ 113               	.LSM17:
+ 114 0044 10BA      		out 48-32,__zero_reg__
+ 115               	.LSM18:
+ 116 0046 8FEF      		ldi r24,lo8(-1)
+ 117 0048 85B9      		out 37-32,r24
+ 118               	.LSM19:
+ 119 004a 88B9      		out 40-32,r24
+ 120               	.LSM20:
+ 121 004c 8BB9      		out 43-32,r24
+ 122               	.LSM21:
+ 123 004e 81BB      		out 49-32,r24
+ 124 0050 C0E0      		ldi r28,lo8(0)
+ 125 0052 D0E0      		ldi r29,hi8(0)
+ 126               	.LVL3:
+ 127               	.LSM22:
+ 128 0054 1BEA      		ldi r17,lo8(-85)
+ 129 0056 F12E      		mov r15,r17
+ 130               	.LSM23:
+ 131 0058 0DEC      		ldi r16,lo8(-51)
+ 132               	.LSM24:
+ 133 005a 11E0      		ldi r17,lo8(1)
+ 134               	.LVL4:
+ 135               	.L24:
+ 136               	.LSM25:
+ 137 005c 8091 0000 		lds r24,do_output
+ 138 0060 8823      		tst r24
+ 139 0062 01F0      		breq .L24
+ 140               	.LSM26:
+ 141 0064 1092 0000 		sts do_output,__zero_reg__
+ 142               	.LSM27:
+ 143 0068 F092 0000 		sts buffer,r15
+ 144               	.LSM28:
+ 145 006c 0093 0000 		sts buffer+1,r16
+ 146 0070 40E0      		ldi r20,lo8(0)
+ 147 0072 50E0      		ldi r21,hi8(0)
+ 148               	.L15:
+ 149 0074 642F      		mov r22,r20
+ 150               	.LSM29:
+ 151 0076 FA01      		movw r30,r20
+ 152               	.LVL5:
+ 153 0078 E050      		subi r30,lo8(-(b))
+ 154 007a F040      		sbci r31,hi8(-(b))
+ 155 007c 8081      		ld r24,Z
+ 156 007e 282F      		mov r18,r24
+ 157 0080 30E0      		ldi r19,lo8(0)
+ 158 0082 220F      		lsl r18
+ 159 0084 331F      		rol r19
+ 160 0086 F901      		movw r30,r18
+ 161 0088 E050      		subi r30,lo8(-(buffer+2))
+ 162 008a F040      		sbci r31,hi8(-(buffer+2))
+ 163 008c 8F5F      		subi r24,lo8(-(1))
+ 164 008e 8083      		st Z,r24
+ 165               	.LSM30:
+ 166 0090 83B1      		in r24,35-32
+ 167 0092 90E0      		ldi r25,lo8(0)
+ 168 0094 042E      		mov r0,r20
+ 169 0096 00C0      		rjmp 2f
+ 170 0098 9595      	1:	asr r25
+ 171 009a 8795      		ror r24
+ 172 009c 0A94      	2:	dec r0
+ 173 009e 02F4      		brpl 1b
+ 174 00a0 F901      		movw r30,r18
+ 175 00a2 80FF      		sbrs r24,0
+ 176 00a4 00C0      		rjmp .L7
+ 177               	.LSM31:
+ 178 00a6 E050      		subi r30,lo8(-(buffer))
+ 179 00a8 F040      		sbci r31,hi8(-(buffer))
+ 180 00aa 1382      		std Z+3,__zero_reg__
+ 181 00ac 00C0      		rjmp .L8
+ 182               	.L7:
+ 183               	.LSM32:
+ 184 00ae E050      		subi r30,lo8(-(buffer))
+ 185 00b0 F040      		sbci r31,hi8(-(buffer))
+ 186 00b2 1383      		std Z+3,r17
+ 187               	.L8:
+ 188               	.LSM33:
+ 189 00b4 FA01      		movw r30,r20
+ 190 00b6 E050      		subi r30,lo8(-(c))
+ 191 00b8 F040      		sbci r31,hi8(-(c))
+ 192 00ba 8081      		ld r24,Z
+ 193 00bc 282F      		mov r18,r24
+ 194 00be 30E0      		ldi r19,lo8(0)
+ 195 00c0 220F      		lsl r18
+ 196 00c2 331F      		rol r19
+ 197 00c4 F901      		movw r30,r18
+ 198 00c6 E050      		subi r30,lo8(-(buffer+2))
+ 199 00c8 F040      		sbci r31,hi8(-(buffer+2))
+ 200 00ca 8F5F      		subi r24,lo8(-(1))
+ 201 00cc 8083      		st Z,r24
+ 202               	.LSM34:
+ 203 00ce 86B1      		in r24,38-32
+ 204 00d0 90E0      		ldi r25,lo8(0)
+ 205 00d2 062E      		mov r0,r22
+ 206 00d4 00C0      		rjmp 2f
+ 207 00d6 9595      	1:	asr r25
+ 208 00d8 8795      		ror r24
+ 209 00da 0A94      	2:	dec r0
+ 210 00dc 02F4      		brpl 1b
+ 211 00de F901      		movw r30,r18
+ 212 00e0 80FF      		sbrs r24,0
+ 213 00e2 00C0      		rjmp .L9
+ 214               	.LSM35:
+ 215 00e4 E050      		subi r30,lo8(-(buffer))
+ 216 00e6 F040      		sbci r31,hi8(-(buffer))
+ 217 00e8 1382      		std Z+3,__zero_reg__
+ 218 00ea 00C0      		rjmp .L10
+ 219               	.L9:
+ 220               	.LSM36:
+ 221 00ec E050      		subi r30,lo8(-(buffer))
+ 222 00ee F040      		sbci r31,hi8(-(buffer))
+ 223 00f0 1383      		std Z+3,r17
+ 224               	.L10:
+ 225               	.LSM37:
+ 226 00f2 FA01      		movw r30,r20
+ 227 00f4 E050      		subi r30,lo8(-(d))
+ 228 00f6 F040      		sbci r31,hi8(-(d))
+ 229 00f8 8081      		ld r24,Z
+ 230 00fa 282F      		mov r18,r24
+ 231 00fc 30E0      		ldi r19,lo8(0)
+ 232 00fe 220F      		lsl r18
+ 233 0100 331F      		rol r19
+ 234 0102 F901      		movw r30,r18
+ 235 0104 E050      		subi r30,lo8(-(buffer+2))
+ 236 0106 F040      		sbci r31,hi8(-(buffer+2))
+ 237 0108 8F5F      		subi r24,lo8(-(1))
+ 238 010a 8083      		st Z,r24
+ 239               	.LSM38:
+ 240 010c 89B1      		in r24,41-32
+ 241 010e 90E0      		ldi r25,lo8(0)
+ 242 0110 062E      		mov r0,r22
+ 243 0112 00C0      		rjmp 2f
+ 244 0114 9595      	1:	asr r25
+ 245 0116 8795      		ror r24
+ 246 0118 0A94      	2:	dec r0
+ 247 011a 02F4      		brpl 1b
+ 248 011c F901      		movw r30,r18
+ 249 011e 80FF      		sbrs r24,0
+ 250 0120 00C0      		rjmp .L11
+ 251               	.LSM39:
+ 252 0122 E050      		subi r30,lo8(-(buffer))
+ 253 0124 F040      		sbci r31,hi8(-(buffer))
+ 254 0126 1382      		std Z+3,__zero_reg__
+ 255 0128 00C0      		rjmp .L12
+ 256               	.L11:
+ 257               	.LSM40:
+ 258 012a E050      		subi r30,lo8(-(buffer))
+ 259 012c F040      		sbci r31,hi8(-(buffer))
+ 260 012e 1383      		std Z+3,r17
+ 261               	.L12:
+ 262               	.LSM41:
+ 263 0130 FA01      		movw r30,r20
+ 264 0132 E050      		subi r30,lo8(-(f))
+ 265 0134 F040      		sbci r31,hi8(-(f))
+ 266 0136 8081      		ld r24,Z
+ 267 0138 282F      		mov r18,r24
+ 268 013a 30E0      		ldi r19,lo8(0)
+ 269 013c 220F      		lsl r18
+ 270 013e 331F      		rol r19
+ 271 0140 F901      		movw r30,r18
+ 272 0142 E050      		subi r30,lo8(-(buffer+2))
+ 273 0144 F040      		sbci r31,hi8(-(buffer+2))
+ 274 0146 8F5F      		subi r24,lo8(-(1))
+ 275 0148 8083      		st Z,r24
+ 276               	.LSM42:
+ 277 014a 8FB1      		in r24,47-32
+ 278 014c 90E0      		ldi r25,lo8(0)
+ 279 014e 00C0      		rjmp 2f
+ 280 0150 9595      	1:	asr r25
+ 281 0152 8795      		ror r24
+ 282 0154 6A95      	2:	dec r22
+ 283 0156 02F4      		brpl 1b
+ 284 0158 F901      		movw r30,r18
+ 285 015a 80FF      		sbrs r24,0
+ 286 015c 00C0      		rjmp .L13
+ 287               	.LSM43:
+ 288 015e E050      		subi r30,lo8(-(buffer))
+ 289 0160 F040      		sbci r31,hi8(-(buffer))
+ 290 0162 1382      		std Z+3,__zero_reg__
+ 291 0164 00C0      		rjmp .L14
+ 292               	.L13:
+ 293               	.LSM44:
+ 294 0166 E050      		subi r30,lo8(-(buffer))
+ 295 0168 F040      		sbci r31,hi8(-(buffer))
+ 296 016a 1383      		std Z+3,r17
+ 297               	.L14:
+ 298 016c 4F5F      		subi r20,lo8(-(1))
+ 299 016e 5F4F      		sbci r21,hi8(-(1))
+ 300               	.LSM45:
+ 301 0170 4830      		cpi r20,8
+ 302 0172 5105      		cpc r21,__zero_reg__
+ 303 0174 01F0      		breq .+2
+ 304 0176 00C0      		rjmp .L15
+ 305 0178 E0E0      		ldi r30,lo8(buffer+50)
+ 306 017a F0E0      		ldi r31,hi8(buffer+50)
+ 307               	.L16:
+ 308               	.LSM46:
+ 309 017c 1192      		st Z+,__zero_reg__
+ 310               	.LSM47:
+ 311 017e 80E0      		ldi r24,hi8(buffer+62)
+ 312 0180 E030      		cpi r30,lo8(buffer+62)
+ 313 0182 F807      		cpc r31,r24
+ 314 0184 01F4      		brne .L16
+ 315               	.LSM48:
+ 316 0186 D083      		st Z,r29
+ 317               	.LSM49:
+ 318 0188 C183      		std Z+1,r28
+ 319               	.LSM50:
+ 320 018a CF01      		movw r24,r30
+ 321 018c CE97      		sbiw r24,62
+ 322 018e 62E3      		ldi r22,lo8(50)
+ 323 0190 0E94 0000 		call usb_rawhid_send
+ 324               	.LSM51:
+ 325 0194 2196      		adiw r28,1
+ 326 0196 00C0      		rjmp .L24
+ 327               	.LFE6:
+ 329               	.global	do_output
+ 330               	.global	do_output
+ 331               		.section .bss
+ 334               	do_output:
+ 335 0000 00        		.skip 1,0
+ 336               	.global	b
+ 337               		.data
+ 340               	b:
+ 341 0000 00        		.byte	0
+ 342 0001 01        		.byte	1
+ 343 0002 02        		.byte	2
+ 344 0003 03        		.byte	3
+ 345 0004 0D        		.byte	13
+ 346 0005 0E        		.byte	14
+ 347 0006 0F        		.byte	15
+ 348 0007 04        		.byte	4
+ 349               	.global	c
+ 352               	c:
+ 353 0008 FF        		.byte	-1
+ 354 0009 FF        		.byte	-1
+ 355 000a FF        		.byte	-1
+ 356 000b FF        		.byte	-1
+ 357 000c FF        		.byte	-1
+ 358 000d FF        		.byte	-1
+ 359 000e 09        		.byte	9
+ 360 000f 0A        		.byte	10
+ 361               	.global	d
+ 364               	d:
+ 365 0010 05        		.byte	5
+ 366 0011 06        		.byte	6
+ 367 0012 07        		.byte	7
+ 368 0013 08        		.byte	8
+ 369 0014 16        		.byte	22
+ 370 0015 0B        		.byte	11
+ 371 0016 17        		.byte	23
+ 372 0017 0C        		.byte	12
+ 373               	.global	f
+ 376               	f:
+ 377 0018 15        		.byte	21
+ 378 0019 14        		.byte	20
+ 379 001a FF        		.byte	-1
+ 380 001b FF        		.byte	-1
+ 381 001c 13        		.byte	19
+ 382 001d 12        		.byte	18
+ 383 001e 11        		.byte	17
+ 384 001f 10        		.byte	16
+ 385               		.lcomm count.1461,1
+ 386               		.comm buffer,64,1
+ 419               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 poly_pedalsboard.c
+     /tmp/cckjP5g3.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/cckjP5g3.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/cckjP5g3.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/cckjP5g3.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cckjP5g3.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cckjP5g3.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cckjP5g3.s:21     .text.__vector_23:0000000000000000 __vector_23
+                             .bss:0000000000000001 count.1461
+     /tmp/cckjP5g3.s:334    .bss:0000000000000000 do_output
+     /tmp/cckjP5g3.s:50     .text.main:0000000000000000 main
+                            *COM*:0000000000000040 buffer
+     /tmp/cckjP5g3.s:340    .data:0000000000000000 b
+     /tmp/cckjP5g3.s:352    .data:0000000000000008 c
+     /tmp/cckjP5g3.s:364    .data:0000000000000010 d
+     /tmp/cckjP5g3.s:376    .data:0000000000000018 f
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+usb_init
+usb_configured
+usb_rawhid_send
