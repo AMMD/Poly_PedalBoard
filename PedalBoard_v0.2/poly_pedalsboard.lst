@@ -1,390 +1,760 @@
    1               		.file	"poly_pedalsboard.c"
-   2               	__SREG__ = 0x3f
-   3               	__SP_H__ = 0x3e
-   4               	__SP_L__ = 0x3d
-   5               	__CCP__  = 0x34
-   6               	__tmp_reg__ = 0
-   7               	__zero_reg__ = 1
-   8               		.global __do_copy_data
-   9               		.global __do_clear_bss
-  17               	.Ltext0:
-  18               		.section	.text.__vector_23,"ax",@progbits
-  19               	.global	__vector_23
-  21               	__vector_23:
-  22               	.LFB7:
-  23               	.LSM0:
-  24 0000 1F92      		push __zero_reg__
-  25 0002 0F92      		push r0
-  26 0004 0FB6      		in r0,__SREG__
-  27 0006 0F92      		push r0
-  28 0008 1124      		clr __zero_reg__
-  29 000a 8F93      		push r24
-  30               	/* prologue: Signal */
-  31               	/* frame size = 0 */
-  32               	.LSM1:
-  33 000c 1092 0000 		sts count.1461,__zero_reg__
-  34               	.LSM2:
-  35 0010 81E0      		ldi r24,lo8(1)
-  36 0012 8093 0000 		sts do_output,r24
-  37               	/* epilogue start */
-  38               	.LSM3:
-  39 0016 8F91      		pop r24
-  40 0018 0F90      		pop r0
-  41 001a 0FBE      		out __SREG__,r0
-  42 001c 0F90      		pop r0
-  43 001e 1F90      		pop __zero_reg__
-  44 0020 1895      		reti
-  45               	.LFE7:
-  47               		.section	.text.main,"ax",@progbits
-  48               	.global	main
-  50               	main:
-  51               	.LFB6:
-  52               	.LSM4:
-  53 0000 FF92      		push r15
-  54 0002 0F93      		push r16
-  55 0004 1F93      		push r17
-  56 0006 CF93      		push r28
-  57 0008 DF93      		push r29
-  58               	/* prologue: function */
-  59               	/* frame size = 0 */
-  60               	.LSM5:
-  61 000a 80E8      		ldi r24,lo8(-128)
-  62 000c 8093 6100 		sts 97,r24
-  63 0010 1092 6100 		sts 97,__zero_reg__
-  64               	.LSM6:
-  65 0014 0E94 0000 		call usb_init
-  66               	.L4:
-  67               	.LSM7:
-  68 0018 0E94 0000 		call usb_configured
-  69 001c 8823      		tst r24
-  70 001e 01F0      		breq .L4
-  71 0020 80E1      		ldi r24,lo8(10000)
-  72 0022 97E2      		ldi r25,hi8(10000)
-  73               	.LVL0:
-  74               	.LBB12:
-  75               	.LBB13:
-  76               	.LBB14:
-  77               	.LBB15:
-  78               	.LSM8:
-  79 0024 20E9      		ldi r18,lo8(400)
-  80 0026 31E0      		ldi r19,hi8(400)
-  81               	.L5:
-  82 0028 F901      		movw r30,r18
-  83               	.LVL1:
-  84               	/* #APP */
-  85               	 ;  105 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/delay_basic.h" 1
-  86 002a 3197      		1: sbiw r30,1
-  87 002c 01F4      		brne 1b
-  88               	 ;  0 "" 2
-  89               	/* #NOAPP */
-  90               	.LBE15:
-  91               	.LBE14:
-  92               	.LSM9:
-  93 002e 0197      		sbiw r24,1
-  94               	.LSM10:
-  95 0030 01F4      		brne .L5
-  96               	.LBE13:
-  97               	.LBE12:
-  98               	.LSM11:
-  99 0032 14BC      		out 68-32,__zero_reg__
- 100               	.LSM12:
- 101 0034 85E0      		ldi r24,lo8(5)
- 102               	.LVL2:
- 103 0036 85BD      		out 69-32,r24
- 104               	.LSM13:
- 105 0038 81E0      		ldi r24,lo8(1)
- 106 003a 8093 6E00 		sts 110,r24
- 107               	.LSM14:
- 108 003e 1AB8      		out 42-32,__zero_reg__
- 109               	.LSM15:
- 110 0040 17B8      		out 39-32,__zero_reg__
- 111               	.LSM16:
- 112 0042 14B8      		out 36-32,__zero_reg__
- 113               	.LSM17:
- 114 0044 10BA      		out 48-32,__zero_reg__
- 115               	.LSM18:
- 116 0046 8FEF      		ldi r24,lo8(-1)
- 117 0048 85B9      		out 37-32,r24
- 118               	.LSM19:
- 119 004a 88B9      		out 40-32,r24
- 120               	.LSM20:
- 121 004c 8BB9      		out 43-32,r24
- 122               	.LSM21:
- 123 004e 81BB      		out 49-32,r24
- 124 0050 C0E0      		ldi r28,lo8(0)
- 125 0052 D0E0      		ldi r29,hi8(0)
- 126               	.LVL3:
- 127               	.LSM22:
- 128 0054 1BEA      		ldi r17,lo8(-85)
- 129 0056 F12E      		mov r15,r17
- 130               	.LSM23:
- 131 0058 0DEC      		ldi r16,lo8(-51)
- 132               	.LSM24:
- 133 005a 11E0      		ldi r17,lo8(1)
- 134               	.LVL4:
- 135               	.L24:
- 136               	.LSM25:
- 137 005c 8091 0000 		lds r24,do_output
- 138 0060 8823      		tst r24
- 139 0062 01F0      		breq .L24
- 140               	.LSM26:
- 141 0064 1092 0000 		sts do_output,__zero_reg__
- 142               	.LSM27:
- 143 0068 F092 0000 		sts buffer,r15
- 144               	.LSM28:
- 145 006c 0093 0000 		sts buffer+1,r16
- 146 0070 40E0      		ldi r20,lo8(0)
- 147 0072 50E0      		ldi r21,hi8(0)
- 148               	.L15:
- 149 0074 642F      		mov r22,r20
- 150               	.LSM29:
- 151 0076 FA01      		movw r30,r20
- 152               	.LVL5:
- 153 0078 E050      		subi r30,lo8(-(b))
- 154 007a F040      		sbci r31,hi8(-(b))
- 155 007c 8081      		ld r24,Z
- 156 007e 282F      		mov r18,r24
- 157 0080 30E0      		ldi r19,lo8(0)
- 158 0082 220F      		lsl r18
- 159 0084 331F      		rol r19
- 160 0086 F901      		movw r30,r18
- 161 0088 E050      		subi r30,lo8(-(buffer+2))
- 162 008a F040      		sbci r31,hi8(-(buffer+2))
- 163 008c 8F5F      		subi r24,lo8(-(1))
- 164 008e 8083      		st Z,r24
- 165               	.LSM30:
- 166 0090 83B1      		in r24,35-32
- 167 0092 90E0      		ldi r25,lo8(0)
- 168 0094 042E      		mov r0,r20
- 169 0096 00C0      		rjmp 2f
- 170 0098 9595      	1:	asr r25
- 171 009a 8795      		ror r24
- 172 009c 0A94      	2:	dec r0
- 173 009e 02F4      		brpl 1b
- 174 00a0 F901      		movw r30,r18
- 175 00a2 80FF      		sbrs r24,0
- 176 00a4 00C0      		rjmp .L7
- 177               	.LSM31:
- 178 00a6 E050      		subi r30,lo8(-(buffer))
- 179 00a8 F040      		sbci r31,hi8(-(buffer))
- 180 00aa 1382      		std Z+3,__zero_reg__
- 181 00ac 00C0      		rjmp .L8
- 182               	.L7:
- 183               	.LSM32:
- 184 00ae E050      		subi r30,lo8(-(buffer))
- 185 00b0 F040      		sbci r31,hi8(-(buffer))
- 186 00b2 1383      		std Z+3,r17
- 187               	.L8:
- 188               	.LSM33:
- 189 00b4 FA01      		movw r30,r20
- 190 00b6 E050      		subi r30,lo8(-(c))
- 191 00b8 F040      		sbci r31,hi8(-(c))
- 192 00ba 8081      		ld r24,Z
- 193 00bc 282F      		mov r18,r24
- 194 00be 30E0      		ldi r19,lo8(0)
- 195 00c0 220F      		lsl r18
- 196 00c2 331F      		rol r19
- 197 00c4 F901      		movw r30,r18
- 198 00c6 E050      		subi r30,lo8(-(buffer+2))
- 199 00c8 F040      		sbci r31,hi8(-(buffer+2))
- 200 00ca 8F5F      		subi r24,lo8(-(1))
- 201 00cc 8083      		st Z,r24
- 202               	.LSM34:
- 203 00ce 86B1      		in r24,38-32
- 204 00d0 90E0      		ldi r25,lo8(0)
- 205 00d2 062E      		mov r0,r22
- 206 00d4 00C0      		rjmp 2f
- 207 00d6 9595      	1:	asr r25
- 208 00d8 8795      		ror r24
- 209 00da 0A94      	2:	dec r0
- 210 00dc 02F4      		brpl 1b
- 211 00de F901      		movw r30,r18
- 212 00e0 80FF      		sbrs r24,0
- 213 00e2 00C0      		rjmp .L9
- 214               	.LSM35:
- 215 00e4 E050      		subi r30,lo8(-(buffer))
- 216 00e6 F040      		sbci r31,hi8(-(buffer))
- 217 00e8 1382      		std Z+3,__zero_reg__
- 218 00ea 00C0      		rjmp .L10
- 219               	.L9:
- 220               	.LSM36:
- 221 00ec E050      		subi r30,lo8(-(buffer))
- 222 00ee F040      		sbci r31,hi8(-(buffer))
- 223 00f0 1383      		std Z+3,r17
- 224               	.L10:
- 225               	.LSM37:
- 226 00f2 FA01      		movw r30,r20
- 227 00f4 E050      		subi r30,lo8(-(d))
- 228 00f6 F040      		sbci r31,hi8(-(d))
- 229 00f8 8081      		ld r24,Z
- 230 00fa 282F      		mov r18,r24
- 231 00fc 30E0      		ldi r19,lo8(0)
- 232 00fe 220F      		lsl r18
- 233 0100 331F      		rol r19
- 234 0102 F901      		movw r30,r18
- 235 0104 E050      		subi r30,lo8(-(buffer+2))
- 236 0106 F040      		sbci r31,hi8(-(buffer+2))
- 237 0108 8F5F      		subi r24,lo8(-(1))
- 238 010a 8083      		st Z,r24
- 239               	.LSM38:
- 240 010c 89B1      		in r24,41-32
- 241 010e 90E0      		ldi r25,lo8(0)
- 242 0110 062E      		mov r0,r22
- 243 0112 00C0      		rjmp 2f
- 244 0114 9595      	1:	asr r25
- 245 0116 8795      		ror r24
- 246 0118 0A94      	2:	dec r0
- 247 011a 02F4      		brpl 1b
- 248 011c F901      		movw r30,r18
- 249 011e 80FF      		sbrs r24,0
- 250 0120 00C0      		rjmp .L11
- 251               	.LSM39:
- 252 0122 E050      		subi r30,lo8(-(buffer))
- 253 0124 F040      		sbci r31,hi8(-(buffer))
- 254 0126 1382      		std Z+3,__zero_reg__
- 255 0128 00C0      		rjmp .L12
- 256               	.L11:
- 257               	.LSM40:
- 258 012a E050      		subi r30,lo8(-(buffer))
- 259 012c F040      		sbci r31,hi8(-(buffer))
- 260 012e 1383      		std Z+3,r17
- 261               	.L12:
- 262               	.LSM41:
- 263 0130 FA01      		movw r30,r20
- 264 0132 E050      		subi r30,lo8(-(f))
- 265 0134 F040      		sbci r31,hi8(-(f))
- 266 0136 8081      		ld r24,Z
- 267 0138 282F      		mov r18,r24
- 268 013a 30E0      		ldi r19,lo8(0)
- 269 013c 220F      		lsl r18
- 270 013e 331F      		rol r19
- 271 0140 F901      		movw r30,r18
- 272 0142 E050      		subi r30,lo8(-(buffer+2))
- 273 0144 F040      		sbci r31,hi8(-(buffer+2))
- 274 0146 8F5F      		subi r24,lo8(-(1))
- 275 0148 8083      		st Z,r24
- 276               	.LSM42:
- 277 014a 8FB1      		in r24,47-32
- 278 014c 90E0      		ldi r25,lo8(0)
- 279 014e 00C0      		rjmp 2f
- 280 0150 9595      	1:	asr r25
- 281 0152 8795      		ror r24
- 282 0154 6A95      	2:	dec r22
- 283 0156 02F4      		brpl 1b
- 284 0158 F901      		movw r30,r18
- 285 015a 80FF      		sbrs r24,0
- 286 015c 00C0      		rjmp .L13
- 287               	.LSM43:
- 288 015e E050      		subi r30,lo8(-(buffer))
- 289 0160 F040      		sbci r31,hi8(-(buffer))
- 290 0162 1382      		std Z+3,__zero_reg__
- 291 0164 00C0      		rjmp .L14
- 292               	.L13:
- 293               	.LSM44:
- 294 0166 E050      		subi r30,lo8(-(buffer))
- 295 0168 F040      		sbci r31,hi8(-(buffer))
- 296 016a 1383      		std Z+3,r17
- 297               	.L14:
- 298 016c 4F5F      		subi r20,lo8(-(1))
- 299 016e 5F4F      		sbci r21,hi8(-(1))
- 300               	.LSM45:
- 301 0170 4830      		cpi r20,8
- 302 0172 5105      		cpc r21,__zero_reg__
- 303 0174 01F0      		breq .+2
- 304 0176 00C0      		rjmp .L15
- 305 0178 E0E0      		ldi r30,lo8(buffer+50)
- 306 017a F0E0      		ldi r31,hi8(buffer+50)
- 307               	.L16:
- 308               	.LSM46:
- 309 017c 1192      		st Z+,__zero_reg__
- 310               	.LSM47:
- 311 017e 80E0      		ldi r24,hi8(buffer+62)
- 312 0180 E030      		cpi r30,lo8(buffer+62)
- 313 0182 F807      		cpc r31,r24
- 314 0184 01F4      		brne .L16
- 315               	.LSM48:
- 316 0186 D083      		st Z,r29
- 317               	.LSM49:
- 318 0188 C183      		std Z+1,r28
- 319               	.LSM50:
- 320 018a CF01      		movw r24,r30
- 321 018c CE97      		sbiw r24,62
- 322 018e 62E3      		ldi r22,lo8(50)
- 323 0190 0E94 0000 		call usb_rawhid_send
- 324               	.LSM51:
- 325 0194 2196      		adiw r28,1
- 326 0196 00C0      		rjmp .L24
- 327               	.LFE6:
- 329               	.global	do_output
- 330               	.global	do_output
- 331               		.section .bss
- 334               	do_output:
- 335 0000 00        		.skip 1,0
- 336               	.global	b
- 337               		.data
- 340               	b:
- 341 0000 00        		.byte	0
- 342 0001 01        		.byte	1
- 343 0002 02        		.byte	2
- 344 0003 03        		.byte	3
- 345 0004 0D        		.byte	13
- 346 0005 0E        		.byte	14
- 347 0006 0F        		.byte	15
- 348 0007 04        		.byte	4
- 349               	.global	c
- 352               	c:
- 353 0008 FF        		.byte	-1
- 354 0009 FF        		.byte	-1
- 355 000a FF        		.byte	-1
- 356 000b FF        		.byte	-1
- 357 000c FF        		.byte	-1
- 358 000d FF        		.byte	-1
- 359 000e 09        		.byte	9
- 360 000f 0A        		.byte	10
- 361               	.global	d
- 364               	d:
- 365 0010 05        		.byte	5
- 366 0011 06        		.byte	6
- 367 0012 07        		.byte	7
- 368 0013 08        		.byte	8
- 369 0014 16        		.byte	22
- 370 0015 0B        		.byte	11
- 371 0016 17        		.byte	23
- 372 0017 0C        		.byte	12
- 373               	.global	f
- 376               	f:
- 377 0018 15        		.byte	21
- 378 0019 14        		.byte	20
- 379 001a FF        		.byte	-1
- 380 001b FF        		.byte	-1
- 381 001c 13        		.byte	19
- 382 001d 12        		.byte	18
- 383 001e 11        		.byte	17
- 384 001f 10        		.byte	16
- 385               		.lcomm count.1461,1
- 386               		.comm buffer,64,1
- 419               	.Letext0:
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.section	.text.startup.main,"ax",@progbits
+  10               	.global	main
+  12               	main:
+  13               	.LFB7:
+  14               		.file 1 "poly_pedalsboard.c"
+   1:poly_pedalsboard.c **** /* Teensy RawHID example
+   2:poly_pedalsboard.c ****  * http://www.pjrc.com/teensy/rawhid.html
+   3:poly_pedalsboard.c ****  * Copyright (c) 2009 PJRC.COM, LLC
+   4:poly_pedalsboard.c ****  * 
+   5:poly_pedalsboard.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   6:poly_pedalsboard.c ****  * of this software and associated documentation files (the "Software"), to deal
+   7:poly_pedalsboard.c ****  * in the Software without restriction, including without limitation the rights
+   8:poly_pedalsboard.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   9:poly_pedalsboard.c ****  * copies of the Software, and to permit persons to whom the Software is
+  10:poly_pedalsboard.c ****  * furnished to do so, subject to the following conditions:
+  11:poly_pedalsboard.c ****  * 
+  12:poly_pedalsboard.c ****  * The above description, website URL and copyright notice and this permission
+  13:poly_pedalsboard.c ****  * notice shall be included in all copies or substantial portions of the Software.
+  14:poly_pedalsboard.c ****  * 
+  15:poly_pedalsboard.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  16:poly_pedalsboard.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  17:poly_pedalsboard.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  18:poly_pedalsboard.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  19:poly_pedalsboard.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  20:poly_pedalsboard.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  21:poly_pedalsboard.c ****  * THE SOFTWARE.
+  22:poly_pedalsboard.c ****  */
+  23:poly_pedalsboard.c **** 
+  24:poly_pedalsboard.c **** #include <avr/io.h>
+  25:poly_pedalsboard.c **** #include <avr/pgmspace.h>
+  26:poly_pedalsboard.c **** #include <avr/interrupt.h>
+  27:poly_pedalsboard.c **** #include <util/delay.h>
+  28:poly_pedalsboard.c **** #include "usb_rawhid.h"
+  29:poly_pedalsboard.c **** #include "analog.h"
+  30:poly_pedalsboard.c **** 
+  31:poly_pedalsboard.c **** #define CPU_PRESCALE(n)	(CLKPR = 0x80, CLKPR = (n))
+  32:poly_pedalsboard.c **** 
+  33:poly_pedalsboard.c **** volatile uint8_t do_output=0;
+  34:poly_pedalsboard.c **** uint8_t buffer[64];
+  35:poly_pedalsboard.c **** uint8_t b[8] = {0, 1, 2, 3, 13, 14, 15, 4};
+  36:poly_pedalsboard.c **** uint8_t c[8] = {-1, -1, -1, -1, -1, -1, 9, 10};
+  37:poly_pedalsboard.c **** uint8_t d[8] = {5, 6, 7, 8, 22, 11, 23, 12};
+  38:poly_pedalsboard.c **** uint8_t f[8] = {21, 20, -1, -1,  19, 18, 17, 16};
+  39:poly_pedalsboard.c **** 
+  40:poly_pedalsboard.c **** int main(void)
+  41:poly_pedalsboard.c **** {
+  15               		.loc 1 41 0
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 0 */
+  19               	.L__stack_usage = 0
+  20               	.LVL0:
+  42:poly_pedalsboard.c **** 	int8_t r;
+  43:poly_pedalsboard.c **** 	uint8_t i;
+  44:poly_pedalsboard.c **** 	uint16_t val, count=0;
+  45:poly_pedalsboard.c **** 
+  46:poly_pedalsboard.c **** 	// set for 16 MHz clock
+  47:poly_pedalsboard.c **** 	CPU_PRESCALE(0);
+  21               		.loc 1 47 0
+  22 0000 80E8      		ldi r24,lo8(-128)
+  23 0002 8093 6100 		sts 97,r24
+  24 0006 1092 6100 		sts 97,__zero_reg__
+  48:poly_pedalsboard.c **** 
+  49:poly_pedalsboard.c **** 	// Initialize the USB, and then wait for the host to set configuration.
+  50:poly_pedalsboard.c **** 	// If the Teensy is powered without a PC connected to the USB port,
+  51:poly_pedalsboard.c **** 	// this will wait forever.
+  52:poly_pedalsboard.c **** 	usb_init();
+  25               		.loc 1 52 0
+  26 000a 0E94 0000 		call usb_init
+  27               	.LVL1:
+  28               	.L2:
+  53:poly_pedalsboard.c **** 	while (!usb_configured()) /* wait */ ;
+  29               		.loc 1 53 0 discriminator 1
+  30 000e 0E94 0000 		call usb_configured
+  31               	.LVL2:
+  32 0012 8823      		tst r24
+  33 0014 01F0      		breq .L2
+  34               	.LVL3:
+  35               	.LBB4:
+  36               	.LBB5:
+  37               		.file 2 "/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h"
+   1:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+   6:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+   9:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  12:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      distribution.
+  16:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  17:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  21:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  33:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* $Id: delay.h.in 2251 2011-09-14 08:20:33Z joerg_wunsch $ */
+  34:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  35:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  38:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  41:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  42:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <math.h>
+  45:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  46:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /** \file */
+  47:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \code
+  49:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \endcode
+  53:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  54:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     used.
+  58:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  59:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  63:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  68:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  77:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  81:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** */
+  82:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  83:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  87:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  88:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  93:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  94:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  97:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  98:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  99:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 100:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   __STDC_HOSTED__
+ 101:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #  include <math.h>
+ 102:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+ 103:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 104:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /**
+ 105:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    \ingroup util_delay
+ 106:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 107:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 108:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 109:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 110:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 111:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 112:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 113:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 114:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 115:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 116:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 117:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 118:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 119:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 120:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 121:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 122:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 123:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 124:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 125:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 126:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 127:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 128:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 129:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 130:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    to round down and round to closest integer.
+ 131:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 132:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 133:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 134:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 135:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Also, the backward compatible
+ 136:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 137:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 138:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 139:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 140:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****  */
+ 141:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** void
+ 142:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** _delay_ms(double __ms)
+ 143:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** {
+ 144:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint16_t __ticks;
+ 145:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	double __tmp ; 
+ 146:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 147:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 148:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   __STDC_HOSTED__
+ 149:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 150:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 151:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 152:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 153:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 154:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 155:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 156:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 157:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 158:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 159:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#else
+ 160:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		//round up by default
+ 161:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 162:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#endif
+ 163:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 164:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+  38               		.loc 2 164 0
+  39 0016 2FEF      		ldi r18,lo8(3199999)
+  40 0018 83ED      		ldi r24,hi8(3199999)
+  41 001a 90E3      		ldi r25,hlo8(3199999)
+  42 001c 2150      		1: subi r18,1
+  43 001e 8040      		sbci r24,0
+  44 0020 9040      		sbci r25,0
+  45 0022 01F4      		brne 1b
+  46 0024 00C0      		rjmp .
+  47 0026 0000      		nop
+  48               	.LBE5:
+  49               	.LBE4:
+  54:poly_pedalsboard.c **** 
+  55:poly_pedalsboard.c **** 	// Wait an extra second for the PC's operating system to load drivers
+  56:poly_pedalsboard.c **** 	// and do whatever it does to actually be ready for input
+  57:poly_pedalsboard.c **** 	_delay_ms(1000);
+  58:poly_pedalsboard.c **** 
+  59:poly_pedalsboard.c ****         // Configure timer 0 to generate a timer overflow interrupt every
+  60:poly_pedalsboard.c ****         // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
+  61:poly_pedalsboard.c ****         TCCR0A = 0x00;
+  50               		.loc 1 61 0
+  51 0028 14BC      		out 0x24,__zero_reg__
+  62:poly_pedalsboard.c ****         TCCR0B = 0x05;
+  52               		.loc 1 62 0
+  53 002a 85E0      		ldi r24,lo8(5)
+  54 002c 85BD      		out 0x25,r24
+  63:poly_pedalsboard.c ****         TIMSK0 = (1<<TOIE0);
+  55               		.loc 1 63 0
+  56 002e 81E0      		ldi r24,lo8(1)
+  57 0030 8093 6E00 		sts 110,r24
+  64:poly_pedalsboard.c **** 
+  65:poly_pedalsboard.c **** 	// Set all pins to inputs with pull up resistor
+  66:poly_pedalsboard.c **** 	DDRD = 0x00;
+  58               		.loc 1 66 0
+  59 0034 1AB8      		out 0xa,__zero_reg__
+  67:poly_pedalsboard.c **** 	DDRC = 0x00;
+  60               		.loc 1 67 0
+  61 0036 17B8      		out 0x7,__zero_reg__
+  68:poly_pedalsboard.c **** 	DDRB = 0x00;
+  62               		.loc 1 68 0
+  63 0038 14B8      		out 0x4,__zero_reg__
+  69:poly_pedalsboard.c **** 	DDRF = 0x00;
+  64               		.loc 1 69 0
+  65 003a 10BA      		out 0x10,__zero_reg__
+  70:poly_pedalsboard.c **** 	
+  71:poly_pedalsboard.c **** 	PORTB = 0xFF;
+  66               		.loc 1 71 0
+  67 003c 8FEF      		ldi r24,lo8(-1)
+  68 003e 85B9      		out 0x5,r24
+  72:poly_pedalsboard.c **** 	PORTC = 0xFF;
+  69               		.loc 1 72 0
+  70 0040 88B9      		out 0x8,r24
+  73:poly_pedalsboard.c **** 	PORTD = 0xFF;
+  71               		.loc 1 73 0
+  72 0042 8BB9      		out 0xb,r24
+  74:poly_pedalsboard.c **** 	PORTF = 0xFF;
+  73               		.loc 1 74 0
+  74 0044 81BB      		out 0x11,r24
+  44:poly_pedalsboard.c **** 	uint16_t val, count=0;
+  75               		.loc 1 44 0
+  76 0046 C0E0      		ldi r28,0
+  77 0048 D0E0      		ldi r29,0
+  75:poly_pedalsboard.c **** 
+  76:poly_pedalsboard.c **** 
+  77:poly_pedalsboard.c **** 
+  78:poly_pedalsboard.c **** 
+  79:poly_pedalsboard.c **** 	while (1) {
+  80:poly_pedalsboard.c **** 		// if received data, do something with it
+  81:poly_pedalsboard.c **** /*		r = usb_rawhid_recv(buffer, 0);
+  82:poly_pedalsboard.c **** 		if (r > 0) {
+  83:poly_pedalsboard.c **** 			// output 4 bits to D0, D1, D2, D3 pins
+  84:poly_pedalsboard.c **** 			DDRD = 0x0F;
+  85:poly_pedalsboard.c **** 			PORTD = (PORTD & 0xF0) | (buffer[0] & 0x0F);
+  86:poly_pedalsboard.c **** 			// ignore the other 63.5 bytes....
+  87:poly_pedalsboard.c **** 		}*/
+  88:poly_pedalsboard.c **** 		// if time to send output, transmit something interesting
+  89:poly_pedalsboard.c **** 		if (do_output) {
+  90:poly_pedalsboard.c **** 			do_output = 0;
+  91:poly_pedalsboard.c **** 			// send a packet, first 2 bytes 0xABCD
+  92:poly_pedalsboard.c **** 			buffer[0] = 0xAB;
+  78               		.loc 1 92 0
+  79 004a 4BEA      		ldi r20,lo8(-85)
+  80 004c A42E      		mov r10,r20
+  93:poly_pedalsboard.c **** 			buffer[1] = 0xCD;
+  81               		.loc 1 93 0
+  82 004e 5DEC      		ldi r21,lo8(-51)
+  83 0050 E52E      		mov r14,r21
+  94:poly_pedalsboard.c **** 
+  95:poly_pedalsboard.c **** 
+  96:poly_pedalsboard.c ****  			// put A/D measurements into next 24 bytes
+  97:poly_pedalsboard.c **** 			for (i=0; i<8 ; i++) {
+  98:poly_pedalsboard.c **** 			    //			    val = analogRead(i);
+  99:poly_pedalsboard.c **** 			  
+ 100:poly_pedalsboard.c **** 
+ 101:poly_pedalsboard.c **** 			  // Pin B
+ 102:poly_pedalsboard.c **** 			  buffer[b[i]*2+2] = b[i]+1;
+ 103:poly_pedalsboard.c **** 			  
+ 104:poly_pedalsboard.c **** 			  // valeur de pin digital
+ 105:poly_pedalsboard.c **** 			  if(PINB & (1<<i))
+ 106:poly_pedalsboard.c **** 			    buffer[b[i]*2+3] = 0;
+ 107:poly_pedalsboard.c **** 			  else 
+ 108:poly_pedalsboard.c **** 			    buffer[b[i]*2+3] = 1;
+  84               		.loc 1 108 0
+  85 0052 FF24      		clr r15
+  86 0054 F394      		inc r15
+  87               	.LVL4:
+  88               	.L26:
+  89:poly_pedalsboard.c **** 		if (do_output) {
+  89               		.loc 1 89 0
+  90 0056 8091 0000 		lds r24,do_output
+  91 005a 8823      		tst r24
+  92 005c 01F0      		breq .L26
+  90:poly_pedalsboard.c **** 			do_output = 0;
+  93               		.loc 1 90 0
+  94 005e 1092 0000 		sts do_output,__zero_reg__
+  92:poly_pedalsboard.c **** 			buffer[0] = 0xAB;
+  95               		.loc 1 92 0
+  96 0062 A092 0000 		sts buffer,r10
+  93:poly_pedalsboard.c **** 			buffer[1] = 0xCD;
+  97               		.loc 1 93 0
+  98 0066 E092 0000 		sts buffer+1,r14
+  99               	.LVL5:
+ 100 006a A0E0      		ldi r26,lo8(b)
+ 101 006c B0E0      		ldi r27,hi8(b)
+ 102 006e 40E0      		ldi r20,lo8(f)
+ 103 0070 50E0      		ldi r21,hi8(f)
+ 104 0072 60E0      		ldi r22,lo8(d)
+ 105 0074 70E0      		ldi r23,hi8(d)
+ 106 0076 00E0      		ldi r16,lo8(c)
+ 107 0078 10E0      		ldi r17,hi8(c)
+ 108 007a 80E0      		ldi r24,0
+ 109 007c 90E0      		ldi r25,0
+ 110               	.LVL6:
+ 111               	.L12:
+ 102:poly_pedalsboard.c **** 			  buffer[b[i]*2+2] = b[i]+1;
+ 112               		.loc 1 102 0
+ 113 007e B82E      		mov r11,r24
+ 114 0080 DD90      		ld r13,X+
+ 115 0082 8D2C      		mov r8,r13
+ 116 0084 912C      		mov r9,__zero_reg__
+ 117 0086 9401      		movw r18,r8
+ 118 0088 220F      		lsl r18
+ 119 008a 331F      		rol r19
+ 120 008c 2050      		subi r18,lo8(-(buffer+2))
+ 121 008e 3040      		sbci r19,hi8(-(buffer+2))
+ 122 0090 D394      		inc r13
+ 123 0092 F901      		movw r30,r18
+ 124 0094 D082      		st Z,r13
+ 105:poly_pedalsboard.c **** 			  if(PINB & (1<<i))
+ 125               		.loc 1 105 0
+ 126 0096 23B1      		in r18,0x3
+ 127 0098 30E0      		ldi r19,0
+ 128 009a 082E      		mov r0,r24
+ 129 009c 00C0      		rjmp 2f
+ 130               		1:
+ 131 009e 3595      		asr r19
+ 132 00a0 2795      		ror r18
+ 133               		2:
+ 134 00a2 0A94      		dec r0
+ 135 00a4 02F4      		brpl 1b
+ 136 00a6 F401      		movw r30,r8
+ 137 00a8 EE0F      		lsl r30
+ 138 00aa FF1F      		rol r31
+ 106:poly_pedalsboard.c **** 			    buffer[b[i]*2+3] = 0;
+ 139               		.loc 1 106 0
+ 140 00ac E050      		subi r30,lo8(-(buffer))
+ 141 00ae F040      		sbci r31,hi8(-(buffer))
+ 105:poly_pedalsboard.c **** 			  if(PINB & (1<<i))
+ 142               		.loc 1 105 0
+ 143 00b0 20FF      		sbrs r18,0
+ 144 00b2 00C0      		rjmp .L4
+ 106:poly_pedalsboard.c **** 			    buffer[b[i]*2+3] = 0;
+ 145               		.loc 1 106 0
+ 146 00b4 1382      		std Z+3,__zero_reg__
+ 147 00b6 00C0      		rjmp .L5
+ 148               	.L4:
+ 149               		.loc 1 108 0
+ 150 00b8 F382      		std Z+3,r15
+ 151               	.L5:
+ 109:poly_pedalsboard.c **** 
+ 110:poly_pedalsboard.c **** 
+ 111:poly_pedalsboard.c **** 			  // Pin C
+ 112:poly_pedalsboard.c **** 			  if(c[i] != -1) {
+ 113:poly_pedalsboard.c **** 			    buffer[c[i]*2+2] = c[i]+1;
+ 152               		.loc 1 113 0
+ 153 00ba F801      		movw r30,r16
+ 154 00bc D190      		ld r13,Z+
+ 155 00be 8F01      		movw r16,r30
+ 156 00c0 8D2C      		mov r8,r13
+ 157 00c2 912C      		mov r9,__zero_reg__
+ 158 00c4 9401      		movw r18,r8
+ 159 00c6 220F      		lsl r18
+ 160 00c8 331F      		rol r19
+ 161 00ca 2050      		subi r18,lo8(-(buffer+2))
+ 162 00cc 3040      		sbci r19,hi8(-(buffer+2))
+ 163 00ce D394      		inc r13
+ 164 00d0 F901      		movw r30,r18
+ 165 00d2 D082      		st Z,r13
+ 114:poly_pedalsboard.c **** 
+ 115:poly_pedalsboard.c **** 			    // valeur de pin digital
+ 116:poly_pedalsboard.c **** 			    if(PINC & (1<<i))
+ 166               		.loc 1 116 0
+ 167 00d4 26B1      		in r18,0x6
+ 168 00d6 30E0      		ldi r19,0
+ 169 00d8 0B2C      		mov r0,r11
+ 170 00da 00C0      		rjmp 2f
+ 171               		1:
+ 172 00dc 3595      		asr r19
+ 173 00de 2795      		ror r18
+ 174               		2:
+ 175 00e0 0A94      		dec r0
+ 176 00e2 02F4      		brpl 1b
+ 177 00e4 F401      		movw r30,r8
+ 178 00e6 EE0F      		lsl r30
+ 179 00e8 FF1F      		rol r31
+ 117:poly_pedalsboard.c **** 			      buffer[c[i]*2+3] = 0;
+ 180               		.loc 1 117 0
+ 181 00ea E050      		subi r30,lo8(-(buffer))
+ 182 00ec F040      		sbci r31,hi8(-(buffer))
+ 116:poly_pedalsboard.c **** 			    if(PINC & (1<<i))
+ 183               		.loc 1 116 0
+ 184 00ee 20FF      		sbrs r18,0
+ 185 00f0 00C0      		rjmp .L6
+ 186               		.loc 1 117 0
+ 187 00f2 1382      		std Z+3,__zero_reg__
+ 188 00f4 00C0      		rjmp .L7
+ 189               	.L6:
+ 118:poly_pedalsboard.c **** 			    else 
+ 119:poly_pedalsboard.c **** 			      buffer[c[i]*2+3] = 1;
+ 190               		.loc 1 119 0
+ 191 00f6 F382      		std Z+3,r15
+ 192               	.L7:
+ 120:poly_pedalsboard.c **** 			  }
+ 121:poly_pedalsboard.c **** 
+ 122:poly_pedalsboard.c **** 			  // Pin D
+ 123:poly_pedalsboard.c **** 			  if (d[i] != -1) {
+ 124:poly_pedalsboard.c **** 			    buffer[d[i]*2+2] = d[i]+1;
+ 193               		.loc 1 124 0
+ 194 00f8 FB01      		movw r30,r22
+ 195 00fa 2191      		ld r18,Z+
+ 196 00fc BF01      		movw r22,r30
+ 197 00fe C22E      		mov r12,r18
+ 198 0100 D12C      		mov r13,__zero_reg__
+ 199 0102 F601      		movw r30,r12
+ 200 0104 EE0F      		lsl r30
+ 201 0106 FF1F      		rol r31
+ 202 0108 E050      		subi r30,lo8(-(buffer+2))
+ 203 010a F040      		sbci r31,hi8(-(buffer+2))
+ 204 010c 2F5F      		subi r18,lo8(-(1))
+ 205 010e 2083      		st Z,r18
+ 125:poly_pedalsboard.c **** 			    
+ 126:poly_pedalsboard.c **** 			    // valeur de pin digital
+ 127:poly_pedalsboard.c **** 			    if(PIND & (1<<i))
+ 206               		.loc 1 127 0
+ 207 0110 29B1      		in r18,0x9
+ 208 0112 30E0      		ldi r19,0
+ 209 0114 0B2C      		mov r0,r11
+ 210 0116 00C0      		rjmp 2f
+ 211               		1:
+ 212 0118 3595      		asr r19
+ 213 011a 2795      		ror r18
+ 214               		2:
+ 215 011c 0A94      		dec r0
+ 216 011e 02F4      		brpl 1b
+ 217 0120 F601      		movw r30,r12
+ 218 0122 EE0F      		lsl r30
+ 219 0124 FF1F      		rol r31
+ 128:poly_pedalsboard.c **** 			      buffer[d[i]*2+3] = 0;
+ 220               		.loc 1 128 0
+ 221 0126 E050      		subi r30,lo8(-(buffer))
+ 222 0128 F040      		sbci r31,hi8(-(buffer))
+ 127:poly_pedalsboard.c **** 			    if(PIND & (1<<i))
+ 223               		.loc 1 127 0
+ 224 012a 20FF      		sbrs r18,0
+ 225 012c 00C0      		rjmp .L8
+ 226               		.loc 1 128 0
+ 227 012e 1382      		std Z+3,__zero_reg__
+ 228 0130 00C0      		rjmp .L9
+ 229               	.L8:
+ 129:poly_pedalsboard.c **** 			    else 
+ 130:poly_pedalsboard.c **** 			      buffer[d[i]*2+3] = 1;
+ 230               		.loc 1 130 0
+ 231 0132 F382      		std Z+3,r15
+ 232               	.L9:
+ 131:poly_pedalsboard.c **** 			  }
+ 132:poly_pedalsboard.c **** 
+ 133:poly_pedalsboard.c **** 			  // Pin F
+ 134:poly_pedalsboard.c **** 			  if (f[i] != -1) {
+ 135:poly_pedalsboard.c **** 			    buffer[f[i]*2+2] = f[i]+1;
+ 233               		.loc 1 135 0
+ 234 0134 FA01      		movw r30,r20
+ 235 0136 2191      		ld r18,Z+
+ 236 0138 AF01      		movw r20,r30
+ 237 013a C22E      		mov r12,r18
+ 238 013c D12C      		mov r13,__zero_reg__
+ 239 013e F601      		movw r30,r12
+ 240 0140 EE0F      		lsl r30
+ 241 0142 FF1F      		rol r31
+ 242 0144 E050      		subi r30,lo8(-(buffer+2))
+ 243 0146 F040      		sbci r31,hi8(-(buffer+2))
+ 244 0148 2F5F      		subi r18,lo8(-(1))
+ 245 014a 2083      		st Z,r18
+ 136:poly_pedalsboard.c **** 			    
+ 137:poly_pedalsboard.c **** 			    // valeur de pin digital
+ 138:poly_pedalsboard.c **** 			    if(PINF & (1<<i))
+ 246               		.loc 1 138 0
+ 247 014c 2FB1      		in r18,0xf
+ 248 014e 30E0      		ldi r19,0
+ 249 0150 00C0      		rjmp 2f
+ 250               		1:
+ 251 0152 3595      		asr r19
+ 252 0154 2795      		ror r18
+ 253               		2:
+ 254 0156 BA94      		dec r11
+ 255 0158 02F4      		brpl 1b
+ 256 015a F601      		movw r30,r12
+ 257 015c EE0F      		lsl r30
+ 258 015e FF1F      		rol r31
+ 139:poly_pedalsboard.c **** 			      buffer[f[i]*2+3] = 0;
+ 259               		.loc 1 139 0
+ 260 0160 E050      		subi r30,lo8(-(buffer))
+ 261 0162 F040      		sbci r31,hi8(-(buffer))
+ 138:poly_pedalsboard.c **** 			    if(PINF & (1<<i))
+ 262               		.loc 1 138 0
+ 263 0164 20FF      		sbrs r18,0
+ 264 0166 00C0      		rjmp .L10
+ 265               		.loc 1 139 0
+ 266 0168 1382      		std Z+3,__zero_reg__
+ 267 016a 00C0      		rjmp .L11
+ 268               	.L10:
+ 140:poly_pedalsboard.c **** 			    else 
+ 141:poly_pedalsboard.c **** 			      buffer[f[i]*2+3] = 1;
+ 269               		.loc 1 141 0
+ 270 016c F382      		std Z+3,r15
+ 271               	.L11:
+ 272 016e 0196      		adiw r24,1
+  97:poly_pedalsboard.c **** 			for (i=0; i<8 ; i++) {
+ 273               		.loc 1 97 0
+ 274 0170 8830      		cpi r24,8
+ 275 0172 9105      		cpc r25,__zero_reg__
+ 276 0174 01F0      		breq .+2
+ 277 0176 00C0      		rjmp .L12
+ 278 0178 E0E0      		ldi r30,lo8(buffer+50)
+ 279 017a F0E0      		ldi r31,hi8(buffer+50)
+ 280               	.L13:
+ 142:poly_pedalsboard.c **** 			  }
+ 143:poly_pedalsboard.c **** 
+ 144:poly_pedalsboard.c **** 
+ 145:poly_pedalsboard.c **** 			}
+ 146:poly_pedalsboard.c **** 			/*			for(i=2; i<22; i++){
+ 147:poly_pedalsboard.c **** 						buffer[i] = 0;
+ 148:poly_pedalsboard.c **** 						}*/
+ 149:poly_pedalsboard.c **** 
+ 150:poly_pedalsboard.c **** 
+ 151:poly_pedalsboard.c **** 			// most of the packet filled with zero
+ 152:poly_pedalsboard.c **** 			for (i=50; i<62; i++) {
+ 153:poly_pedalsboard.c **** 			  buffer[i] = 0;
+ 281               		.loc 1 153 0 discriminator 2
+ 282 017c 1192      		st Z+,__zero_reg__
+ 152:poly_pedalsboard.c **** 			for (i=50; i<62; i++) {
+ 283               		.loc 1 152 0 discriminator 2
+ 284 017e 20E0      		ldi r18,hi8(buffer+62)
+ 285 0180 E030      		cpi r30,lo8(buffer+62)
+ 286 0182 F207      		cpc r31,r18
+ 287 0184 01F4      		brne .L13
+ 154:poly_pedalsboard.c **** 			}
+ 155:poly_pedalsboard.c **** 
+ 156:poly_pedalsboard.c **** 			// put a count in the last 2 bytes
+ 157:poly_pedalsboard.c **** 			buffer[62] = count >> 8;
+ 288               		.loc 1 157 0
+ 289 0186 D093 0000 		sts buffer+62,r29
+ 158:poly_pedalsboard.c **** 			buffer[63] = count & 255;
+ 290               		.loc 1 158 0
+ 291 018a C093 0000 		sts buffer+63,r28
+ 159:poly_pedalsboard.c **** 			// send the packet
+ 160:poly_pedalsboard.c **** 			usb_rawhid_send(buffer, 50);
+ 292               		.loc 1 160 0
+ 293 018e 62E3      		ldi r22,lo8(50)
+ 294 0190 80E0      		ldi r24,lo8(buffer)
+ 295 0192 90E0      		ldi r25,hi8(buffer)
+ 296 0194 0E94 0000 		call usb_rawhid_send
+ 297               	.LVL7:
+ 161:poly_pedalsboard.c **** 			count++;
+ 298               		.loc 1 161 0
+ 299 0198 2196      		adiw r28,1
+ 300               	.LVL8:
+ 301 019a 00C0      		rjmp .L26
+ 302               	.LFE7:
+ 304               		.section	.text.__vector_23,"ax",@progbits
+ 305               	.global	__vector_23
+ 307               	__vector_23:
+ 308               	.LFB8:
+ 162:poly_pedalsboard.c **** 		}
+ 163:poly_pedalsboard.c **** 	}
+ 164:poly_pedalsboard.c **** }
+ 165:poly_pedalsboard.c **** 
+ 166:poly_pedalsboard.c **** // This interrupt routine is run approx 61 times per second.
+ 167:poly_pedalsboard.c **** ISR(TIMER0_OVF_vect)
+ 168:poly_pedalsboard.c **** {
+ 309               		.loc 1 168 0
+ 310 0000 1F92      		push r1
+ 311               	.LCFI0:
+ 312 0002 0F92      		push r0
+ 313               	.LCFI1:
+ 314 0004 0FB6      		in r0,__SREG__
+ 315 0006 0F92      		push r0
+ 316 0008 1124      		clr __zero_reg__
+ 317 000a 8F93      		push r24
+ 318               	.LCFI2:
+ 319               	/* prologue: Signal */
+ 320               	/* frame size = 0 */
+ 321               	/* stack size = 4 */
+ 322               	.L__stack_usage = 4
+ 169:poly_pedalsboard.c ****   static uint8_t count=0;
+ 170:poly_pedalsboard.c ****   if(++count > -1){
+ 171:poly_pedalsboard.c ****     count = 0;
+ 323               		.loc 1 171 0
+ 324 000c 1092 0000 		sts count.1711,__zero_reg__
+ 172:poly_pedalsboard.c ****     do_output = 1;
+ 325               		.loc 1 172 0
+ 326 0010 81E0      		ldi r24,lo8(1)
+ 327 0012 8093 0000 		sts do_output,r24
+ 328               	/* epilogue start */
+ 173:poly_pedalsboard.c ****   }
+ 174:poly_pedalsboard.c **** }
+ 329               		.loc 1 174 0
+ 330 0016 8F91      		pop r24
+ 331 0018 0F90      		pop r0
+ 332 001a 0FBE      		out __SREG__,r0
+ 333 001c 0F90      		pop r0
+ 334 001e 1F90      		pop r1
+ 335 0020 1895      		reti
+ 336               	.LFE8:
+ 338               	.global	f
+ 339               		.data
+ 342               	f:
+ 343 0000 15        		.byte	21
+ 344 0001 14        		.byte	20
+ 345 0002 FF        		.byte	-1
+ 346 0003 FF        		.byte	-1
+ 347 0004 13        		.byte	19
+ 348 0005 12        		.byte	18
+ 349 0006 11        		.byte	17
+ 350 0007 10        		.byte	16
+ 351               	.global	d
+ 354               	d:
+ 355 0008 05        		.byte	5
+ 356 0009 06        		.byte	6
+ 357 000a 07        		.byte	7
+ 358 000b 08        		.byte	8
+ 359 000c 16        		.byte	22
+ 360 000d 0B        		.byte	11
+ 361 000e 17        		.byte	23
+ 362 000f 0C        		.byte	12
+ 363               	.global	c
+ 366               	c:
+ 367 0010 FF        		.byte	-1
+ 368 0011 FF        		.byte	-1
+ 369 0012 FF        		.byte	-1
+ 370 0013 FF        		.byte	-1
+ 371 0014 FF        		.byte	-1
+ 372 0015 FF        		.byte	-1
+ 373 0016 09        		.byte	9
+ 374 0017 0A        		.byte	10
+ 375               	.global	b
+ 378               	b:
+ 379 0018 00        		.byte	0
+ 380 0019 01        		.byte	1
+ 381 001a 02        		.byte	2
+ 382 001b 03        		.byte	3
+ 383 001c 0D        		.byte	13
+ 384 001d 0E        		.byte	14
+ 385 001e 0F        		.byte	15
+ 386 001f 04        		.byte	4
+ 387               		.comm	buffer,64,1
+ 388               	.global	do_output
+ 389               		.section .bss
+ 392               	do_output:
+ 393 0000 00        		.zero	1
+ 394               		.local	count.1711
+ 395               		.comm	count.1711,1,1
+ 448               	.Letext0:
+ 449               		.file 3 "/usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h"
+ 450               		.file 4 "usb_rawhid.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 poly_pedalsboard.c
-     /tmp/cckjP5g3.s:2      *ABS*:000000000000003f __SREG__
-     /tmp/cckjP5g3.s:3      *ABS*:000000000000003e __SP_H__
-     /tmp/cckjP5g3.s:4      *ABS*:000000000000003d __SP_L__
-     /tmp/cckjP5g3.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/cckjP5g3.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cckjP5g3.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cckjP5g3.s:21     .text.__vector_23:0000000000000000 __vector_23
-                             .bss:0000000000000001 count.1461
-     /tmp/cckjP5g3.s:334    .bss:0000000000000000 do_output
-     /tmp/cckjP5g3.s:50     .text.main:0000000000000000 main
+     /tmp/ccbrixsD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbrixsD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbrixsD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbrixsD.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbrixsD.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbrixsD.s:12     .text.startup.main:0000000000000000 main
+     /tmp/ccbrixsD.s:392    .bss:0000000000000000 do_output
                             *COM*:0000000000000040 buffer
-     /tmp/cckjP5g3.s:340    .data:0000000000000000 b
-     /tmp/cckjP5g3.s:352    .data:0000000000000008 c
-     /tmp/cckjP5g3.s:364    .data:0000000000000010 d
-     /tmp/cckjP5g3.s:376    .data:0000000000000018 f
+     /tmp/ccbrixsD.s:378    .data:0000000000000018 b
+     /tmp/ccbrixsD.s:342    .data:0000000000000000 f
+     /tmp/ccbrixsD.s:354    .data:0000000000000008 d
+     /tmp/ccbrixsD.s:366    .data:0000000000000010 c
+     /tmp/ccbrixsD.s:307    .text.__vector_23:0000000000000000 __vector_23
+                             .bss:0000000000000001 count.1711
 
 UNDEFINED SYMBOLS
-__do_copy_data
-__do_clear_bss
 usb_init
 usb_configured
 usb_rawhid_send
+__do_copy_data
+__do_clear_bss
