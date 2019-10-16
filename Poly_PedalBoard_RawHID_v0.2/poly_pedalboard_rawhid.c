@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
 	int optch;
 	extern int opterr;
 	char *h=NULL, *p=NULL;
-	char b[24];
-	for(i=0; i<24; i++) {b[i]='p';}
 	char c, buf[64], old_buf[64];
 	for(i=0; i<64; i++) {old_buf[i]=0;}
 
@@ -33,7 +31,7 @@ int main(int argc, char *argv[])
 	// Gestion des options
 	opterr = 1;
 
-	while((optch = getopt(argc, argv, "h:p:b:")) != -1){
+	while((optch = getopt(argc, argv, "h:p:")) != -1){
 	  switch(optch){
 	  case 'h':
 	    h = optarg;
@@ -43,18 +41,8 @@ int main(int argc, char *argv[])
 	    p = optarg;
 	    printf("UDP port: %s\n", optarg);
 	    break;
-	  case 'b':
-	    i = atoi(optarg);
-	    b[i] = 't';
-
 	  }
 	}
-
-	// Liste des boutons Toggle et Trigger
-	printf("Types des Boutons\n");
-	for(i=0;i<sizeof(b);i++) {
-	  printf("Bouton %i : %c\n", i+1, b[i]);
-	  }
 
 	// On connecte le rawhid device
 	r = rawhid_open(1, 0x16C0, 0x0480, 0xFFAB, 0x0200);
@@ -90,7 +78,7 @@ int main(int argc, char *argv[])
 			}
 		      }
 		      // Si bouton relâché et type de bouton toggle, on envoie le message de release
-		      else if( buf[i*2+1] == 0 && b[i] == 't' && old_buf[i*2+1] != buf[i*2+1]) {
+		      else if( buf[i*2+1] == 0 && old_buf[i*2+1] != buf[i*2+1]) {
 			if (lo_send(t, "/pedalBoard/buttonRelease", "i", i) == -1) {
 			  printf("OSC error %d: %s\n", lo_address_errno(t), lo_address_errstr(t));
 			}
