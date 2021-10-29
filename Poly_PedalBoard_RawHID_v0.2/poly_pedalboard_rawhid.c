@@ -15,23 +15,20 @@
 #include "lo/lo.h"
 
 
-static char get_keystroke(void);
-
-
 int main(int argc, char *argv[])
 {
   int i, r, num;
 	int optch;
 	extern int opterr;
-	char *h=NULL, *p=NULL;
-	char c, buf[64], old_buf[64];
+	char *h=NULL, *p=NULL, *lp=NULL;
+	char buf[64], old_buf[64];
 	for(i=0; i<64; i++) {old_buf[i]=0;}
 
 
 	// Gestion des options
 	opterr = 1;
 
-	while((optch = getopt(argc, argv, "h:p:")) != -1){
+	while((optch = getopt(argc, argv, "h:p:l:")) != -1){
 	  switch(optch){
 	  case 'h':
 	    h = optarg;
@@ -41,6 +38,10 @@ int main(int argc, char *argv[])
 	    p = optarg;
 	    printf("UDP port: %s\n", optarg);
 	    break;
+    case 'l':
+  	    lp = optarg;
+  	    printf("Local UDP port: %s\n", optarg);
+  	    break;
 	  }
 	}
 
@@ -53,9 +54,14 @@ int main(int argc, char *argv[])
 	printf("found rawhid device\n");
 
 
-	// On connecte le port OSC
+
+    // Port OSC d'origine
+    lo_server server = lo_server_new(lp, NULL);
+
+	// Port OSC de destination
 	lo_address t = lo_address_new(h,p);
 
+    lo_send_from(t, server, LO_TT_IMMEDIATE, "/test", "i", 1);
 
 	while (1) {
 		// check if any Raw HID packet has arrived
@@ -63,6 +69,8 @@ int main(int argc, char *argv[])
 		if (num < 0) {
 			printf("\nerror reading, device went offline\n");
 			rawhid_close(0);
+            lo_server_free(server);
+            server = NULL;
 			return 0;
 		}
 		if (num > 0) {
@@ -73,13 +81,13 @@ int main(int argc, char *argv[])
 		      // Si bouton appuyé, on envoi le message OSC par défaut
 		      if( buf[i*2+1] == 1 && old_buf[i*2+1] != buf[i*2+1]) {
 			//			printf("/Pedalboard/button %d\n", i);
-			if (lo_send(t, "/pedalBoard/button", "i", i) == -1) {
+			if (lo_send_from(t, server, LO_TT_IMMEDIATE, "/pedalBoard/button", "i", i) == -1) {
 			  printf("OSC error %d: %s\n", lo_address_errno(t), lo_address_errstr(t));
 			}
 		      }
 		      // Si bouton relâché et type de bouton toggle, on envoie le message de release
 		      else if( buf[i*2+1] == 0 && old_buf[i*2+1] != buf[i*2+1]) {
-			if (lo_send(t, "/pedalBoard/buttonRelease", "i", i) == -1) {
+			if (lo_send_from(t, server, LO_TT_IMMEDIATE, "/pedalBoard/buttonRelease", "i", i) == -1) {
 			  printf("OSC error %d: %s\n", lo_address_errno(t), lo_address_errstr(t));
 			}
 		      }
@@ -88,43 +96,7 @@ int main(int argc, char *argv[])
 		  }
 		}
 	}
+
+    lo_server_free(server);
+    server = NULL;
 }
-
-#if defined(OS_LINUX) || defined(OS_MACOSX)
-// Linux (POSIX) implementation of _kbhit().
-// Morgan McGuire, morgan@cs.brown.edu
-static int _kbhit() {
-	static const int STDIN = 0;
-	static int initialized = 0;
-	int bytesWaiting;
-
-	if (!initialized) {
-		// Use termios to turn off line buffering
-		struct termios term;
-		tcgetattr(STDIN, &term);
-		term.c_lflag &= ~ICANON;
-		tcsetattr(STDIN, TCSANOW, &term);
-		setbuf(stdin, NULL);
-		initialized = 1;
-	}
-	ioctl(STDIN, FIONREAD, &bytesWaiting);
-	return bytesWaiting;
-}
-static char _getch(void) {
-	char c;
-	if (fread(&c, 1, 1, stdin) < 1) return 0;
-	return c;
-}
-#endif
-
-
-static char get_keystroke(void)
-{
-	if (_kbhit()) {
-		char c = _getch();
-		if (c >= 32) return c;
-	}
-	return 0;
-}
-
-
