@@ -61,8 +61,6 @@ int main(int argc, char *argv[])
 	// Port OSC de destination
 	lo_address t = lo_address_new(h,p);
 
-    lo_send_from(t, server, LO_TT_IMMEDIATE, "/test", "i", 1);
-
 	while (1) {
 		// check if any Raw HID packet has arrived
 		num = rawhid_recv(0, buf, 64, 220);
