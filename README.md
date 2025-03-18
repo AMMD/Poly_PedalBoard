@@ -1,3 +1,5 @@
+Moved to framagit, see: https://framagit.org/orlammd/Poly_PedalBoard
+
 Poly_PedalBoard
 ===============
 
